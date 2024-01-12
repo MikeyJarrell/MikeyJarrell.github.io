@@ -1,0 +1,11 @@
+relativeURLs = true
+title = "Mikey Jarrell"
+theme = "academimal"
+sectionPagesMenu = "main"
+defaultContentLanguage = "en"
+ignorefiles = [ "hugo_travis_ci", ".travis.yml" ]
+
+[params]
+    shortbio = "Development Economist, UC San Diego"
+    logo = "profile.png" 
+    
