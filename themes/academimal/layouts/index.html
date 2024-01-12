@@ -54,15 +54,21 @@
 {{ end }}
 {{ end }}
 
-{{ with .GetPage "/sections/from-another-life.md" }}
+{{ with .GetPage "/sections/teaching.md" }}
 <hr>
-<h2 id="fromanotherlife">From Another Life</h2>
+<h2 id="teaching">Teaching</h2>
 {{ .Content }}
 {{ end }}
 
-{{ with .GetPage "/sections/personal.md" }}
+{{ with .GetPage "/sections/previous-lives.md" }}
 <hr>
-<h2 id="personal">Personal</h2>
+<h2 id="previouslives">Previous Lives</h2>
+{{ .Content }}
+{{ end }}
+
+{{ with .GetPage "/sections/cv.md" }}
+<hr>
+<h2 id="cv">Curriculum Vitae</h2>
 {{ .Content }}
 {{ end }}
 

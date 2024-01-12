@@ -30,17 +30,17 @@
     </item>
     <item>
       <title></title>
-      <link>/sections/from-another-life/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/sections/from-another-life/</guid>
-      <description>I was filmmaker.</description>
-    </item>
-    <item>
-      <title></title>
       <link>/sections/personal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/sections/personal/</guid>
-      <description>Current reason I&amp;rsquo;m behind on everything&#xA;Fearless Sidekick - Kirby passed in Aug 2016&#xA;Website: I am grateful to Xinyue Lin for building my website. Please feel welcome to use and re-purpose the code for the website, which you can find at my GitHub repository.</description>
+      <description>Test</description>
+    </item>
+    <item>
+      <title></title>
+      <link>/sections/previous-lives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/sections/previous-lives/</guid>
+      <description>Golf: I&amp;rsquo;m a member of World Long Drive and Ultimate Long Drive with a career longest shot of 429 yards and highest World Ranking of 17. I set an amateur world record with a 400 yard drive to win the 2019 Latino Americao Championship. The highlight of my career was hitting side-by-side with Bryson DeChambeau in the 2021 World Championships.&#xA;Film: Videos that I&amp;rsquo;ve written, shot, directed, edited, and produced are at Average Content.</description>
     </item>
   </channel>
 </rss>
