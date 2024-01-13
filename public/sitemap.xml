@@ -2,19 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/</loc>
+  </url><url>
     <loc>/sections/aboutme/</loc>
   </url><url>
     <loc>/sections/contact/</loc>
   </url><url>
-    <loc>/sections/curriculum-vitae/</loc>
+    <loc>/sections/cv/</loc>
   </url><url>
     <loc>/sections/personal/</loc>
   </url><url>
-    <loc>/sections/previous-lives/</loc>
+    <loc>/sections/teaching/</loc>
   </url><url>
     <loc>/categories/</loc>
   </url><url>
-    <loc>/</loc>
+    <loc>/sections/previous-lives/</loc>
   </url><url>
     <loc>/sections/</loc>
   </url><url>

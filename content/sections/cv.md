@@ -1,5 +1,3 @@
-__[PDF](/pdf/Mikey_CV")__ (Updated Nov 2022)
-
 __Education__
 * Ph.D. in Economics, University of Californa San Diego, 2029 (expected)
 * M.A.Sc. in Data, Economics, and Development Policy, Massachusetts Intitute of Technology, 2022
