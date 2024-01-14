@@ -9,7 +9,7 @@ __Relevant Experience__
 
 __Skills__
 * Coding: Stata, R, LaTeX
-* Languages: English (native), Spanish (fluent), French (proficient) Italian (proficient), Portuguese (conversational)
+* Languages: English (native), Spanish (fluent), French (proficient), Italian (proficient), Portuguese (conversational)
 
 __Other Experience__
 * 2018–20: Professional Long Drive Golfer ([World Long Drive](https://worldlongdrive.com))
