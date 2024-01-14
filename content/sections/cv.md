@@ -20,3 +20,6 @@ __Other Experience__
 * 2015: Camp Counselor (Night Eagle Wilderness Adventures — Wallingford, VT)
 * 2014: Photographer and Documentary Filmmaker (Independent — Rochester, NY)
 * 2013: After-School Tutor (Building Dignity Community Center — Lima, Peru)
+___
+
+This website was built with the [Hugo](https://gohugo.io) theme [Academimal](https://github.com/yangl1996/academimal). See my [GitHub page](https://github.com/MikeyJarrell).

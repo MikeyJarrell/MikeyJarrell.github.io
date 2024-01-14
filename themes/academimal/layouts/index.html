@@ -45,7 +45,7 @@
 
 {{ with .Site.Data.work_in_progress }}
 <hr>
-<h2 id="workinprogress">Work in Progress</h2>
+<h2 id="research">Research</h2>
 {{ range . }}
 {{ range .works }}
 {{ partial "publication.html" (dict "context" . "pid" ($scratch.Get "pubcnt")) }}

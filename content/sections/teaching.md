@@ -1,21 +1,21 @@
 ### As Instructor 
 
 * MIT [DEDP Master's](https://economics.mit.edu/academic-programs/masters-programs/masters-data-economics-and-design-policy-dedp): **Math Camp** (Spring 2023)
-  * Topics covered include probability, causal inference, and empirical strategies.
+  * Covered probability, causal inference, and empirical strategies.
   * [Sample lecture](pdf/Math_Camp_Lecture_6-Causal_Inference.pdf).
 
 ### As Teaching Assistant
 
 * MIT 14.75/14.750: **Political Economy and Economic Development** (Spring 2023)
-  * TA for Esther Duflo and Sara Lowes
+  * TA for Esther Duflo and Sara Lowes.
   * Rated 6.3 out of 7 by students on anonymous course evaluations.
   * [Sample lecture](pdf/14.75_Recitation_5-Mismatch.pdf).
 * MIT 14.73: **Challenges of Global Poverty** (Fall 2022)
-  * TA for Esther Duflo and Frank Schilbach
+  * TA for Esther Duflo and Frank Schilbach.
   * Rated 6.6 out of 7 by students on anonymous course evaluations.
   * [Sample lecture](pdf/14.73_Recitation_6-Insurance.pdf).
 * MIT 14.009: **Economics and Society's Toughest Problems** (Fall 2022)
-  * TA for Esther Duflo 
+  * TA for Esther Duflo.
   * Rated 6.3 out of 7 by students on anonymous course evaluations.
 
 ### Annonymous Feedback:
