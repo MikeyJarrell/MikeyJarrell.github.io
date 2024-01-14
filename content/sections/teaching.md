@@ -18,7 +18,7 @@
   * TA for Esther Duflo.
   * Rated 6.3 out of 7 by students on anonymous course evaluations.
 
-### Annonymous Feedback:
+### Annonymous Feedback
 
 > Great, understanding, interaction like with the insurance stuff is nice. Engaging, cuts to the point, knowledgeable like interested in connecting with you more about the topic! Writes really long helpful comments on memos.
 
