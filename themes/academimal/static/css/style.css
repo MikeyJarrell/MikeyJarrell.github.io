@@ -242,12 +242,19 @@ body {
   color: #727272;
   font-weight: 400; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   color: #222;
   margin: 0 0 20px; }
 
-p, ul, ol, table, pre, dl {
+h3, h4, h5, h6 {
+    color: #222;
+    margin: 0 0 10px; }
+
+ul, ol, table, pre, dl {
   margin: 0 0 20px; }
+
+p {
+  margin: 0 0 10px; }
 
 p.contactinfo {
   margin: 0 0 10px; }
