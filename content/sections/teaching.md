@@ -4,6 +4,8 @@
 
 ### As Teaching Assistant
 
+* UCSD ECON 144: **Energy Economics**, Dale Squires
+* UCSD ECON 132: **Energy Economics**, Richard Carson
 * UCSD ECON 100B: **Microeconomics B**, Steven Levkoff
 * UCSD GPS 457: **Cost–Benefit Analysis**, Dale Squires
 * MIT 14.75(0): **Political Economy and Economic Development**, Esther Duflo and Sara Lowes
