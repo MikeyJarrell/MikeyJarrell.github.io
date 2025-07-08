@@ -9,7 +9,7 @@ works:
   abstract: >
     In 2005, Brazil began an ambitious attempt at regulating a high-polluting industry: lead-acid battery recycling. They implemented tax breaks for formal (less-polluting) recycling firms, and drove their informal competitors out of business with verification requirements. This led to a centralization of lead battery recycling in a few municipalities that were home to formal recycling factories, increasing their exposure to lead emissions from these factories, which is associated with adverse consequences for children's cognition. Our preliminary results show that the tax break caused a divergence in elementary school student performance between municipalities that did have these factories and those that did not. This supports the hypothesis that lead pollution fell across the country as informal recycling disappeared, while pollution increased near formal firms as those expanded. We are currently incorporating matched employer--employee data from the Relação Anual de Informações Sociais (RAIS), which allows us to estimate a first stage (how much recycling firms grew) and provide some of the first evidence on the effects of lead exposure as a child or young adult on labor market outcomes. Additionally, we are in the process of incorporating data on birth outcomes, which will give us a more direct measure of health impacts. We are hopeful that these additional results will paint a complete picture of the effects of this policy change and allow us to judge whether the template created by Brazil should be copied by the many other countries facing this challenge.
 
-- title: "Snitching: Whom to inform about pollution from car battery repair"
+- title: "Snitching: Whom to Inform about Pollution from Car Battery Repair"
   pdflink: "/pdf/snitching.pdf"
   book:
   coauthors: Nathan Lazarus
@@ -27,7 +27,7 @@ works:
     - url:
       text: 
   abstract: >
-    Why are some countries more corrupt than others? One possibility is that some have regulations that are too complex to effectively be implemented by their resource-constrained enforcement agencies. I write a model of government enforcement of an externality-averting provision that predicts that moving away from the more complex ``first-best'' provision to a less complex ``second-best'' provision actually increases externality reduction by decreasing corruption.
+    Why are some countries more corrupt than others? One possibility is that some have regulations that are too complex to effectively be implemented by their resource-constrained enforcement agencies. I write a model of government enforcement of an externality-averting provision that predicts that moving away from the more complex "first-best" provision to a less complex "second-best" provision actually increases externality reduction by decreasing corruption.
 
 - title: "Lead Poisoning in Poor Countries: Causes, Effects, and Solutions"
   pdflink: "/pdf/ideas.pdf"
