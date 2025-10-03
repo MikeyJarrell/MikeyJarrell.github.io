@@ -4,7 +4,7 @@
 
 ### As Teaching Assistant
 
-* UCSD ECON 144: **Energy Economics**, Dale Squires
+* UCSD ECON 144: **Economics of Conservation**, Dale Squires
 * UCSD ECON 132: **Energy Economics**, Richard Carson
 * UCSD ECON 100B: **Microeconomics B**, Steven Levkoff
 * UCSD GPS 457: **Cost–Benefit Analysis**, Dale Squires
