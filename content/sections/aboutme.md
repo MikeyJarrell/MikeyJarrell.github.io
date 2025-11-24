@@ -1,3 +1,3 @@
 I'm an economics PhD student at UC San Diego. I study development and environmental economics to try to improve the lives of the poor. I'm motivated by lead poisoning in developing countries and how to prevent it. I have a master's from MIT and a bachelor's from Bowdoin College.
 
-
+I'm also the Research Director at [Partnership for Battery Action](batteryaction.org), a non-profit dedicated to ending lead poisoing caused by unsafe battery recycling --- a problem recently [documented by the New York Times](https://www.nytimes.com/interactive/2025/11/18/world/africa/lead-poisoning-car-battery.html).
