@@ -1,0 +1,2 @@
+static/dashboard/app.json filter=lfs diff=lfs merge=lfs -text
+static/refi/app.json filter=lfs diff=lfs merge=lfs -text
