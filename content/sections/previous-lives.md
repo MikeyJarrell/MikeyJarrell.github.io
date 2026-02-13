@@ -15,4 +15,4 @@ __Wildlife__:
 I'm a Field Guides Association of Southern Africa [NQF2](https://www.fgasa.co.za/membership/examinations) certified safari guide and mammal specialist ([Mostumi Bush Courses](https://motsumibush.co.za/) — Rustenburg, South Africa), a PADI [Rescue](https://www.padi.com/courses/rescue-diver) certified scuba diver, and an enthusiastic wildlife photographer ([flickr](https://flic.kr/s/aHBqjBaoqV)).
 
 __Teaching__:
-I have Cambridge Certificate in Teaching English to Speakers of Other Languages [(CELTA)](https://www.cambridgeenglish.org/teaching-english/teaching-qualifications/celta/) from the Institute of Modern Languages (Granada, Spain) and was an online English tutor to children in China.
+I have a Cambridge Certificate in Teaching English to Speakers of Other Languages [(CELTA)](https://www.cambridgeenglish.org/teaching-english/teaching-qualifications/celta/) from the Institute of Modern Languages (Granada, Spain) and was an online English tutor to children in China.
