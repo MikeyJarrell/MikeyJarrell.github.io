@@ -1,28 +1,677 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shiny App</title>
-    <script
-      src="./shinylive/load-shinylive-sw.js"
-      type="module"
-    ></script>
-    <script type="module">
-      import { runExportedApp } from "./shinylive/shinylive.js";
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
-    </script>
-    <link rel="stylesheet" href="./shinylive/style-resets.css" />
-    <link rel="stylesheet" href="./shinylive/shinylive.css" />
-    
-  </head>
-  <body>
-    
-    <div style="height: 100vh; width: 100vw" id="root"></div>
-    
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PBA Plant Scoring Dashboard</title>
+  <style>
+    /* Reset & base */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0; padding: 20px; background: #fff; color: #212529; font-size: 14px; line-height: 1.5;
+    }
+
+    /* Layout */
+    h1 { font-size: 24px; margin: 0 0 20px 0; }
+    .layout { display: flex; gap: 20px; }
+    .sidebar { width: 280px; min-width: 280px; }
+    .main-panel { flex: 1; min-width: 0; overflow-x: auto; }
+
+    /* Slider groups */
+    .slider-group {
+      background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;
+    }
+    .slider-group h4 { margin: 0 0 5px 0; color: #495057; font-size: 14px; }
+    .slider-group p.hint { font-size: 12px; color: #6c757d; margin: 0 0 10px 0; }
+    .slider-group p.sub-hint { font-size: 11px; color: #6c757d; margin: 2px 0; }
+
+    /* Slider rows */
+    .slider-row { margin-bottom: 8px; }
+    .slider-row label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 2px; }
+    .slider-row label .val { font-family: monospace; color: #6c757d; }
+    .slider-row input[type="range"] { width: 100%; margin: 0; }
+    .slider-row select { width: 100%; padding: 4px; }
+
+    /* Reset button */
+    .btn-reset {
+      background: #6c757d; color: #fff; border: none; padding: 6px 12px;
+      border-radius: 4px; cursor: pointer; font-size: 13px; width: 100%;
+    }
+    .btn-reset:hover { background: #5a6268; }
+
+    /* Tier legend */
+    .tier-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tier-legend-item {
+      padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;
+    }
+
+    /* Dynamic threshold container */
+    #threshold-sliders { margin-top: 8px; }
+
+    /* Section headings */
+    h2 { color: #212529; border-bottom: 2px solid #007bff; padding-bottom: 8px; font-size: 20px; margin-top: 30px; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; }
+    table.scores {
+      border-collapse: collapse; width: 100%; font-size: 13px;
+    }
+    table.scores th, table.scores td {
+      border: 1px solid #dee2e6; padding: 6px 8px; text-align: center; white-space: nowrap;
+    }
+    table.scores thead th {
+      background: #f8f9fa; font-weight: 600; position: sticky; top: 0;
+    }
+    table.scores thead th.group-header {
+      border-bottom: 2px solid #dee2e6;
+    }
+    table.scores tbody tr:nth-child(even) { background: #f9f9f9; }
+    table.scores tbody tr:hover { background: #e9ecef; }
+    table.scores .score-cell { font-weight: bold; font-size: 14px; }
+    table.scores .tier-cell { font-weight: bold; }
+
+    /* Documentation tables */
+    table.doc-table { border-collapse: collapse; width: 100%; font-size: 13px; margin-bottom: 15px; }
+    table.doc-table td { border: 1px solid #dee2e6; padding: 6px 10px; }
+    table.doc-table tr:nth-child(even) { background: #f9f9f9; }
+    table.doc-table td:first-child { width: 15%; font-weight: bold; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>PBA Plant Scoring Dashboard</h1>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <!-- Tier Configuration -->
+    <div class="slider-group">
+      <h4>Tier Configuration</h4>
+      <p class="hint">How many tiers should we use for classification?</p>
+      <div class="slider-row">
+        <label>Number of Tiers</label>
+        <select id="num_tiers" onchange="onTierCountChange()">
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <div id="threshold-sliders"></div>
+      <div id="tier-legend" class="tier-legend"></div>
+    </div>
+
+    <!-- Assessment vs Measurement -->
+    <div class="slider-group">
+      <h4>Assessment vs. Measurement</h4>
+      <p class="hint">Should we trust visual assessments or pollution measurements more?</p>
+      <div class="slider-row">
+        <label>Weight toward Measurements <span class="val" id="v_assess_meas">33</span></label>
+        <input type="range" id="assess_meas" min="0" max="100" step="5" value="33" oninput="onSlider(this)">
+      </div>
+      <p class="sub-hint">0 = Pure assessment (checklist only)</p>
+      <p class="sub-hint">100 = Pure measurements (air/soil/blood)</p>
+    </div>
+
+    <!-- Pathway Weights -->
+    <div class="slider-group">
+      <h4>Pathway Weights</h4>
+      <p class="hint">Which emission pathways matter most?</p>
+      <div class="slider-row">
+        <label>Stack <span class="val" id="v_w_stack">60</span></label>
+        <input type="range" id="w_stack" min="0" max="100" step="1" value="60" oninput="onSlider(this)">
+      </div>
+      <div class="slider-row">
+        <label>Slag <span class="val" id="v_w_slag">18</span></label>
+        <input type="range" id="w_slag" min="0" max="100" step="1" value="18" oninput="onSlider(this)">
+      </div>
+      <div class="slider-row">
+        <label>Acid <span class="val" id="v_w_acid">10</span></label>
+        <input type="range" id="w_acid" min="0" max="100" step="1" value="10" oninput="onSlider(this)">
+      </div>
+      <div class="slider-row">
+        <label>Fugitive <span class="val" id="v_w_fugitive">12</span></label>
+        <input type="range" id="w_fugitive" min="0" max="100" step="1" value="12" oninput="onSlider(this)">
+      </div>
+    </div>
+
+    <!-- Measurement Weights -->
+    <div class="slider-group">
+      <h4>Measurement Weights</h4>
+      <p class="hint">Which measurement types should we trust most?</p>
+      <div class="slider-row">
+        <label>Air (current) <span class="val" id="v_w_air">50</span></label>
+        <input type="range" id="w_air" min="0" max="100" step="1" value="50" oninput="onSlider(this)">
+      </div>
+      <div class="slider-row">
+        <label>Soil (historical) <span class="val" id="v_w_soil">25</span></label>
+        <input type="range" id="w_soil" min="0" max="100" step="1" value="25" oninput="onSlider(this)">
+      </div>
+      <div class="slider-row">
+        <label>Blood (direct) <span class="val" id="v_w_blood">25</span></label>
+        <input type="range" id="w_blood" min="0" max="100" step="1" value="25" oninput="onSlider(this)">
+      </div>
+    </div>
+
+    <!-- Population Discounting -->
+    <div class="slider-group">
+      <h4>Population Discounting</h4>
+      <p class="hint">Should plants in remote areas be scored the same as those in dense cities?</p>
+      <div class="slider-row">
+        <label>Delta (per 100m) <span class="val" id="v_delta">0.99</span></label>
+        <input type="range" id="delta" min="0.90" max="1.00" step="0.01" value="0.99" oninput="onSlider(this)">
+      </div>
+      <p class="sub-hint">1.0 = all population counts equally</p>
+      <p class="sub-hint">0.9 = distant population discounted heavily</p>
+    </div>
+
+    <!-- Rate vs Total -->
+    <div class="slider-group">
+      <h4>Rate vs. Total</h4>
+      <p class="hint">Should we score on harm per battery (rate) or current damage (total)?</p>
+      <div class="slider-row">
+        <label>Weight toward Total <span class="val" id="v_rate_total">0</span></label>
+        <input type="range" id="rate_total" min="0" max="100" step="5" value="0" oninput="onSlider(this)">
+      </div>
+      <p class="sub-hint">0 = Pure rate (harm per battery)</p>
+      <p class="sub-hint">100 = Pure total (current damage)</p>
+    </div>
+
+    <!-- Reset -->
+    <button class="btn-reset" onclick="resetDefaults()">Reset to Defaults</button>
+
+  </aside>
+
+  <!-- Main Panel -->
+  <main class="main-panel">
+
+    <h2>Plant Rankings</h2>
+    <p>Ranked from best (lowest score) to worst. Tier based on final score.</p>
+
+    <div class="table-wrap">
+      <table class="scores" id="scores-table">
+        <thead>
+          <tr>
+            <th rowspan="2"></th>
+            <th rowspan="2">Plant</th>
+            <th rowspan="2">Tier</th>
+            <th rowspan="2">Score</th>
+            <th colspan="4" class="group-header">Pathways</th>
+            <th colspan="3" class="group-header">Measurements</th>
+            <th rowspan="2">Pop</th>
+            <th rowspan="2">Thru</th>
+            <th colspan="2" class="group-header">Harm</th>
+            <th colspan="2" class="group-header">PV(cpBLL)</th>
+          </tr>
+          <tr>
+            <th>Stack</th><th>Slag</th><th>Acid</th><th>Fug</th>
+            <th>Air</th><th>Soil</th><th>Blood</th>
+            <th>Rate</th><th>Total</th>
+            <th>Rate</th><th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="scores-body"></tbody>
+      </table>
+    </div>
+
+    <br>
+
+    <!-- Documentation -->
+    <h2>Column Definitions</h2>
+
+    <h4>Core</h4>
+    <table class="doc-table">
+      <tr><td><b>Score</b></td><td>Primary score used for tiering. Blends harm rate and total based on slider. Lower = better.</td></tr>
+      <tr><td><b>Tier</b></td><td>Classification based on score thresholds. Configurable from 2 to 6 tiers.</td></tr>
+      <tr><td><b>Pop</b></td><td>Population density factor. 1.0 = sparsest area; higher = more people nearby = more harm.</td></tr>
+      <tr><td><b>Throughput</b></td><td>Tons of batteries processed per year.</td></tr>
+    </table>
+
+    <h4>Pathways</h4>
+    <p style="font-size: 13px; color: #6c757d; margin-bottom: 5px;">Higher = more emissions from that pathway = worse.</p>
+    <table class="doc-table">
+      <tr><td><b>Stack</b></td><td>Emissions from furnace exhaust. Low = good baghouse, scrubber, clear exhaust.</td></tr>
+      <tr><td><b>Slag</b></td><td>Emissions from waste. Low = proper containment, no visible slag, good furnace.</td></tr>
+      <tr><td><b>Acid</b></td><td>Emissions from electrolyte. Low = hammermill, neutralization, responsible supply chain.</td></tr>
+      <tr><td><b>Fug</b></td><td>Fugitive dust escaping. Low = enclosed building, negative pressure, good LEV.</td></tr>
+    </table>
+
+    <h4>Measurements</h4>
+    <p style="font-size: 13px; color: #6c757d; margin-bottom: 5px;">Higher = more lead detected = worse.</p>
+    <table class="doc-table">
+      <tr><td><b>Air</b></td><td>Lead in air samples. Reflects current emissions.</td></tr>
+      <tr><td><b>Soil</b></td><td>Lead in soil samples. Reflects historical/cumulative emissions.</td></tr>
+      <tr><td><b>Blood</b></td><td>Lead in blood samples. Direct measure of human exposure.</td></tr>
+    </table>
+
+    <h4>Harm</h4>
+    <p style="font-size: 13px; color: #6c757d; margin-bottom: 5px;">Higher = more harm = worse.</p>
+    <table class="doc-table">
+      <tr><td><b>Rate</b></td><td>Harm per battery. Answers: &ldquo;should batteries go here?&rdquo;</td></tr>
+      <tr><td><b>Total</b></td><td>Current total harm (rate &times; throughput). Answers: &ldquo;how much damage now?&rdquo;</td></tr>
+    </table>
+
+    <h4>PV(cpBLL)</h4>
+    <p style="font-size: 13px; color: #6c757d; margin-bottom: 5px;">Present value of cumulative person-BLL. Actual harm in physical units.</p>
+    <table class="doc-table">
+      <tr><td><b>Rate</b></td><td>Person-&mu;g/dL of blood lead per ton of batteries processed.</td></tr>
+      <tr><td><b>Total</b></td><td>Total person-&mu;g/dL caused by plant&rsquo;s current operations.</td></tr>
+    </table>
+
+    <br>
+
+    <h2>Understanding the Sliders</h2>
+
+    <h4>Tier Configuration</h4>
+    <p>Choose how many tiers to use for classifying plants (2&ndash;6). More tiers provide finer distinctions; fewer tiers simplify decisions. The color gradient runs from blue (best) to orange (worst) and is designed to be colorblind-friendly. <b>Default:</b> 4 tiers (Certified, Conditional, Remediation, Excluded) with thresholds at 20, 50, and 80.</p>
+
+    <h4>Assessment vs. Measurement</h4>
+    <p>This slider controls how much weight to give <b>visual assessments</b> (checklist observations) vs. <b>pollution measurements</b> (air, soil, blood lead data). At 0%, only assessment data matters. At 100%, only measurements matter. Increase measurement weight if you trust environmental data more than visual inspections. <b>Default:</b> 33% measurement (assessment 67% | measurement 33%).</p>
+
+    <h4>Pathway Weights</h4>
+    <p>Lead emissions come from four pathways: stack (furnace exhaust), slag (waste disposal), acid (battery electrolyte), and fugitive (dust escaping the building). Weights reflect each pathway&rsquo;s share of maximum potential emissions. Stack dominates because uncontrolled furnaces emit the most lead. Adjust these if you believe certain pathways matter more or less than our defaults suggest. <b>Default:</b> Stack 60 | Slag 18 | Acid 10 | Fugitive 12.</p>
+
+    <h4>Measurement Weights</h4>
+    <p>We estimate emissions from three data sources. <b>Air</b> captures current operations &mdash; what&rsquo;s happening right now. <b>Soil</b> captures historical emissions &mdash; cumulative over years. <b>Blood</b> directly measures human exposure &mdash; the outcome we ultimately care about. If you trust blood measurements as ground truth, increase its weight. If you think historical practices matter, increase soil. <b>Default:</b> Air 50 | Soil 25 | Blood 25.</p>
+
+    <h4>Population Discounting (Delta)</h4>
+    <p>Delta controls how much we weight nearby vs. distant population. At delta = 1.0, all population counts equally regardless of distance &mdash; only total nearby population matters. At delta = 0.90, distant population is heavily discounted &mdash; plants in sparse areas get lower scores. This is a value judgment: do emissions matter if no one is nearby to absorb them? <b>Default:</b> 0.99.</p>
+
+    <h4>Rate vs. Total</h4>
+    <p>This is perhaps the most important conceptual choice. <b>Rate</b> (harm per battery) answers: &ldquo;If we had a battery to recycle, should we send it here?&rdquo; <b>Total</b> (current damage) answers: &ldquo;How much harm is this plant causing right now?&rdquo; We default to rate because shutting down a high-throughput, low-rate plant could push batteries to worse alternatives. But if your goal is to identify the biggest current problems, weight toward total. <b>Default:</b> 0 (pure rate).</p>
+
+  </main>
+</div>
+
+<script>
+// =========================================================================
+// Plant Data (from plant_scores.csv — only columns used by scoring logic)
+// =========================================================================
+const PLANT_DATA = [
+  { plant_name: "Alpha Recycling Corp", throughput_tons_yr: 7331,
+    stack_assessment_harm: 30, slag_harm: 6, acid_harm: 6.6, fugitive_assessment_harm: 2,
+    stack_air_harm: 0, stack_soil_harm: 15, stack_blood_harm: 3.9450000000000003,
+    fugitive_air_harm: 0.7047863697534059, fugitive_soil_harm: 0, fugitive_blood_harm: 0.1445,
+    L_i: 2.185138091526478 },
+  { plant_name: "Beta Metal Works", throughput_tons_yr: 6385,
+    stack_assessment_harm: 24, slag_harm: 8, acid_harm: 3.4, fugitive_assessment_harm: 7,
+    stack_air_harm: 0, stack_soil_harm: 15, stack_blood_harm: 3.37425,
+    fugitive_air_harm: 0.5220933625055536, fugitive_soil_harm: 0, fugitive_blood_harm: 0.087425,
+    L_i: 1.8757196061104449 },
+  { plant_name: "Gamma Industries Ltd", throughput_tons_yr: 3944,
+    stack_assessment_harm: 22, slag_harm: 4, acid_harm: 7.2, fugitive_assessment_harm: 2,
+    stack_air_harm: 1.147913810136124, stack_soil_harm: 15, stack_blood_harm: 2.94825,
+    fugitive_air_harm: 0.1891597213119445, fugitive_soil_harm: 0.75, fugitive_blood_harm: 0.044825,
+    L_i: 1.4029344893520344 },
+  { plant_name: "Delta Smelting Co", throughput_tons_yr: 5204,
+    stack_assessment_harm: 6, slag_harm: 6, acid_harm: 2.1, fugitive_assessment_harm: 3,
+    stack_air_harm: 0.323045221900331, stack_soil_harm: 7.5, stack_blood_harm: 1.152749999999999,
+    fugitive_air_harm: 0.0076415865072137, fugitive_soil_harm: 0.75, fugitive_blood_harm: 0.115275,
+    L_i: 1.691012186571954 },
+  { plant_name: "Epsilon Battery Recyclers", throughput_tons_yr: 5925,
+    stack_assessment_harm: 0, slag_harm: 0, acid_harm: 0.2, fugitive_assessment_harm: 0,
+    stack_air_harm: 0.109894382229283, stack_soil_harm: 10.44416421514625, stack_blood_harm: 1.428,
+    fugitive_air_harm: 0, fugitive_soil_harm: 0, fugitive_blood_harm: 0.1428,
+    L_i: 2.5020571597825496 },
+  { plant_name: "Zeta Lead Processing", throughput_tons_yr: 5410,
+    stack_assessment_harm: 30, slag_harm: 18, acid_harm: 10, fugitive_assessment_harm: 9,
+    stack_air_harm: 1.473773527557483, stack_soil_harm: 13.158353417352543, stack_blood_harm: 5.9167500000000015,
+    fugitive_air_harm: 0, fugitive_soil_harm: 0.75, fugitive_blood_harm: 0.59175,
+    L_i: 1.8819523762421124 },
+  { plant_name: "Eta Metals Inc", throughput_tons_yr: 4439,
+    stack_assessment_harm: 8, slag_harm: 0, acid_harm: 10, fugitive_assessment_harm: 7,
+    stack_air_harm: 0.335451154321872, stack_soil_harm: 14.6615296981397, stack_blood_harm: 1.62525,
+    fugitive_air_harm: 0.2501865772485377, fugitive_soil_harm: 0, fugitive_blood_harm: 0.162525,
+    L_i: 1.0746113948005322 },
+  { plant_name: "Theta Environmental Services", throughput_tons_yr: 3339,
+    stack_assessment_harm: 22, slag_harm: 18, acid_harm: 10, fugitive_assessment_harm: 3,
+    stack_air_harm: 0.752321134055558, stack_soil_harm: 7.865654802370185, stack_blood_harm: 4.050750000000001,
+    fugitive_air_harm: 0, fugitive_soil_harm: 0.75, fugitive_blood_harm: 0.4050749999999999,
+    L_i: 1.0 }
+];
+
+// =========================================================================
+// Default slider values
+// =========================================================================
+const DEFAULTS = {
+  num_tiers: 4,
+  assess_meas: 33,
+  w_stack: 60, w_slag: 18, w_acid: 10, w_fugitive: 12,
+  w_air: 50, w_soil: 25, w_blood: 25,
+  delta: 0.99,
+  rate_total: 0
+};
+
+// Default pathway and measurement weight denominators (for scaling)
+const PW_DEFAULTS = [0.60, 0.18, 0.10, 0.12];
+const MW_DEFAULTS = [0.50, 0.25, 0.25];
+
+// Reference constants
+const THROUGHPUT_REF = 5000;
+const CPBLL_PER_HARM = 8500;
+const DEFAULT_DELTA = 0.99;
+
+// =========================================================================
+// Tier helpers
+// =========================================================================
+
+// Generate tier names for a given count
+function getTierNames(n) {
+  if (n === 2) return ["Certified", "Excluded"];
+  if (n === 3) return ["Certified", "Conditional", "Excluded"];
+  if (n === 4) return ["Certified", "Conditional", "Remediation", "Excluded"];
+  // 5+ tiers: Certified, Tier 2, Tier 3, ..., Excluded
+  const names = ["Certified"];
+  for (let i = 2; i < n; i++) names.push("Tier " + i);
+  names.push("Excluded");
+  return names;
+}
+
+// Generate colorblind-safe gradient (blue to orange)
+function getTierColors(n) {
+  if (n === 1) return ["#2166AC"];
+  const blue = [33, 102, 172];
+  const lightBlue = [103, 169, 207];
+  const neutral = [247, 247, 247];
+  const lightOrange = [253, 174, 97];
+  const orange = [217, 95, 2];
+
+  const positions = [];
+  for (let i = 0; i < n; i++) positions.push(i / (n - 1));
+
+  return positions.map(p => {
+    let rgb;
+    if (p <= 0.25) {
+      const t = p / 0.25;
+      rgb = blue.map((v, i) => v + t * (lightBlue[i] - v));
+    } else if (p <= 0.5) {
+      const t = (p - 0.25) / 0.25;
+      rgb = lightBlue.map((v, i) => v + t * (neutral[i] - v));
+    } else if (p <= 0.75) {
+      const t = (p - 0.5) / 0.25;
+      rgb = neutral.map((v, i) => v + t * (lightOrange[i] - v));
+    } else {
+      const t = (p - 0.75) / 0.25;
+      rgb = lightOrange.map((v, i) => v + t * (orange[i] - v));
+    }
+    return "#" + rgb.map(v => Math.round(v).toString(16).padStart(2, "0").toUpperCase()).join("");
+  });
+}
+
+// Text color for contrast on background
+function getTextColor(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5 ? "black" : "white";
+}
+
+// Default thresholds for n tiers
+function getDefaultThresholds(n) {
+  if (n <= 1) return [];
+  if (n === 4) return [20, 50, 80];
+  const thresholds = [];
+  for (let i = 1; i < n; i++) thresholds.push(Math.round(100 * i / n));
+  return thresholds;
+}
+
+// =========================================================================
+// UI helpers
+// =========================================================================
+
+// Read a slider value (parseFloat for delta, parseInt for everything else)
+function getVal(id) {
+  const el = document.getElementById(id);
+  return parseFloat(el.value);
+}
+
+// Update the displayed value next to a slider
+function onSlider(el) {
+  const display = document.getElementById("v_" + el.id);
+  if (display) display.textContent = el.value;
+  recalculate();
+}
+
+// Handle tier count dropdown change: rebuild threshold sliders and legend
+function onTierCountChange() {
+  const n = parseInt(document.getElementById("num_tiers").value);
+  const names = getTierNames(n);
+  const defaults = getDefaultThresholds(n);
+
+  // Build threshold sliders
+  const container = document.getElementById("threshold-sliders");
+  container.innerHTML = "";
+  if (n > 1) {
+    const hint = document.createElement("p");
+    hint.className = "sub-hint";
+    hint.textContent = "Above " + names[n - 2] + " max = " + names[n - 1];
+    container.appendChild(hint);
+
+    for (let i = 0; i < n - 1; i++) {
+      const row = document.createElement("div");
+      row.className = "slider-row";
+      row.innerHTML =
+        '<label>' + names[i] + ' max <span class="val" id="v_thresh_' + i + '">' + defaults[i] + '</span></label>' +
+        '<input type="range" id="thresh_' + i + '" min="0" max="150" step="5" value="' + defaults[i] + '" oninput="onSlider(this)">';
+      container.appendChild(row);
+    }
+  }
+
+  // Build tier legend
+  const colors = getTierColors(n);
+  const legend = document.getElementById("tier-legend");
+  legend.innerHTML = "";
+  for (let i = 0; i < n; i++) {
+    const span = document.createElement("span");
+    span.className = "tier-legend-item";
+    span.style.backgroundColor = colors[i];
+    span.style.color = getTextColor(colors[i]);
+    span.textContent = names[i];
+    legend.appendChild(span);
+  }
+
+  recalculate();
+}
+
+// Reset all sliders to defaults
+function resetDefaults() {
+  document.getElementById("num_tiers").value = DEFAULTS.num_tiers;
+  document.getElementById("assess_meas").value = DEFAULTS.assess_meas;
+  document.getElementById("w_stack").value = DEFAULTS.w_stack;
+  document.getElementById("w_slag").value = DEFAULTS.w_slag;
+  document.getElementById("w_acid").value = DEFAULTS.w_acid;
+  document.getElementById("w_fugitive").value = DEFAULTS.w_fugitive;
+  document.getElementById("w_air").value = DEFAULTS.w_air;
+  document.getElementById("w_soil").value = DEFAULTS.w_soil;
+  document.getElementById("w_blood").value = DEFAULTS.w_blood;
+  document.getElementById("delta").value = DEFAULTS.delta;
+  document.getElementById("rate_total").value = DEFAULTS.rate_total;
+
+  // Update all displayed values
+  ["assess_meas", "w_stack", "w_slag", "w_acid", "w_fugitive",
+   "w_air", "w_soil", "w_blood", "delta", "rate_total"].forEach(id => {
+    const el = document.getElementById(id);
+    const display = document.getElementById("v_" + id);
+    if (display) display.textContent = el.value;
+  });
+
+  // Rebuild threshold sliders for default tier count
+  onTierCountChange();
+}
+
+// =========================================================================
+// Scoring logic (direct translation of R code)
+// =========================================================================
+
+function recalculate() {
+  // Read all slider values
+  const assessMeasWeight = getVal("assess_meas") / 100;
+  const rawPW = [getVal("w_stack"), getVal("w_slag"), getVal("w_acid"), getVal("w_fugitive")];
+  const rawMW = [getVal("w_air"), getVal("w_soil"), getVal("w_blood")];
+  const delta = getVal("delta");
+  const rateWeight = 1 - getVal("rate_total") / 100;
+
+  // Normalize pathway weights
+  const pwSum = rawPW.reduce((a, b) => a + b, 0);
+  const pw = pwSum === 0 ? [0.25, 0.25, 0.25, 0.25] : rawPW.map(v => v / pwSum);
+
+  // Normalize measurement weights
+  const mwSum = rawMW.reduce((a, b) => a + b, 0);
+  const mw = mwSum === 0 ? [0.33, 0.33, 0.34] : rawMW.map(v => v / mwSum);
+
+  // Delta ratio for L_i adjustment
+  const logDefaultDelta = Math.log(DEFAULT_DELTA);
+  const deltaRatio = logDefaultDelta === 0 ? 0 : Math.log(delta) / logDefaultDelta;
+
+  // Get tier config
+  const numTiers = parseInt(document.getElementById("num_tiers").value);
+  const tierNames = getTierNames(numTiers);
+  const tierColors = getTierColors(numTiers);
+
+  // Read threshold values from dynamic sliders
+  let thresholds = [];
+  for (let i = 0; i < numTiers - 1; i++) {
+    const el = document.getElementById("thresh_" + i);
+    if (el) thresholds.push(parseFloat(el.value));
+  }
+  // Sort and deduplicate (matching R's sort(unique(...)))
+  thresholds = [...new Set(thresholds)].sort((a, b) => a - b);
+  // Fall back to defaults if deduplication reduced the count
+  if (thresholds.length < numTiers - 1) {
+    thresholds = getDefaultThresholds(numTiers);
+  }
+
+  // Score each plant
+  const results = PLANT_DATA.map(p => {
+    // Measurement harm with adjusted weights
+    const stackMeasHarmAdj =
+      (p.stack_air_harm * mw[0] / MW_DEFAULTS[0]) +
+      (p.stack_soil_harm * mw[1] / MW_DEFAULTS[1]) +
+      (p.stack_blood_harm * mw[2] / MW_DEFAULTS[2]);
+    const fugitiveMeasHarmAdj =
+      (p.fugitive_air_harm * mw[0] / MW_DEFAULTS[0]) +
+      (p.fugitive_soil_harm * mw[1] / MW_DEFAULTS[1]) +
+      (p.fugitive_blood_harm * mw[2] / MW_DEFAULTS[2]);
+
+    // Blend assessment and measurement
+    const blendedStackHarm = p.stack_assessment_harm * (1 - assessMeasWeight) + stackMeasHarmAdj * assessMeasWeight;
+    const blendedFugitiveHarm = p.fugitive_assessment_harm * (1 - assessMeasWeight) + fugitiveMeasHarmAdj * assessMeasWeight;
+    const blendedSlagHarm = p.slag_harm * (1 - assessMeasWeight);  // assessment-only
+    const blendedAcidHarm = p.acid_harm * (1 - assessMeasWeight);  // assessment-only
+
+    // Apply pathway weight scaling (relative to defaults)
+    const stackHarmAdj = blendedStackHarm * (pw[0] / PW_DEFAULTS[0]);
+    const slagHarmAdj = blendedSlagHarm * (pw[1] / PW_DEFAULTS[1]);
+    const acidHarmAdj = blendedAcidHarm * (pw[2] / PW_DEFAULTS[2]);
+    const fugitiveHarmAdj = blendedFugitiveHarm * (pw[3] / PW_DEFAULTS[3]);
+
+    // Display columns for measurements (sum across pathways)
+    const airHarmDisplay = p.stack_air_harm + p.fugitive_air_harm;
+    const soilHarmDisplay = p.stack_soil_harm + p.fugitive_soil_harm;
+    const bloodHarmDisplay = p.stack_blood_harm + p.fugitive_blood_harm;
+
+    // Raw harm sum
+    const rawHarmAdj = stackHarmAdj + slagHarmAdj + acidHarmAdj + fugitiveHarmAdj;
+
+    // Population factor adjustment
+    const L_i_adj = Math.max(1, 1 + (p.L_i - 1) * deltaRatio);
+
+    // Harm rate and total
+    const harmRateAdj = L_i_adj * rawHarmAdj;
+    const harmTotalAdj = harmRateAdj * p.throughput_tons_yr / THROUGHPUT_REF;
+
+    // Final blended score
+    const finalScore = rateWeight * harmRateAdj + (1 - rateWeight) * harmTotalAdj;
+
+    // cpBLL values
+    const cpBLLTotal = harmTotalAdj * CPBLL_PER_HARM;
+    const cpBLLRate = cpBLLTotal / p.throughput_tons_yr;
+
+    // Assign tier based on thresholds (R's cut with right=TRUE: score <= threshold)
+    let tierIdx = thresholds.length; // default: last tier
+    for (let i = 0; i < thresholds.length; i++) {
+      if (finalScore <= thresholds[i]) { tierIdx = i; break; }
+    }
+
+    return {
+      plant_name: p.plant_name,
+      throughput: p.throughput_tons_yr,
+      tier: tierNames[tierIdx],
+      tierColor: tierColors[tierIdx],
+      tierTextColor: getTextColor(tierColors[tierIdx]),
+      score: finalScore,
+      stackHarm: stackHarmAdj,
+      slagHarm: slagHarmAdj,
+      acidHarm: acidHarmAdj,
+      fugHarm: fugitiveHarmAdj,
+      airHarm: airHarmDisplay,
+      soilHarm: soilHarmDisplay,
+      bloodHarm: bloodHarmDisplay,
+      pop: L_i_adj,
+      harmRate: harmRateAdj,
+      harmTotal: harmTotalAdj,
+      cpBLLRate: cpBLLRate,
+      cpBLLTotal: cpBLLTotal
+    };
+  });
+
+  // Sort ascending by score
+  results.sort((a, b) => a.score - b.score);
+
+  // Render table
+  renderTable(results);
+}
+
+// =========================================================================
+// Table rendering
+// =========================================================================
+
+function fmt1(v) { return v.toFixed(1); }
+function fmtInt(v) { return Math.round(v).toLocaleString(); }
+function fmtThru(v) { return v.toLocaleString(); }
+
+function renderTable(results) {
+  const tbody = document.getElementById("scores-body");
+  tbody.innerHTML = "";
+
+  results.forEach((r, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td>' + (i + 1) + '</td>' +
+      '<td style="text-align:left">' + r.plant_name + '</td>' +
+      '<td class="tier-cell" style="background:' + r.tierColor + ';color:' + r.tierTextColor + '">' + r.tier + '</td>' +
+      '<td class="score-cell">' + fmt1(r.score) + '</td>' +
+      '<td>' + fmt1(r.stackHarm) + '</td>' +
+      '<td>' + fmt1(r.slagHarm) + '</td>' +
+      '<td>' + fmt1(r.acidHarm) + '</td>' +
+      '<td>' + fmt1(r.fugHarm) + '</td>' +
+      '<td>' + fmt1(r.airHarm) + '</td>' +
+      '<td>' + fmt1(r.soilHarm) + '</td>' +
+      '<td>' + fmt1(r.bloodHarm) + '</td>' +
+      '<td>' + fmt1(r.pop) + '</td>' +
+      '<td>' + fmtThru(r.throughput) + '</td>' +
+      '<td>' + fmt1(r.harmRate) + '</td>' +
+      '<td>' + fmt1(r.harmTotal) + '</td>' +
+      '<td>' + fmtInt(r.cpBLLRate) + '</td>' +
+      '<td>' + fmtInt(r.cpBLLTotal) + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+// =========================================================================
+// Initialize on page load
+// =========================================================================
+onTierCountChange(); // builds threshold sliders, legend, and triggers recalculate()
+</script>
+
+</body>
 </html>
