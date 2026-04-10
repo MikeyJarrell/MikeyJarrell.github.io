@@ -5,15 +5,9 @@
 {{ with .GetPage "/sections/office-hours.md" }}
 <p class="contactinfo"><a href="{{ "#officehours" | relURL }}">Office Hours</a></p>
 {{ end }}
-{{ with .Site.Data.publications }}
 <p class="contactinfo"><a href="{{ "#publications" | relURL }}">Publications</a></p>
-{{ end }}
-{{ with .Site.Data.working_papers }}
-<p class="contactinfo"><a href="{{ "#workingpapers" | relURL }}">Working Papers</a></p>
-{{ end }}
-{{ with .Site.Data.work_in_progress }}
-<p class="contactinfo"><a href="{{ "#research" | relURL }}">Research</a></p>
-{{ end }}
+<p class="contactinfo"><a href="{{ "#inprogress" | relURL }}">In Progress</a></p>
+<p class="contactinfo"><a href="{{ "#merelyideas" | relURL }}">Merely Ideas</a></p>
 {{ with .GetPage "/sections/teaching.md" }}
 <p class="contactinfo"><a href="{{ "#teaching" | relURL }}">Teaching</a></p>
 {{ end }}

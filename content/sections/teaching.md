@@ -4,7 +4,7 @@
 * GPS 457: Cost–Benefit Analysis (TA for Dale Squires)
 * ECON 144: Economics of Conservation (TA for Dale Squires)
 * ECON 132: Energy Economics (TA for Richard Carson)
-* ECON 100B: Microeconomics B (TA for Steven Levkoff)
+* ECON 100B: Microeconomics B (TA for Steven Levkoff; Judson Boomhower)
 
 ### MIT
 

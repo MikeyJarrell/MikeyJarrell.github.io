@@ -3,7 +3,7 @@
 {{ with .context.coauthors }}<p style="margin:0 0 5px;">(with {{ . }})</p>{{ end }}
 
 {{ with .context.note }}<p style="margin:0 0 5px;">{{ . }}</p>{{ end }}
-{{ with .context.book }}<p style="margin:0 0 5px;"><em>{{ . }}</em></p>{{ end }}
+{{ with .context.book }}<p style="margin:0 0 5px;">{{ with $.context.doilink }}<a href="{{ . }}" target="blank">{{ end }}<em>{{ $.context.book }}</em>{{ with $.context.doilink }}</a>{{ end }}</p>{{ end }}
 {{ $pid := .pid }}
 {{ with .context.abstract }}<p style="margin:0 0 5px;"><a href="javascript:toggle({{ $pid }})">Abstract</a><span id="pubabs_{{ $pid }}" style="display:none;">: {{ . | markdownify }}</span></p>{{ end }}
 

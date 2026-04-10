@@ -1,0 +1,20 @@
+works:
+- title: "Who's In Charge? Whom to Inform about Pollution from Car Battery Repair"
+  pdflink: "/pdf/snitching.pdf"
+  book:
+  coauthors: Nathan Lazarus
+  links:
+    - url:
+      text:
+  abstract: >
+    How can an externality from a polluting activity be internalized when not even the internality from same activity is being internalized? Battery technicians (people who repair lead-acid batteries) are a ubiquitous but understudied presence in poor countries. Existing evidence suggests that battery technicians create substantial amounts of lead pollution, causing lead poisoning for themselves and for others, including family members or people who live or work nearby. Technicians, and the community at large, appear to be unaware of this fact. We propose an information intervention to improve safety practices of battery technicians in Lagos, Nigeria.
+
+- title: "Lead Pollution and Exposure from Battery Recycling Firms in Nigeria"
+  pdflink:
+  book:
+  coauthors: "Sifau Adejumo, Gilbert Adie, Rose Alani, Nathan Lazarus, Mary Ogundiran, and Oluseye Vincent Osunkalu"
+  links:
+    - url:
+      text:
+  abstract: >
+    We measure lead pollution and blood lead levels at formal and informal recycling and battery breaking operations in Nigeria to quantify the extent of contamination and characterize its dispersion.

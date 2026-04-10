@@ -1,10 +1,11 @@
-# works:
-# - title: "The Importance of Being Marginal: Gender Differences in Generosity"
-#   pdflink: "/pdf/GenderGenerosityAERPP2013Final.pdf"
-#   book: "American Economic Review Papers and Proceedings, May 2013"
-#   coauthors: "Stefano DellaVigna, John List and Ulrike Malmendier"
-#   links:
-#     - url: "/pdf/GenderGenerosityAERP&P2013OnlineApp.pdf"
-#       text: "Online Appendix"
-#   abstract: >
-#     Do men and women have different social preferences? Previous findings are contradictory. We provide a potential explanation using evidence from a field experiment. In a door-to-door solicitation, men and women are equally generous, but women become less generous when it becomes easy to avoid the solicitor. Our structural estimates of the social preference parameters suggest an explanation: women are more likely to be on the margin of giving, partly because of a less dispersed distribution of altruism. We find similar results for the willingness to complete an unpaid survey: women are more likely to be on the margin of participation.
+works:
+- title: "Schooling and Labor Market Consequences of School Construction in Indonesia: A Reply to Roodman"
+  pdflink: "/papers/duflo-et-al-2026.pdf"
+  book: "Journal of Comments and Replications in Economics, Vol. 5, 2026"
+  doilink: "https://doi.org/10.18718/81781.57"
+  coauthors: "Esther Duflo, Allan Hsiao, and Nathan Lazarus"
+  links:
+    - url:
+      text:
+  abstract: >
+    Roodman (2026) reexamines the findings of Duflo (2001) on school construction in Indonesia. We endorse his corrections to standard errors and data entry errors, but disagree with his suggestion to drop the control for the number of children in the district. We show that this control is necessary because more populous districts received fewer schools per capita, and this variation is not useful for identification. We also present results from extended datasets, including additional survey waves, which support the original findings.
