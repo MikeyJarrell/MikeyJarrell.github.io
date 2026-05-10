@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Travel Wishlist</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #555;
+  --accent: #b8552d;
+  --hairline: #e6e0d6;
+  --max-width: 1100px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+header.site {
+  padding: 56px 24px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--surface);
+}
+header.site h1 { margin: 0; font-weight: 600; font-size: 2.4rem; letter-spacing: -0.01em; }
+header.site p { margin: 12px auto 0; max-width: 640px; color: var(--muted); }
+header.site .page-link { display: inline-block; margin-top: 16px; color: var(--accent); text-decoration: none; font-size: 0.95rem; }
+header.site .page-link:hover { text-decoration: underline; }
+
+nav.dest-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--hairline);
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+nav.dest-nav a {
+  color: var(--ink); text-decoration: none;
+  padding: 4px 10px; margin: 2px 4px;
+  border-radius: 999px; display: inline-block;
+}
+nav.dest-nav a:hover { background: var(--hairline); }
+
+main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
+
+section.destination { margin: 64px 0; scroll-margin-top: 60px; }
+
+section.destination > .hero {
+  position: relative; margin: 0 -16px 24px;
+  aspect-ratio: 16/7; background: #222; overflow: hidden; cursor: zoom-in;
+}
+@media (min-width: 800px) {
+  section.destination > .hero { margin: 0 0 24px; border-radius: 14px; }
+}
+section.destination > .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+section.destination > .hero .hero-title {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff; pointer-events: none;
+}
+section.destination > .hero .hero-title h2 { font-size: 2.4rem; margin: 0 0 6px; font-weight: 600; }
+
+section.destination > .intro {
+  font-size: 1.05rem; color: var(--muted);
+  max-width: 720px; margin: 0 0 32px;
+}
+section.destination > .intro p { margin: 0 0 14px; }
+section.destination > .intro strong { color: var(--ink); }
+section.destination > .intro a { color: var(--accent); }
+
+article.day {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 24px;
+}
+@media (min-width: 700px) {
+  article.day { grid-template-columns: 360px 1fr; gap: 28px; }
+}
+article.day .photo {
+  aspect-ratio: 4/3;
+  background: #ddd;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+article.day .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+article.day .photo.placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--hairline); color: var(--muted); font-size: 0.85rem;
+  cursor: default;
+}
+article.day h3 { margin: 0 0 10px; font-size: 1.15rem; font-weight: 600; }
+article.day ul { margin: 0; padding-left: 20px; }
+article.day ul li { margin-bottom: 4px; }
+article.day a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(184,85,45,0.25); }
+article.day a:hover { border-bottom-color: var(--accent); }
+article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
+
+footer.site {
+  text-align: center; padding: 48px 16px;
+  color: var(--muted); font-size: 0.85rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* Filter bar */
+.filter-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+  padding: 14px 16px;
+}
+.filter-bar-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  align-items: center;
+}
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-right: 4px;
+  font-weight: 600;
+}
+.filter-month select {
+  font: inherit;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: var(--surface);
+}
+.chip {
+  cursor: pointer;
+  font-size: 0.85rem;
+  user-select: none;
+}
+.chip input { display: none; }
+.chip span {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.chip:hover span { border-color: var(--accent); }
+.chip input:checked + span {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.filter-clear {
+  margin-left: auto;
+  font: inherit;
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.filter-clear:hover { color: var(--ink); border-color: var(--muted); }
+.filter-status {
+  max-width: var(--max-width);
+  margin: 12px auto 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+section.destination.filtered-out { display: none; }
+nav.dest-nav a.filtered-out { display: none; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; cursor: zoom-out;
+  padding: 24px;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 10px 60px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  color: #fff; font-size: 28px; line-height: 1;
+  background: none; border: 0; cursor: pointer;
+  opacity: 0.8;
+}
+.lightbox-close:hover { opacity: 1; }
+</style>
+</head><body>
+<header class="site">
+<h1>Travel Wishlist</h1>
+<a class="page-link" href="previous-trips.html">← Previous trips</a>
+</header>
+<nav class="dest-nav">
+<a href="#tanzania">Tanzania</a>
+<a href="#iceland">Iceland</a>
+<a href="#slovenia">Slovenia</a>
+<a href="#albania">Albania</a>
+<a href="#georgia">Georgia</a>
+<a href="#argentina">Argentina</a>
+<a href="#indonesia">Indonesia</a>
+<a href="#baltics">Baltic Capitals</a>
+<a href="#portugal">Portugal</a>
+</nav>
+<div class="filter-bar">
+<div class="filter-bar-inner">
+<div class="filter-group filter-month">
+<label class="filter-label">Best in:</label>
+<select id="filter-month"><option value="">Any month</option>
+<option value="Jan">Jan</option>
+<option value="Feb">Feb</option>
+<option value="Mar">Mar</option>
+<option value="Apr">Apr</option>
+<option value="May">May</option>
+<option value="Jun">Jun</option>
+<option value="Jul">Jul</option>
+<option value="Aug">Aug</option>
+<option value="Sep">Sep</option>
+<option value="Oct">Oct</option>
+<option value="Nov">Nov</option>
+<option value="Dec">Dec</option>
+</select>
+</div>
+<div class="filter-group filter-themes">
+<span class="filter-label">Themes</span>
+<label class="chip"><input type="checkbox" data-filter="theme" value="wildlife"><span>Wildlife</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="culture"><span>Culture</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="adventure"><span>Adventure</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="beach"><span>Beach</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="food"><span>Food & Wine</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="nature"><span>Nature</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="city"><span>City</span></label>
+<label class="chip"><input type="checkbox" data-filter="theme" value="history"><span>History</span></label>
+</div>
+<div class="filter-group filter-regions">
+<span class="filter-label">Region</span>
+<label class="chip"><input type="checkbox" data-filter="region" value="latin-america"><span>Latin America</span></label>
+<label class="chip"><input type="checkbox" data-filter="region" value="europe"><span>Europe</span></label>
+<label class="chip"><input type="checkbox" data-filter="region" value="africa"><span>Africa</span></label>
+<label class="chip"><input type="checkbox" data-filter="region" value="asia-pacific"><span>Asia-Pacific</span></label>
+<label class="chip"><input type="checkbox" data-filter="region" value="middle-east-n-africa"><span>Middle East & N. Africa</span></label>
+<label class="chip"><input type="checkbox" data-filter="region" value="north-america"><span>North America</span></label>
+</div>
+<button class="filter-clear" id="filter-clear">Clear</button>
+</div>
+<div class="filter-status" id="filter-status"></div>
+</div>
+<main>
+<section class="destination" id="tanzania" data-months="Jun,Jul,Aug,Sep,Oct" data-themes="wildlife,beach,adventure" data-region="africa">
+<div class="hero">
+<img src="photos/tanzania/overview.jpg" alt="Tanzania hero">
+<div class="hero-title"><h2>Tanzania</h2></div>
+</div>
+<div class="intro">
+<p><strong>Tanzania</strong></p>
+<p><em>Big-5 game drives in the northern Serengeti, Ngorongoro Crater, beach finish on Zanzibar. ~75°F days, ~55°F nights — peak dry season.</em></p>
+<p><strong>Heads up:</strong> Mara River crossings typically peak <strong>late July through early September</strong>. In mid-July (this trip's window) the herds are usually still moving north and crossings are unreliable. You'll see massive herds in the northern Serengeti either way; witnessing an actual crossing is luck of the draw.</p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-01-fly-san-kilimanjaro-via-doha.jpg" alt="Thursday: Fly SAN → Kilimanjaro (~22h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Kilimanjaro (~22h)</h3>
+<ul>
+<li>Drive to LAX (~2h)</li>
+<li>Qatar Airways LAX → JRO, overnight</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-02-arrive-arusha.jpg" alt="Friday: Arrive Arusha"></div>
+<div class="day-body">
+<h3>Friday: Arrive Arusha</h3>
+<ul>
+<li>Land at Kilimanjaro Intl. Airport (JRO)</li>
+<li>45-min drive to <a href="https://onseahouse.com/" target="_blank" rel="noopener">Onsea House</a> (5-room boutique B&amp;B, garden setting)</li>
+<li>Briefing dinner with safari guide</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-03-charter-to-serengeti.jpg" alt="Saturday: Fly to Serengeti (~1h)"></div>
+<div class="day-body">
+<h3>Saturday: Fly to Serengeti (~1h)</h3>
+<ul>
+<li>Light aircraft to Seronera (~1h)</li>
+<li><a href="https://lemalacamp.com/lemala-ewanjan/" target="_blank" rel="noopener">Lemala Ewanjan</a> tented camp</li>
+<li>Afternoon game drive</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-04-drive-to-northern-serengeti.jpg" alt="Sunday: Drive to northern Serengeti (~5h)"></div>
+<div class="day-body">
+<h3>Sunday: Drive to northern Serengeti (~5h)</h3>
+<ul>
+<li>Drive south through Lobo, game-spotting en route</li>
+<li><a href="https://www.asiliaafrica.com/east-africa-safaris/tanzania/serengeti/sayari-camp/" target="_blank" rel="noopener">Sayari</a> or <a href="https://www.nomad-tanzania.com/camps/lamai-serengeti/" target="_blank" rel="noopener">Lamai</a> camp</li>
+<li>Watch the Mara for crossings (caveat above)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-05-northern-serengeti-full-day.jpg" alt="Monday: Northern Serengeti — full day"></div>
+<div class="day-body">
+<h3>Monday: Northern Serengeti — full day</h3>
+<ul>
+<li>Cheetah and leopard country</li>
+<li>Picnic lunch in the bush</li>
+<li>Sundowners on the Mara</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-06-drive-to-ngorongoro.jpg" alt="Tuesday: Fly to Ngorongoro (~1h)"></div>
+<div class="day-body">
+<h3>Tuesday: Fly to Ngorongoro (~1h)</h3>
+<ul>
+<li>Light aircraft <a href="https://www.asiliaafrica.com/east-africa-safaris/tanzania/serengeti/sayari-camp/" target="_blank" rel="noopener">Sayari</a> → Manyara airstrip</li>
+<li>Drive to crater rim (~2h)</li>
+<li>Overnight at <a href="https://plantation-lodge.com/" target="_blank" rel="noopener">Plantation Lodge</a> or <a href="https://elewanacollection.com/the-manor-at-ngorongoro/the-lodge" target="_blank" rel="noopener">The Manor at Ngorongoro</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-07-ngorongoro-crater.jpg" alt="Wednesday: Ngorongoro Crater"></div>
+<div class="day-body">
+<h3>Wednesday: Ngorongoro Crater</h3>
+<ul>
+<li>Pre-dawn descent into the crater</li>
+<li>Big-tusker elephants and black rhinos</li>
+<li>Maasai boma visit on the way out</li>
+<li>Second night at <a href="https://plantation-lodge.com/" target="_blank" rel="noopener">Plantation Lodge</a> / The Manor</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-08-fly-to-zanzibar.jpg" alt="Thursday: Fly to Zanzibar (~2h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly to Zanzibar (~2h)</h3>
+<ul>
+<li>Light aircraft from Manyara airstrip</li>
+<li><a href="https://emersonspice.com/" target="_blank" rel="noopener">Emerson Spice</a> rooftop dinner</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-09-explore-stone-town.jpg" alt="Friday: Explore Stone Town"></div>
+<div class="day-body">
+<h3>Friday: Explore Stone Town</h3>
+<ul>
+<li>Old Fort + House of Wonders</li>
+<li>Slave-market memorial</li>
+<li>Forodhani night market grills</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-10-transfer-to-kendwa.jpg" alt="Saturday: Transfer to Kendwa (~1.5h)"></div>
+<div class="day-body">
+<h3>Saturday: Transfer to Kendwa (~1.5h)</h3>
+<ul>
+<li>Drive north to the coast</li>
+<li><a href="https://www.elewanacollection.com/kilindi/the-lodge" target="_blank" rel="noopener">Kilindi</a> or <a href="https://www.zurizanzibar.com/" target="_blank" rel="noopener">Zuri Zanzibar</a></li>
+<li>Beach + sunset dhow bar</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-11-spice-farm-sunset-dhow.jpg" alt="Sunday: Spice farm + sunset dhow"></div>
+<div class="day-body">
+<h3>Sunday: Spice farm + sunset dhow</h3>
+<ul>
+<li><a href="https://www.zanzibarspicefarm.com/" target="_blank" rel="noopener">Tangawizi Spice Farm</a> tour and lunch</li>
+<li>Traditional dhow with snorkel stop</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-12-fly-home.jpg" alt="Monday: Fly home (~28h)"></div>
+<div class="day-body">
+<h3>Monday: Fly home (~28h)</h3>
+<ul>
+<li>Final swim</li>
+<li>Qatar Airways ZNZ → LAX</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/tanzania/day-13-land-san-diego.jpg" alt="Tuesday: Land San Diego"></div>
+<div class="day-body">
+<h3>Tuesday: Land San Diego</h3>
+<ul>
+<li>Buffer day at home</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="iceland" data-months="Jun,Jul,Aug" data-themes="nature,adventure" data-region="europe">
+<div class="hero">
+<img src="photos/iceland/overview.jpg" alt="Iceland hero">
+<div class="hero-title"><h2>Iceland</h2></div>
+</div>
+<div class="intro">
+<p><strong>Iceland</strong></p>
+<p><em>Endless daylight and zero humidity. Ring Road drive, Reynisfjara black sands, Jökulsárlón glacier lagoon, <a href="https://www.skylagoon.com/" target="_blank" rel="noopener">Sky Lagoon</a> soak. ~55–65°F all month.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-01-fly-san-reykjavík-via-seattle.jpg" alt="Thursday: Fly SAN → Reykjavík (~12h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Reykjavík (~12h)</h3>
+<ul>
+<li>Icelandair red-eye to Keflavík</li>
+<li>Pick up rental at the airport</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-02-reykjavík-sky-lagoon.jpg" alt="Friday: Reykjavík + Sky Lagoon"></div>
+<div class="day-body">
+<h3>Friday: Reykjavík + Sky Lagoon</h3>
+<ul>
+<li>7-step <a href="https://www.skylagoon.com/" target="_blank" rel="noopener">Sky Lagoon</a> ritual to fight jet lag</li>
+<li>Walk Reykjavík harbor</li>
+<li>Dinner at <a href="https://maturogdrykkur.is/" target="_blank" rel="noopener">Matur og Drykkur</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-03-drive-the-golden-circle.jpg" alt="Saturday: Drive the Golden Circle"></div>
+<div class="day-body">
+<h3>Saturday: Drive the Golden Circle</h3>
+<ul>
+<li>Þingvellir, Geysir, Gullfoss</li>
+<li>Soak at Secret Lagoon</li>
+<li>Overnight in Hella</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-04-drive-south-coast.jpg" alt="Sunday: Drive south coast (~3h)"></div>
+<div class="day-body">
+<h3>Sunday: Drive south coast (~3h)</h3>
+<ul>
+<li>Seljalandsfoss + Skógafoss</li>
+<li>Reynisfjara black-sand beach</li>
+<li>Overnight <a href="https://hotelkria.is/" target="_blank" rel="noopener">Hotel Kría</a> in Vík</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-05-skaftafell-jökulsárlón.jpg" alt="Monday: Skaftafell + Jökulsárlón"></div>
+<div class="day-body">
+<h3>Monday: Skaftafell + Jökulsárlón</h3>
+<ul>
+<li>Skaftafell Svartifoss loop (~2mi flat)</li>
+<li>Jökulsárlón glacier lagoon boat ride</li>
+<li>Diamond Beach</li>
+<li>Overnight <a href="https://hali.is/en/" target="_blank" rel="noopener">Hali Country Hotel</a> or <a href="https://www.islandshotel.is/hotels-in-iceland/fosshotel-glacier-lagoon/" target="_blank" rel="noopener">Fosshotel Glacier Lagoon</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-06-drive-east-to-egilsstaðir.jpg" alt="Tuesday: Drive east to Egilsstaðir (~5h)"></div>
+<div class="day-body">
+<h3>Tuesday: Drive east to Egilsstaðir (~5h)</h3>
+<ul>
+<li>Stokksnes / Vestrahorn stop</li>
+<li>Long scenic drive along the east fjords</li>
+<li>Overnight Egilsstaðir</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-07-mývatn-area.jpg" alt="Wednesday: Mývatn area"></div>
+<div class="day-body">
+<h3>Wednesday: Mývatn area</h3>
+<ul>
+<li>Mývatn Nature Baths</li>
+<li>Krafla geothermal area + Goðafoss</li>
+<li>Overnight Akureyri</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-08-drive-to-snæfellsnes.jpg" alt="Thursday: Drive to Snæfellsnes (~5h)"></div>
+<div class="day-body">
+<h3>Thursday: Drive to Snæfellsnes (~5h)</h3>
+<ul>
+<li>Forest Lagoon morning soak</li>
+<li>Long drive south</li>
+<li><a href="https://www.budir.is/" target="_blank" rel="noopener">Hotel Búðir</a> or <a href="https://www.fosshotel.is/hotels-in-iceland/fosshotel-stykkisholmur" target="_blank" rel="noopener">Stykkishólmur</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-09-snæfellsnes-peninsula.jpg" alt="Friday: Snæfellsnes peninsula"></div>
+<div class="day-body">
+<h3>Friday: Snæfellsnes peninsula</h3>
+<ul>
+<li>Kirkjufell viewpoint</li>
+<li>Arnarstapi cliff walk (~2mi)</li>
+<li>Búðakirkja black church</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-10-drive-back-to-reykjavík.jpg" alt="Saturday: Drive back to Reykjavík (~3h) + Glymur hike"></div>
+<div class="day-body">
+<h3>Saturday: Drive back to Reykjavík (~3h) + Glymur hike</h3>
+<ul>
+<li>Glymur waterfall hike (~2-3h, second-tallest in Iceland)</li>
+<li>Borgarnes Settlement Center stop</li>
+<li>Lunch at <a href="https://www.landnam.is/en/" target="_blank" rel="noopener">Settlement Café</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-11-explore-reykjavík.jpg" alt="Sunday: Explore Reykjavík"></div>
+<div class="day-body">
+<h3>Sunday: Explore Reykjavík</h3>
+<ul>
+<li><a href="https://hallgrimskirkja.is/en" target="_blank" rel="noopener">Hallgrímskirkja</a> tower</li>
+<li><a href="https://www.harpa.is/en/" target="_blank" rel="noopener">Harpa</a> concert hall</li>
+<li>Fish and chips at <a href="https://reykjavikfish.is/" target="_blank" rel="noopener">Reykjavík Fish</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-12-whale-watching-from-old-harbour.jpg" alt="Monday: Landmannalaugar super-jeep day"></div>
+<div class="day-body">
+<h3>Monday: Landmannalaugar super-jeep day</h3>
+<ul>
+<li>Full-day super-jeep into the highlands (~10-12h)</li>
+<li>Rhyolite mountains, hot-river soak at Laugavegur trailhead</li>
+<li>Terrain only accessible by 4WD; pure highland landscape</li>
+<li><em>Whale watching from Reykjavík is the rest-day alternative if the jeep tour feels too much</em></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/iceland/day-13-blue-lagoon-fly-home.jpg" alt="Tuesday: Blue Lagoon, fly home"></div>
+<div class="day-body">
+<h3>Tuesday: Blue Lagoon, fly home</h3>
+<ul>
+<li>Premium booking with Lava Restaurant lunch</li>
+<li>Drop rental at Keflavík</li>
+<li>Afternoon flight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="slovenia" data-months="May,Jun,Jul,Aug,Sep" data-themes="nature,culture,beach" data-region="europe">
+<div class="hero">
+<img src="photos/slovenia/overview.jpg" alt="Slovenia hero">
+<div class="hero-title"><h2>Slovenia</h2></div>
+</div>
+<div class="intro">
+<p><strong>Slovenia</strong></p>
+<p><em>Off-radar Alpine charm. Lake Bled island, Ljubljana old town, Postojna caves, <a href="https://en.wikipedia.org/wiki/So%C4%8Da" target="_blank" rel="noopener">Soča</a> River valley — pairs easily with a Croatian island. ~75–80°F.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-01-fly-san-ljubljana-via-frankfurt.jpg" alt="Thursday: Fly SAN → Ljubljana (~14h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Ljubljana (~14h)</h3>
+<ul>
+<li>United/Lufthansa</li>
+<li>Land Friday morning</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-02-arrive-ljubljana.jpg" alt="Friday: Arrive Ljubljana"></div>
+<div class="day-body">
+<h3>Friday: Arrive Ljubljana</h3>
+<ul>
+<li><a href="https://www.ihg.com/intercontinental/hotels/us/en/ljubljana/ljuln/hoteldetail" target="_blank" rel="noopener">InterContinental</a> or <a href="https://www.vanderhotel.com/" target="_blank" rel="noopener">Vander Hotel</a></li>
+<li>Walk the Ljubljanica river</li>
+<li>Dinner at <a href="https://www.privitezu.si/" target="_blank" rel="noopener">Pri Vitezu</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-03-explore-old-ljubljana.jpg" alt="Saturday: Explore old Ljubljana"></div>
+<div class="day-body">
+<h3>Saturday: Explore old Ljubljana</h3>
+<ul>
+<li>Castle funicular + Tivoli Park</li>
+<li>Open Kitchen Saturday market</li>
+<li>Dragon Bridge + Triple Bridge</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-04-postojna-cave-day-trip.jpg" alt="Sunday: Postojna Cave day trip"></div>
+<div class="day-body">
+<h3>Sunday: Postojna Cave day trip</h3>
+<ul>
+<li>Cave train + walking tour (or swap for the smaller, quieter Škocjan Caves UNESCO)</li>
+<li>Cliff-built <a href="https://www.postojnska-jama.eu/en/predjama-castle/" target="_blank" rel="noopener">Predjama Castle</a></li>
+<li>Back to Ljubljana</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-05-drive-to-lake-bled.jpg" alt="Monday: Drive to Lake Bled (~1h)"></div>
+<div class="day-body">
+<h3>Monday: Drive to Lake Bled (~1h)</h3>
+<ul>
+<li><a href="https://www.brdo.si/en/vila-bled" target="_blank" rel="noopener">Vila Bled</a> or <a href="https://www.hoteltriglavbled.si/" target="_blank" rel="noopener">Hotel Triglav</a></li>
+<li>Pletna boat to island church</li>
+<li>Lake loop walk (~4mi flat)</li>
+<li>Overnight at Bled (night 1 of 2)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-06-vintgar-gorge-lake-bohinj.jpg" alt="Tuesday: Vintgar Gorge + Lake Bohinj"></div>
+<div class="day-body">
+<h3>Tuesday: Vintgar Gorge + Lake Bohinj</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Vintgar_Gorge" target="_blank" rel="noopener">Vintgar</a> boardwalk (~1mi)</li>
+<li>Lake Bohinj + Savica waterfall</li>
+<li>Cream cake at Park Hotel</li>
+<li>Second night at Bled (catch dawn light over the island)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-07-drive-soča-valley.jpg" alt="Wednesday: Drive Soča Valley"></div>
+<div class="day-body">
+<h3>Wednesday: Drive Soča Valley</h3>
+<ul>
+<li>Vršič Pass scenic drive</li>
+<li><a href="https://en.wikipedia.org/wiki/So%C4%8Da" target="_blank" rel="noopener">Soča</a> River swim or kayak (turquoise gorge water)</li>
+<li>Tolmin Gorges + Kobarid WWI museum</li>
+<li>Overnight <a href="https://www.hotelhvala.si/" target="_blank" rel="noopener">Hotel Hvala</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-08-drive-to-piran.jpg" alt="Thursday: Drive to Piran (~3h)"></div>
+<div class="day-body">
+<h3>Thursday: Drive to Piran (~3h)</h3>
+<ul>
+<li>Walk the city walls</li>
+<li>Seafood at Cantina Klet</li>
+<li>Sunset on the breakwater</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-09-ferry-trieste-hvar.jpg" alt="Friday: Drive to Ljubljana + fly to Split + ferry to Hvar"></div>
+<div class="day-body">
+<h3>Friday: Drive to Ljubljana + fly to Split + ferry to Hvar</h3>
+<ul>
+<li>Drive Piran → Ljubljana airport (~1.5h)</li>
+<li>Fly Ljubljana → Split (~1h)</li>
+<li>Catamaran ferry Split → Hvar (~1h)</li>
+<li><a href="https://www.suncanihvar.com/hotel-park-hvar.html" target="_blank" rel="noopener">Hotel Park Hvar</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-10-pakleni-islands-swim-day.jpg" alt="Saturday: Pakleni Islands swim day"></div>
+<div class="day-body">
+<h3>Saturday: Pakleni Islands swim day</h3>
+<ul>
+<li>Water-taxi to Palmižana</li>
+<li>Lunch at Toto's</li>
+<li>Evening on Hvar's stone streets</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-11-explore-hvar-interior.jpg" alt="Sunday: Explore Hvar interior"></div>
+<div class="day-body">
+<h3>Sunday: Explore Hvar interior</h3>
+<ul>
+<li>Stari Grad UNESCO plain</li>
+<li>Lavender fields above Velo Grablje</li>
+<li>Beach at Mlini</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-12-hvar-ljubljana-via-pula.jpg" alt="Monday: Hvar → Ljubljana"></div>
+<div class="day-body">
+<h3>Monday: Hvar → Ljubljana</h3>
+<ul>
+<li>Ferry Hvar → Split</li>
+<li>Fly Split → Ljubljana</li>
+<li>Last evening in Ljubljana</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/slovenia/day-13-fly-home-from-ljubljana.jpg" alt="Tuesday: Fly home from Ljubljana"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Ljubljana</h3>
+<ul>
+<li>Coffee at Le Petit</li>
+<li>Last walk along the river</li>
+<li>Afternoon flight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="albania" data-months="May,Jun,Jul,Aug,Sep" data-themes="beach,history,culture" data-region="europe">
+<div class="hero">
+<img src="photos/albania/overview.jpg" alt="Albania hero">
+<div class="hero-title"><h2>Albania</h2></div>
+</div>
+<div class="intro">
+<p><strong>Albania</strong></p>
+<p><em>The Adriatic the rest of Europe hasn't found yet. Ksamil and Dhërmi beaches, Ottoman-era Berat and Gjirokastër, Tirana cafés. <strong>Heat warning:</strong> ~80–85°F coast but inland (Berat / Gjirokastër) routinely 95–100°F in July — plan dawn / late-afternoon walks.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-01-fly-san-tirana-via-vienna.jpg" alt="Thursday: Fly SAN → Tirana (~17h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Tirana (~17h)</h3>
+<ul>
+<li>United + Austrian Airlines</li>
+<li>Land late evening</li>
+<li><a href="https://hotelplazatirana.com/" target="_blank" rel="noopener">Hotel Plaza Tirana</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-02-explore-tirana.jpg" alt="Friday: Explore Tirana"></div>
+<div class="day-body">
+<h3>Friday: Explore Tirana</h3>
+<ul>
+<li><a href="https://www.bunkart.al/2" target="_blank" rel="noopener">Bunk'art 2</a> (Cold War bunker museum)</li>
+<li><a href="https://en.wikipedia.org/wiki/Skanderbeg_Square" target="_blank" rel="noopener">Skanderbeg Square</a> + <a href="https://en.wikipedia.org/wiki/Et%27hem_Bey_Mosque" target="_blank" rel="noopener">Et'hem Bey Mosque</a></li>
+<li>Pyramid of Tirana viewpoint</li>
+<li>Dinner at <a href="https://mullixhiu.al/" target="_blank" rel="noopener">Mullixhiu</a> in Blloku</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-03-krujë-day-trip.jpg" alt="Saturday: Krujë + drive to Berat (~3h with stops)"></div>
+<div class="day-body">
+<h3>Saturday: Krujë + drive to Berat (~3h with stops)</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Kruj%C3%AB_Castle" target="_blank" rel="noopener">Skanderbeg Castle</a> + Old Bazaar in Krujë (~2h stop on the way)</li>
+<li>Continue drive south to Berat</li>
+<li><a href="https://mangalemihotel.com/" target="_blank" rel="noopener">Hotel Mangalemi</a> inside the white-house quarter</li>
+<li>Walk Kala castle in evening light</li>
+<li>Dinner overlooking Mangalem</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-04-drive-to-berat.jpg" alt="Sunday: Drive Berat → Gjirokastër (~2h)"></div>
+<div class="day-body">
+<h3>Sunday: Drive Berat → Gjirokastër (~2h)</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Onufri_National_Museum" target="_blank" rel="noopener">Onufri Museum</a> morning</li>
+<li>Lunch at Antipatrea</li>
+<li><a href="https://hotelcajupi.com/" target="_blank" rel="noopener">Hotel Cajupi</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-05-drive-berat-gjirokastër.jpg" alt="Monday: Explore Gjirokastër"></div>
+<div class="day-body">
+<h3>Monday: Explore Gjirokastër</h3>
+<ul>
+<li>Castle and weapons museum</li>
+<li>Ethnographic Museum + Cold War Tunnel</li>
+<li>Qifqi (rice fritters) for lunch</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-06-explore-gjirokastër.jpg" alt="Tuesday: Drive to Sarandë (~1h)"></div>
+<div class="day-body">
+<h3>Tuesday: Drive to Sarandë (~1h)</h3>
+<ul>
+<li><a href="https://bougainvillebay.com/" target="_blank" rel="noopener">Hotel Bougainville Bay</a> or Demi</li>
+<li>Evening on the Corniche</li>
+<li>Sunset at <a href="https://en.wikipedia.org/wiki/L%C3%ABkur%C3%ABsi_Castle" target="_blank" rel="noopener">Lëkurësi Castle</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-07-drive-to-sarandë.jpg" alt="Wednesday: Butrint + Ksamil"></div>
+<div class="day-body">
+<h3>Wednesday: Butrint + Ksamil</h3>
+<ul>
+<li>UNESCO <a href="https://whc.unesco.org/en/list/570/" target="_blank" rel="noopener">Butrint</a> ruins morning</li>
+<li>Lunch on the lagoon</li>
+<li>Ksamil beach afternoon</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-08-butrint-ksamil.jpg" alt="Thursday: Ferry Sarandë → Corfu (~30min)"></div>
+<div class="day-body">
+<h3>Thursday: Ferry Sarandë → Corfu (~30min)</h3>
+<ul>
+<li>Day-trip or overnight on Corfu (recommend overnight for less rushed pace)</li>
+<li>Corfu Old Town: Liston, Spianada, Old Fortress</li>
+<li>Dinner at Klimataria Bellos</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-09-ksamil-islands-swim.jpg" alt="Friday: Corfu — Achilleion + Paleokastritsa"></div>
+<div class="day-body">
+<h3>Friday: Corfu — Achilleion + Paleokastritsa</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Achilleion_(Corfu)" target="_blank" rel="noopener">Achilleion Palace</a> (Sissi's villa)</li>
+<li><a href="https://en.wikipedia.org/wiki/Paleokastritsa" target="_blank" rel="noopener">Paleokastritsa</a> cove + monastery viewpoint</li>
+<li>Late ferry back to Sarandë</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-10-drive-riviera-north.jpg" alt="Saturday: Drive Riviera north (~3h)"></div>
+<div class="day-body">
+<h3>Saturday: Drive Riviera north (~3h)</h3>
+<ul>
+<li>Stops at Lukovë and Borsh</li>
+<li>Beach lunch</li>
+<li><a href="https://luxurydhermihotel.al/" target="_blank" rel="noopener">Hotel Luxury Dhërmi</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-11-dhërmi-beach-day.jpg" alt="Sunday: Dhërmi beach day"></div>
+<div class="day-body">
+<h3>Sunday: Dhërmi beach day</h3>
+<ul>
+<li>Drymades Beach loungers</li>
+<li>Havana Beach Club</li>
+<li>Seafood at Sea Brothers</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-12-drive-llogara-pass-tirana.jpg" alt="Monday: Drive Llogara Pass → Tirana (~4h)"></div>
+<div class="day-body">
+<h3>Monday: Drive Llogara Pass → Tirana (~4h)</h3>
+<ul>
+<li>Panorama stop on the pass</li>
+<li>Drive via Vlorë</li>
+<li>Back at <a href="https://hotelplazatirana.com/" target="_blank" rel="noopener">Hotel Plaza Tirana</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/albania/day-13-fly-home-from-tirana.jpg" alt="Tuesday: Fly home from Tirana"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Tirana</h3>
+<ul>
+<li>Coffee at Komiteti</li>
+<li>Afternoon flight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="georgia" data-months="May,Jun,Jul,Aug,Sep,Oct" data-themes="culture,food,nature,adventure" data-region="europe">
+<div class="hero">
+<img src="photos/georgia/overview.jpg" alt="Georgia hero">
+<div class="hero-title"><h2>Georgia</h2></div>
+</div>
+<div class="intro">
+<p><strong>Georgia (the country)</strong></p>
+<p><em>Caucasus food, wine, and mountain villages. Tbilisi old town, <a href="https://en.wikipedia.org/wiki/Gergeti_Trinity_Church" target="_blank" rel="noopener">Gergeti Trinity Church</a> under Mt. Kazbek, Kakheti vineyards, <a href="https://en.wikipedia.org/wiki/David_Gareja_monastery_complex" target="_blank" rel="noopener">Davit Gareja</a> desert monastery. ~75–85°F.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-01-fly-san-tbilisi-via-istanbul.jpg" alt="Thursday: Fly SAN → Tbilisi (~21h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Tbilisi (~21h)</h3>
+<ul>
+<li>United + Turkish Airlines</li>
+<li>Land Friday midday</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-02-arrive-tbilisi-sulfur-baths.jpg" alt="Friday: Arrive Tbilisi + sulfur baths"></div>
+<div class="day-body">
+<h3>Friday: Arrive Tbilisi + sulfur baths</h3>
+<ul>
+<li><a href="https://stambahotel.com/" target="_blank" rel="noopener">Stamba Hotel</a> or <a href="https://roomshotels.com/tbilisi/" target="_blank" rel="noopener">Rooms Tbilisi</a></li>
+<li>Sulfur bath at <a href="https://chreliabano.com/" target="_blank" rel="noopener">Chreli Abano</a></li>
+<li>Dinner at <a href="https://shavilomi.ge/" target="_blank" rel="noopener">Shavi Lomi</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-03-explore-old-tbilisi.jpg" alt="Saturday: Explore old Tbilisi"></div>
+<div class="day-body">
+<h3>Saturday: Explore old Tbilisi</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Narikala" target="_blank" rel="noopener">Narikala</a> fortress cable car</li>
+<li>Mother of Georgia statue</li>
+<li>Mtatsminda funicular at sunset</li>
+<li>Khinkali at Zakhar Zakharich</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-04-tbilisi-viewpoints-supra.jpg" alt="Sunday: Davit Gareja monastery day trip"></div>
+<div class="day-body">
+<h3>Sunday: Davit Gareja monastery day trip</h3>
+<ul>
+<li>~2h drive each way to the Azerbaijan border</li>
+<li>6th-century cave monastery cut into the cliffs</li>
+<li>Semi-desert landscape, dramatic and underrated</li>
+<li>Supra (feast) at Azarphesha back in Tbilisi</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-05-drive-to-kazbegi.jpg" alt="Monday: Drive to Kazbegi (~3h) + Gergeti Trinity hike"></div>
+<div class="day-body">
+<h3>Monday: Drive to Kazbegi (~3h) + Gergeti Trinity hike</h3>
+<ul>
+<li>Jvari Pass scenic drive</li>
+<li>Check in at <a href="https://roomshotels.com/kazbegi/" target="_blank" rel="noopener">Rooms Hotel Kazbegi</a></li>
+<li>Hike to <a href="https://en.wikipedia.org/wiki/Gergeti_Trinity_Church" target="_blank" rel="noopener">Gergeti Trinity Church</a> (~4mi RT, ~700m / 2,300ft elevation gain, 4–5h <strong>strenuous</strong>)</li>
+<li><em>Alternative if not feeling the hike: 4WD up the back road in ~30 min</em></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-06-truso-valley-walk.jpg" alt="Tuesday: Truso Valley walk"></div>
+<div class="day-body">
+<h3>Tuesday: Truso Valley walk</h3>
+<ul>
+<li>Gentle valley walk through ruined towers and mineral springs</li>
+<li><em>Permit required at the border police checkpoint (free, on arrival) — this is a Russian border zone</em></li>
+<li>OR short Juta hike for higher Caucasus</li>
+<li>Lunch at Khevsuri</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-07-drive-to-kakheti-via-mtskheta.jpg" alt="Wednesday: Drive to Kakheti via Mtskheta (~5h)"></div>
+<div class="day-body">
+<h3>Wednesday: Drive to Kakheti via Mtskheta (~5h)</h3>
+<ul>
+<li>Jvari Monastery + Svetitskhoveli</li>
+<li>Continue to Sighnaghi</li>
+<li><a href="https://www.pheasantstears.com/" target="_blank" rel="noopener">Pheasant's Tears</a> for dinner</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-08-kakheti-wine-country.jpg" alt="Thursday: Kakheti wine country"></div>
+<div class="day-body">
+<h3>Thursday: Kakheti wine country</h3>
+<ul>
+<li>Family marani in Telavi</li>
+<li>Alaverdi Monastery</li>
+<li>Lunch at Shumi</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-09-more-kakheti-drive-to-tbilisi.jpg" alt="Friday: More Kakheti, drive to Tbilisi (~2h)"></div>
+<div class="day-body">
+<h3>Friday: More Kakheti, drive to Tbilisi (~2h)</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bodbe_Monastery" target="_blank" rel="noopener">Bodbe Monastery</a> morning</li>
+<li>Twins Wine Cellar</li>
+<li>Drive back to Tbilisi</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-10-fly-to-batumi.jpg" alt="Saturday: Fly to Batumi (~1h)"></div>
+<div class="day-body">
+<h3>Saturday: Fly to Batumi (~1h)</h3>
+<ul>
+<li><a href="https://www.hilton.com/en/hotels/bustlhi-hilton-batumi/" target="_blank" rel="noopener">Hilton Batumi</a></li>
+<li>Evening on the Boulevard</li>
+<li>Ali &amp; Nino sculpture at sunset</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-11-batumi-gardens-beach.jpg" alt="Sunday: Batumi gardens + beach"></div>
+<div class="day-body">
+<h3>Sunday: Batumi gardens + beach</h3>
+<ul>
+<li>Botanical Gardens loop (~3mi, 9km north of city)</li>
+<li>Beach at Sheraton</li>
+<li>Khachapuri Acharuli for dinner</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-12-fly-back-to-tbilisi.jpg" alt="Monday: Fly back to Tbilisi"></div>
+<div class="day-body">
+<h3>Monday: Fly back to Tbilisi</h3>
+<ul>
+<li>Fabrika district</li>
+<li>Last khinkali at Sakhli #11</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/georgia/day-13-fly-home-from-tbilisi.jpg" alt="Tuesday: Fly home from Tbilisi"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Tbilisi</h3>
+<ul>
+<li>Carpet/ceramics at Caravan</li>
+<li>Lunch at Café Stamba</li>
+<li>Evening flight</li>
+</ul>
+<p class="note"><em>Alternative finale: Svaneti (Mestia + Ushguli) instead of Batumi. Most dramatic mountain landscape in the country, but logistically harder — weather-dependent Mestia flight or 12h drive.</em></p>
+</div>
+</article>
+</section>
+<section class="destination" id="argentina" data-months="Mar,Apr,May,Sep,Oct,Nov" data-themes="food,nature,city,adventure" data-region="latin-america">
+<div class="hero">
+<img src="photos/argentina/overview.jpg" alt="Argentina hero">
+<div class="hero-title"><h2>Argentina</h2></div>
+</div>
+<div class="intro">
+<p><strong>Argentina</strong></p>
+<p><em>Southern winter — mild, not cold. Buenos Aires steaks and tango, Mendoza wine country, subtropical Iguazú Falls (~75°F). BA ~55–60°F. Mendoza vines are bare in July (no green canopy) but the Andes backdrop is dramatic.</em></p>
+<p><strong>🚨 Brazil visa required.</strong> As of April 2025, US citizens need an eVisa for Brazil. Day 12 (Brazilian-side falls) requires it. <strong>Apply weeks in advance.</strong> If the visa won't process in time, drop the Brazilian-side day and add a helicopter tour over the falls or a return Devil's Throat morning visit.</p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-01-fly-san-buenos-aires-via-dallas.jpg" alt="Thursday: Fly SAN → Buenos Aires (~14h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Buenos Aires (~14h)</h3>
+<ul>
+<li>American Airlines</li>
+<li>Land Friday morning</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-02-arrive-palermo.jpg" alt="Friday: Arrive Palermo"></div>
+<div class="day-body">
+<h3>Friday: Arrive Palermo</h3>
+<ul>
+<li><a href="https://www.faena.com/buenos-aires" target="_blank" rel="noopener">Faena</a> or <a href="https://homebuenosaires.com/" target="_blank" rel="noopener">Home Hotel Palermo</a></li>
+<li><a href="https://cafetortoni.com.ar/" target="_blank" rel="noopener">Café Tortoni</a> medialunas</li>
+<li>Easy Bosques de Palermo stroll</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-03-buenos-aires-highlights.jpg" alt="Saturday: Buenos Aires highlights"></div>
+<div class="day-body">
+<h3>Saturday: Buenos Aires highlights</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/La_Recoleta_Cemetery" target="_blank" rel="noopener">Recoleta Cemetery</a> (Evita's tomb)</li>
+<li><a href="https://www.malba.org.ar/" target="_blank" rel="noopener">MALBA</a> modern art museum</li>
+<li><a href="https://parrilladonjulio.com/" target="_blank" rel="noopener">Don Julio</a> for parrilla (book ahead)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-04-san-telmo-sunday-tango.jpg" alt="Sunday: San Telmo Sunday + tango"></div>
+<div class="day-body">
+<h3>Sunday: San Telmo Sunday + tango</h3>
+<ul>
+<li>San Telmo Sunday market</li>
+<li>Mate tasting</li>
+<li>Milonga at La Catedral</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-05-tigre-delta-day-trip.jpg" alt="Monday: Tigre Delta day trip"></div>
+<div class="day-body">
+<h3>Monday: Tigre Delta day trip</h3>
+<ul>
+<li>Train Retiro → <a href="https://en.wikipedia.org/wiki/Tigre,_Buenos_Aires" target="_blank" rel="noopener">Tigre</a></li>
+<li>Wooden launch through the delta</li>
+<li>Lunch at El Gato Blanco</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-06-fly-to-mendoza.jpg" alt="Tuesday: Fly to Mendoza (~2h)"></div>
+<div class="day-body">
+<h3>Tuesday: Fly to Mendoza (~2h)</h3>
+<ul>
+<li><a href="https://www.cavaswinelodge.com/" target="_blank" rel="noopener">Cavas Wine Lodge</a> or <a href="https://entrecielos.com/" target="_blank" rel="noopener">Entre Cielos</a></li>
+<li>Welcome dinner at the lodge</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-07-maipú-wine-region.jpg" alt="Wednesday: Maipú wine region"></div>
+<div class="day-body">
+<h3>Wednesday: Maipú wine region</h3>
+<ul>
+<li><a href="https://www.familiazuccardi.com/en/" target="_blank" rel="noopener">Familia Zuccardi</a> + <a href="https://trapiche.com.ar/" target="_blank" rel="noopener">Trapiche</a></li>
+<li>Asado lunch at Casa El Enemigo</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-08-uco-valley-wines.jpg" alt="Thursday: Uco Valley wines"></div>
+<div class="day-body">
+<h3>Thursday: Uco Valley wines</h3>
+<ul>
+<li><a href="https://www.bodegasalentein.com/en/" target="_blank" rel="noopener">Salentein</a> and <a href="https://andeluna.com/en/" target="_blank" rel="noopener">Andeluna</a></li>
+<li>Andean foothill views</li>
+<li>Long lunch at <a href="https://vinesresortandspa.com/" target="_blank" rel="noopener">The Vines</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-09-cacheuta-hot-springs.jpg" alt="Friday: Andean horseback ride"></div>
+<div class="day-body">
+<h3>Friday: Andean horseback ride</h3>
+<ul>
+<li>Half-day Andes horseback trail with gaucho guide</li>
+<li>Asado lunch at the estancia</li>
+<li>Sunset back at the wine lodge</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-10-fly-to-iguazú.jpg" alt="Saturday: Fly to Iguazú (via BA)"></div>
+<div class="day-body">
+<h3>Saturday: Fly to Iguazú (via BA)</h3>
+<ul>
+<li>Aerolíneas Argentinas</li>
+<li><a href="https://www.melia.com/en/hotels/argentina/iguazu/gran-melia-iguazu/" target="_blank" rel="noopener">Gran Meliá Iguazú</a></li>
+<li>Evening on Argentine side</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-11-argentine-side-falls.jpg" alt="Sunday: Argentine side falls"></div>
+<div class="day-body">
+<h3>Sunday: Argentine side falls</h3>
+<ul>
+<li>Devil's Throat boardwalk</li>
+<li>Lower circuit + jungle train</li>
+<li>Coatis everywhere</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-12-brazilian-side-fly-to-ba.jpg" alt="Monday: Brazilian side, fly to BA"></div>
+<div class="day-body">
+<h3>Monday: Brazilian side, fly to BA</h3>
+<ul>
+<li>Cross the border (visa required — see top)</li>
+<li><a href="https://www.belmond.com/hotels/south-america/brazil/iguassu-falls/belmond-hotel-das-cataratas/" target="_blank" rel="noopener">Belmond Hotel das Cataratas</a> lunch</li>
+<li>Evening flight to BA</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-13-fly-home-from-ba.jpg" alt="Tuesday: Fly home from BA (~14h)"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from BA (~14h)</h3>
+<ul>
+<li>Coffee at LAB Tostadores</li>
+<li>Empanadas to-go</li>
+<li>American Airlines overnight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="indonesia" data-months="May,Jun,Jul,Aug,Sep" data-themes="beach,wildlife,adventure,culture" data-region="asia-pacific">
+<div class="hero">
+<img src="photos/indonesia/overview.jpg" alt="Indonesia hero">
+<div class="hero-title"><h2>Indonesia</h2></div>
+</div>
+<div class="intro">
+<p><strong>Indonesia</strong></p>
+<p><em>Bali in dry season plus a <a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> liveaboard. Ubud rice terraces, Uluwatu cliffs, snorkeling and dragons in the Komodo archipelago. ~80–85°F. <strong>Peak season warning:</strong> Bali in July is busy — book restaurants (<a href="https://locavore.co.id/" target="_blank" rel="noopener">Locavore</a>, <a href="https://mamasanbali.com/" target="_blank" rel="noopener">Mama San</a>) months ahead.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-01-fly-san-bali-via-tokyo.jpg" alt="Thursday: Fly SAN → Bali (~24h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Bali (~24h)</h3>
+<ul>
+<li>ANA or Singapore Airlines</li>
+<li>Lose Friday to time zones</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-02-land-bali-transfer-to-ubud.jpg" alt="Friday: Land Bali, transfer to Ubud"></div>
+<div class="day-body">
+<h3>Friday: Land Bali, transfer to Ubud</h3>
+<ul>
+<li>Land Denpasar evening</li>
+<li>Drive to Ubud (~1.5h)</li>
+<li><a href="https://www.comohotels.com/en/umaubud" target="_blank" rel="noopener">Como Uma Ubud</a> or <a href="https://www.ritzcarlton.com/en/hotels/dpsrz-mandapa-a-ritz-carlton-reserve/" target="_blank" rel="noopener">Mandapa</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-03-explore-ubud.jpg" alt="Saturday: Explore Ubud"></div>
+<div class="day-body">
+<h3>Saturday: Explore Ubud</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tegallalang_rice_terraces" target="_blank" rel="noopener">Tegallalang</a> rice terraces walk</li>
+<li>Sacred Monkey Forest</li>
+<li>Dinner at <a href="https://locavore.co.id/" target="_blank" rel="noopener">Locavore</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-04-tirta-empul-cooking-class.jpg" alt="Sunday: Tirta Empul + cooking class"></div>
+<div class="day-body">
+<h3>Sunday: Tirta Empul + cooking class</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tirta_Empul_temple" target="_blank" rel="noopener">Tirta Empul</a> holy-spring bathing</li>
+<li>Balinese cooking class with market visit</li>
+<li>Evening Kecak fire dance</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-05-drive-to-uluwatu.jpg" alt="Monday: Drive to Uluwatu (~2h)"></div>
+<div class="day-body">
+<h3>Monday: Drive to Uluwatu (~2h)</h3>
+<ul>
+<li><a href="https://www.bulgarihotels.com/bali" target="_blank" rel="noopener">Bulgari Resort</a> or <a href="https://www.sixsenses.com/en/resorts/uluwatu" target="_blank" rel="noopener">Six Senses</a></li>
+<li><a href="https://singlefinbali.com/" target="_blank" rel="noopener">Single Fin</a> sunset cocktails</li>
+<li><a href="https://en.wikipedia.org/wiki/Uluwatu_Temple" target="_blank" rel="noopener">Pura Luhur Uluwatu</a> cliff temple</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-06-uluwatu-beach-day.jpg" alt="Tuesday: Uluwatu beach day"></div>
+<div class="day-body">
+<h3>Tuesday: Uluwatu beach day</h3>
+<ul>
+<li>Padang Padang or Bingin</li>
+<li>Lunch at Suka Espresso</li>
+<li>Resort spa</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-07-fly-to-komodo.jpg" alt="Wednesday: Fly to Komodo (~1.5h) — board liveaboard"></div>
+<div class="day-body">
+<h3>Wednesday: Fly to Komodo (~1.5h) — board liveaboard</h3>
+<ul>
+<li>Denpasar → Labuan Bajo flight</li>
+<li>Board <a href="https://www.plataranliveaboard.com/" target="_blank" rel="noopener">Plataran</a> or Aliikai (4-night charter)</li>
+<li>Sunset at Kalong Island bat colony</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-08-liveaboard-padar-pink-beach.jpg" alt="Thursday: Liveaboard — Padar + Pink Beach"></div>
+<div class="day-body">
+<h3>Thursday: Liveaboard — Padar + Pink Beach</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Padar_Island" target="_blank" rel="noopener">Padar Island</a> short hike (3-cove viewpoint)</li>
+<li>Pink Beach snorkel</li>
+<li>Manta Point if currents allow (often skipped if conditions are unsafe — flag this with the operator)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-09-liveaboard-komodo-dragons.jpg" alt="Friday: Liveaboard — Komodo dragons"></div>
+<div class="day-body">
+<h3>Friday: Liveaboard — Komodo dragons</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> Island guided dragon trek (~1mi)</li>
+<li>Snorkel at Taka Makassar sandbar</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-10-liveaboard-rinca-return.jpg" alt="Saturday: Liveaboard — Rinca Island"></div>
+<div class="day-body">
+<h3>Saturday: Liveaboard — Rinca Island</h3>
+<ul>
+<li>Rinca Island dragons (often better wildlife viewing than <a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> Island)</li>
+<li>Sebayur reef snorkel</li>
+<li>Sunset at anchor</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-11-fly-back-to-bali.jpg" alt="Sunday: Liveaboard return → fly to Bali"></div>
+<div class="day-body">
+<h3>Sunday: Liveaboard return → fly to Bali</h3>
+<ul>
+<li>Morning snorkel at Pulau Sabolan</li>
+<li>Disembark Labuan Bajo afternoon</li>
+<li>Fly LBJ → DPS, drive Seminyak</li>
+<li><a href="https://mamasanbali.com/" target="_blank" rel="noopener">Mama San</a> for dinner</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-12-final-bali-day.jpg" alt="Monday: Final Bali day"></div>
+<div class="day-body">
+<h3>Monday: Final Bali day</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tanah_Lot" target="_blank" rel="noopener">Tanah Lot</a> temple — visit <strong>early morning</strong>, before the sunset crowds (or skip for Pura Ulun Danu Beratan, the lake temple)</li>
+<li>Spa afternoon</li>
+<li>Resort sunset</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-13-fly-home-from-bali.jpg" alt="Tuesday: Fly home from Bali (~24h)"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Bali (~24h)</h3>
+<ul>
+<li>Spa morning</li>
+<li>Late checkout</li>
+<li>Overnight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="baltics" data-months="Jun,Jul,Aug" data-themes="culture,history,city" data-region="europe">
+<div class="hero">
+<img src="photos/baltics/overview.jpg" alt="Baltic Capitals hero">
+<div class="hero-title"><h2>Baltic Capitals</h2></div>
+</div>
+<div class="intro">
+<p><strong>Baltic Capitals</strong></p>
+<p><em>Three medieval old towns in a row — Tallinn, Riga, Vilnius. Sea breezes at the <a href="https://en.wikipedia.org/wiki/Curonian_Spit" target="_blank" rel="noopener">Curonian Spit</a>, late-night sunsets (sun until ~10:30 pm). ~70–75°F. Cruise daytrippers pack the old towns midday — eat early or late.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-01-fly-san-tallinn.jpg" alt="Thursday: Fly SAN → Tallinn (~16h)"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Tallinn (~16h)</h3>
+<ul>
+<li>United + Finnair</li>
+<li>Land Friday afternoon</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-02-arrive-tallinn.jpg" alt="Friday: Arrive Tallinn"></div>
+<div class="day-body">
+<h3>Friday: Arrive Tallinn</h3>
+<ul>
+<li><a href="https://hoteltelegraaf.com/" target="_blank" rel="noopener">Hotel Telegraaf</a> or <a href="https://www.schlossle-hotels.com/" target="_blank" rel="noopener">Schlössle</a></li>
+<li>Walk old town in long evening light</li>
+<li>Dinner at <a href="https://www.oldehansa.ee/" target="_blank" rel="noopener">Olde Hansa</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-03-toompea-old-town.jpg" alt="Saturday: Toompea + old town"></div>
+<div class="day-body">
+<h3>Saturday: Toompea + old town</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Toompea" target="_blank" rel="noopener">Toompea</a> viewpoints</li>
+<li>KGB Museum at Hotel Viru</li>
+<li>Telliskivi creative district</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-04-lahemaa-national-park.jpg" alt="Sunday: Lahemaa National Park"></div>
+<div class="day-body">
+<h3>Sunday: Lahemaa National Park</h3>
+<ul>
+<li>Private driver (~1h each way)</li>
+<li>Viru Bog boardwalk</li>
+<li>Altja and Käsmu fishing villages</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-05-patarei-kadriorg.jpg" alt="Monday: Patarei + Kadriorg"></div>
+<div class="day-body">
+<h3>Monday: Patarei + Kadriorg</h3>
+<ul>
+<li>Patarei Sea Fortress (former Soviet prison)</li>
+<li>KUMU art museum in Kadriorg Park</li>
+<li>Sauna at Iglupark</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-06-bus-to-riga.jpg" alt="Tuesday: Bus to Riga (~4.5h)"></div>
+<div class="day-body">
+<h3>Tuesday: Bus to Riga (~4.5h)</h3>
+<ul>
+<li><a href="https://luxexpress.eu/" target="_blank" rel="noopener">LUX Express</a></li>
+<li><a href="https://all.accor.com/hotel/B6P1/index.en.shtml" target="_blank" rel="noopener">Pullman Riga</a> or <a href="https://www.grandpoet.lv/" target="_blank" rel="noopener">Grand Poet</a></li>
+<li>Evening at <a href="https://en.wikipedia.org/wiki/House_of_the_Blackheads_(Riga)" target="_blank" rel="noopener">House of Blackheads</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-07-riga-art-nouveau.jpg" alt="Wednesday: Riga Art Nouveau"></div>
+<div class="day-body">
+<h3>Wednesday: Riga Art Nouveau</h3>
+<ul>
+<li>Alberta iela facades</li>
+<li>Central Market in old zeppelin hangars</li>
+<li>Lunch at Milda</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-08-sigulda-cesis.jpg" alt="Thursday: Sigulda + Cēsis"></div>
+<div class="day-body">
+<h3>Thursday: Sigulda + Cēsis</h3>
+<ul>
+<li>Train ~1h to Sigulda</li>
+<li><a href="https://en.wikipedia.org/wiki/Turaida_Castle" target="_blank" rel="noopener">Turaida Castle</a> + Gauja gondola</li>
+<li>30 min on to <a href="https://en.wikipedia.org/wiki/C%C4%93sis_Castle" target="_blank" rel="noopener">Cēsis</a> castle ruins</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-09-riga-vilnius-hill-of-crosses.jpg" alt="Friday: Riga → Vilnius via Hill of Crosses"></div>
+<div class="day-body">
+<h3>Friday: Riga → Vilnius via Hill of Crosses</h3>
+<ul>
+<li><a href="https://luxexpress.eu/" target="_blank" rel="noopener">LUX Express</a>, ~6h with stop</li>
+<li><a href="https://en.wikipedia.org/wiki/Hill_of_Crosses" target="_blank" rel="noopener">Hill of Crosses</a> at Šiauliai</li>
+<li><a href="https://www.pacai.lt/" target="_blank" rel="noopener">Hotel Pacai</a> in Vilnius</li>
+<li>Evening in Užupis</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-10-old-vilnius.jpg" alt="Saturday: Old Vilnius"></div>
+<div class="day-body">
+<h3>Saturday: Old Vilnius</h3>
+<ul>
+<li>Cathedral Square + Gediminas Tower</li>
+<li>Bernardinai Gardens</li>
+<li>Dinner at <a href="https://www.lokys.lt/" target="_blank" rel="noopener">Lokys</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-11-trakai-castle.jpg" alt="Sunday: Trakai Castle"></div>
+<div class="day-body">
+<h3>Sunday: Trakai Castle</h3>
+<ul>
+<li>30 min drive or train</li>
+<li>Lake-island brick castle</li>
+<li>Kibinai pastries at <a href="https://kybynlar.lt/" target="_blank" rel="noopener">Kybynlar</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-12-curonian-spit.jpg" alt="Monday: Curonian Spit"></div>
+<div class="day-body">
+<h3>Monday: Curonian Spit</h3>
+<ul>
+<li>Vilnius → Klaipėda (~3.5h), ferry, drive to Nida</li>
+<li>Parnidis Dune + Thomas Mann's summer house</li>
+<li><em>Could overnight in Nida if you'd rather slow down</em></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/baltics/day-13-fly-home.jpg" alt="Tuesday: Fly home from Vilnius"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Vilnius</h3>
+<ul>
+<li>Last cafés like Crooked House</li>
+<li>Afternoon flight</li>
+</ul>
+</div>
+</article>
+</section>
+<section class="destination" id="portugal" data-months="Apr,May,Jun,Sep,Oct" data-themes="culture,food,beach,city" data-region="europe">
+<div class="hero">
+<img src="photos/portugal/overview.jpg" alt="Portugal hero">
+<div class="hero-title"><h2>Portugal</h2></div>
+</div>
+<div class="intro">
+<p><strong>Portugal</strong></p>
+<p><em>Lisbon old neighborhoods + Sintra day trip + a volcanic stop in the Azores + Porto and the Douro. 8 days, mostly walkable. ~70–80°F.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-01-sunday-explore-lisbon-alfama.jpg" alt="Sunday: Lisbon — Alfama"></div>
+<div class="day-body">
+<h3>Sunday: Lisbon — Alfama</h3>
+<ul>
+<li><a href="https://memmoalfama.com/" target="_blank" rel="noopener">Memmo Alfama</a> (terrace pool with Tagus view)</li>
+<li><a href="https://castelodesaojorge.pt/en/" target="_blank" rel="noopener">Castelo de São Jorge</a> for the city panorama</li>
+<li>Tram 28 from Martim Moniz</li>
+<li>Seafood dinner at <a href="https://www.cervejariaramiro.com/" target="_blank" rel="noopener">Cervejaria Ramiro</a></li>
+<li>Ginjinha nightcap at <a href="https://ginjinhaespinheira.com/" target="_blank" rel="noopener">A Ginjinha</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-02-monday-explore-lisbon-belem.jpg" alt="Monday: Lisbon — Belém"></div>
+<div class="day-body">
+<h3>Monday: Lisbon — Belém</h3>
+<ul>
+<li><a href="https://www.patrimoniocultural.gov.pt/en/museus-e-monumentos/rede-portuguesa/m/mosteiro-dos-jeronimos/" target="_blank" rel="noopener">Jerónimos Monastery</a> (Manueline cloister)</li>
+<li><a href="https://www.patrimoniocultural.gov.pt/en/museus-e-monumentos/rede-portuguesa/t/torre-de-belem/" target="_blank" rel="noopener">Belém Tower</a></li>
+<li><a href="https://pasteisdebelem.pt/en/" target="_blank" rel="noopener">Pastéis de Belém</a> — the original since 1837</li>
+<li><a href="https://www.maat.pt/en" target="_blank" rel="noopener">MAAT</a> museum on the waterfront</li>
+<li>Dinner at <a href="https://www.bairrodoavillez.pt/" target="_blank" rel="noopener">Bairro do Avillez</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-03-tuesday-day-trip-to-sintra.jpg" alt="Tuesday: Sintra day trip"></div>
+<div class="day-body">
+<h3>Tuesday: Sintra day trip</h3>
+<ul>
+<li>Train to Sintra (~45 min)</li>
+<li><a href="https://www.parquesdesintra.pt/en/parks-monuments/park-and-national-palace-of-pena/" target="_blank" rel="noopener">Pena Palace</a> (the colorful one)</li>
+<li><a href="https://www.regaleira.pt/en/" target="_blank" rel="noopener">Quinta da Regaleira</a> initiation well</li>
+<li><a href="https://www.parquesdesintra.pt/en/parks-monuments/castle-of-the-moors/" target="_blank" rel="noopener">Castelo dos Mouros</a> if time allows</li>
+<li>Lunch in old-town Sintra</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-04-tuesday-night-flight-to-ponta-delgada.jpg" alt="Tuesday night: Fly to Ponta Delgada"></div>
+<div class="day-body">
+<h3>Tuesday night: Fly to Ponta Delgada</h3>
+<ul>
+<li>Evening flight Lisbon → Ponta Delgada (~2.5h)</li>
+<li>Late check-in, easy night</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-05-wednesday-sete-cidades-terra-nostra.jpg" alt="Wednesday: Sete Cidades + Furnas"></div>
+<div class="day-body">
+<h3>Wednesday: Sete Cidades + Furnas</h3>
+<ul>
+<li><a href="https://www.furnasboutiquehotel.com/" target="_blank" rel="noopener">Furnas Boutique Hotel</a> (or <a href="https://octanthotels.com/octant-furnas/" target="_blank" rel="noopener">Octant Furnas</a>)</li>
+<li>Vista do Rei viewpoint over <a href="https://en.wikipedia.org/wiki/Sete_Cidades_(Azores)" target="_blank" rel="noopener">Sete Cidades</a> twin lakes</li>
+<li>Kayak or hike between the green and blue lakes</li>
+<li>Soak in the iron-water thermal pool at <a href="https://www.terranostragarden.com/" target="_blank" rel="noopener">Terra Nostra Garden</a></li>
+<li>Cozido nas Furnas (stew cooked in the volcanic ground) at <a href="https://www.tonys-restaurante.com/" target="_blank" rel="noopener">Tony's</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-06-thursday-lagoa-do-fogo-cadeira-velha.jpg" alt="Thursday: Lagoa do Fogo + Caldeira Velha"></div>
+<div class="day-body">
+<h3>Thursday: Lagoa do Fogo + Caldeira Velha</h3>
+<ul>
+<li>Hike down to <a href="https://en.wikipedia.org/wiki/Lagoa_do_Fogo" target="_blank" rel="noopener">Lagoa do Fogo</a> crater lake (~2h round trip)</li>
+<li>Soak at <a href="https://parquesnaturais.azores.gov.pt/en/saomiguel/o-que-fazer/centros-ambientais/centro-de-interpretacao-da-caldeira-velha" target="_blank" rel="noopener">Caldeira Velha</a> thermal waterfall pools</li>
+<li>Arruda pineapple plantation tour on the way back</li>
+<li>Optional: whale + dolphin trip from Ponta Delgada with <a href="https://www.futurismo.pt/" target="_blank" rel="noopener">Futurismo</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-07-friday-flight-to-porto.jpg" alt="Friday: Fly to Porto"></div>
+<div class="day-body">
+<h3>Friday: Fly to Porto</h3>
+<ul>
+<li>Flight Ponta Delgada → Porto (~2.5h)</li>
+<li><a href="https://www.the-yeatman-hotel.com/" target="_blank" rel="noopener">The Yeatman</a> (Michelin-star, port-themed, river views) or <a href="https://www.maison-albar-hotels-le-monumental-palace.com/en/" target="_blank" rel="noopener">Maison Albar Le Monumental Palace</a></li>
+<li>Walk <a href="https://en.wikipedia.org/wiki/Ribeira,_Porto" target="_blank" rel="noopener">Ribeira</a> waterfront and cross <a href="https://en.wikipedia.org/wiki/Dom_Lu%C3%ADs_I_Bridge" target="_blank" rel="noopener">Dom Luís I Bridge</a> at sunset</li>
+<li><a href="https://www.livrarialello.pt/en/" target="_blank" rel="noopener">Livraria Lello</a> bookshop</li>
+<li>Dinner at <a href="https://cantinhodoavillez.pt/" target="_blank" rel="noopener">Cantinho do Avillez</a> or <a href="https://www.ruipaula.com/dop" target="_blank" rel="noopener">DOP</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/portugal/day-08-saturday-douro-river-cruise.jpg" alt="Saturday: Douro Valley"></div>
+<div class="day-body">
+<h3>Saturday: Douro Valley</h3>
+<ul>
+<li>Drive or train to Pinhão (~2h)</li>
+<li>Rabelo boat cruise on the Douro</li>
+<li>Lunch at <a href="https://www.ruipaula.com/doc" target="_blank" rel="noopener">DOC</a> by the river</li>
+<li>Tasting at <a href="https://www.quintadocrasto.pt/en/" target="_blank" rel="noopener">Quinta do Crasto</a> or <a href="https://quintanova.com/en/" target="_blank" rel="noopener">Quinta Nova</a></li>
+<li>Back to Porto, last port at <a href="https://www.vinologia.pt/" target="_blank" rel="noopener">Vinologia</a></li>
+</ul>
+</div>
+</article>
+</section>
+</main>
+<footer class="site">
+Source: <code>Itineraries.md</code>. Photos in <code>photos/</code>. Regenerate with <code>python3 generate.py</code>.
+</footer>
+<script>
+(function() {
+  // Lightbox
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('img');
+  const closeLb = () => { overlay.classList.remove('active'); lbImg.src = ''; };
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) closeLb();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  document.querySelectorAll('.day .photo:not(.placeholder) img, .hero img').forEach(el => {
+    el.style.cursor = 'zoom-in';
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      lbImg.src = el.src;
+      lbImg.alt = el.alt;
+      overlay.classList.add('active');
+    });
+  });
+
+  // Filters
+  const monthSel = document.getElementById('filter-month');
+  if (!monthSel) return;
+  const themeBoxes = document.querySelectorAll('input[data-filter="theme"]');
+  const regionBoxes = document.querySelectorAll('input[data-filter="region"]');
+  const sections = document.querySelectorAll('section.destination');
+  const navLinks = document.querySelectorAll('nav.dest-nav a');
+  const status = document.getElementById('filter-status');
+  const clearBtn = document.getElementById('filter-clear');
+
+  function getChecked(boxes) {
+    return Array.from(boxes).filter(b => b.checked).map(b => b.value);
+  }
+
+  function applyFilters() {
+    const month = monthSel.value;
+    const themes = getChecked(themeBoxes);
+    const regions = getChecked(regionBoxes);
+    let visible = 0;
+    sections.forEach(sec => {
+      const months = (sec.dataset.months || '').split(',').filter(Boolean);
+      const secThemes = (sec.dataset.themes || '').split(',').filter(Boolean);
+      const region = sec.dataset.region || '';
+      let show = true;
+      if (month && !months.includes(month)) show = false;
+      if (show && themes.length && !themes.some(t => secThemes.includes(t))) show = false;
+      if (show && regions.length && !regions.includes(region)) show = false;
+      sec.classList.toggle('filtered-out', !show);
+      if (show) visible++;
+      const link = document.querySelector('nav.dest-nav a[href="#' + sec.id + '"]');
+      if (link) link.classList.toggle('filtered-out', !show);
+    });
+    const filtersActive = month || themes.length || regions.length;
+    if (!filtersActive) {
+      status.textContent = '';
+    } else if (visible === 0) {
+      status.textContent = 'No destinations match. Try fewer filters.';
+    } else {
+      status.textContent = `Showing ${visible} of ${sections.length} destinations.`;
+    }
+  }
+
+  monthSel.addEventListener('change', applyFilters);
+  themeBoxes.forEach(b => b.addEventListener('change', applyFilters));
+  regionBoxes.forEach(b => b.addEventListener('change', applyFilters));
+  clearBtn.addEventListener('click', () => {
+    monthSel.value = '';
+    themeBoxes.forEach(b => b.checked = false);
+    regionBoxes.forEach(b => b.checked = false);
+    applyFilters();
+  });
+})();
+</script>
+</body></html>
