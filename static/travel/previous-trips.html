@@ -290,7 +290,7 @@ footer.site {
 <span class="tag">Adventure</span>
 <span class="tag">Nature</span>
 </div>
-<div class="temp">20–40°F</div>
+<div class="temp" data-temps="{&quot;Jan&quot;: &quot;22\u201330\u00b0F&quot;, &quot;Feb&quot;: &quot;22\u201330\u00b0F&quot;, &quot;Mar&quot;: &quot;28\u201336\u00b0F&quot;, &quot;Apr&quot;: &quot;37\u201345\u00b0F&quot;, &quot;May&quot;: &quot;50\u201358\u00b0F&quot;, &quot;Jun&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Jul&quot;: &quot;62\u201370\u00b0F&quot;, &quot;Aug&quot;: &quot;60\u201368\u00b0F&quot;, &quot;Sep&quot;: &quot;50\u201358\u00b0F&quot;, &quot;Oct&quot;: &quot;39\u201347\u00b0F&quot;, &quot;Nov&quot;: &quot;29\u201337\u00b0F&quot;, &quot;Dec&quot;: &quot;22\u201330\u00b0F&quot;}" data-fallback="20–40°F">20–40°F</div>
 </div>
 </a></div>
 </div>
@@ -322,6 +322,17 @@ footer.site {
       if (show && regions.length && !regions.includes(region)) show = false;
       c.classList.toggle('filtered-out', !show);
       if (show) visible++;
+      // Update temp text based on selected month
+      const tempEl = c.querySelector('.temp');
+      if (tempEl) {
+        if (month) {
+          let temps = {};
+          try { temps = JSON.parse(tempEl.dataset.temps || '{}'); } catch(e) {}
+          tempEl.textContent = (temps[month] || tempEl.dataset.fallback || '') + (month ? ' in ' + month : '');
+        } else {
+          tempEl.textContent = tempEl.dataset.fallback || '';
+        }
+      }
     });
     const active = month || themes.length || regions.length;
     if (!active) status.textContent = '';
