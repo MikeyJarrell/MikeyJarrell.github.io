@@ -105,6 +105,14 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
   font-size: 1.4rem; font-weight: 600; letter-spacing: -0.005em;
 }
 .card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card .region-label {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+}
 .card .summary { color: var(--ink); font-size: 0.95rem; line-height: 1.45; }
 .card .stops { color: var(--muted); font-size: 0.82rem; }
 .card .stops strong { color: var(--ink); font-weight: 500; }
@@ -116,8 +124,11 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
   padding: 2px 8px; border-radius: 999px;
   background: rgba(184,85,45,0.08); color: var(--accent);
 }
-.card .meta .tag.region { background: rgba(28,28,28,0.06); color: var(--ink); }
-.card .meta .temp { color: var(--muted); margin-left: auto; padding: 2px 0; }
+.card .temp {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
 
 .card.filtered-out { display: none; }
 
@@ -255,14 +266,14 @@ footer.site {
 <div class="name-overlay">Norway</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Late-winter Norway — Oslo, fjord rail to Bergen, and the Arctic Circle.</div>
 <div class="stops"><strong>Stops:</strong> Oslo · Bergen · Tromsø · Alta</div>
 <div class="meta">
 <span class="tag">Adventure</span>
 <span class="tag">Nature</span>
-<span class="tag region">Europe</span>
-<span class="temp">20–40°F</span>
 </div>
+<div class="temp">20–40°F</div>
 </div>
 </a></div>
 </div>

@@ -105,6 +105,14 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
   font-size: 1.4rem; font-weight: 600; letter-spacing: -0.005em;
 }
 .card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card .region-label {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+}
 .card .summary { color: var(--ink); font-size: 0.95rem; line-height: 1.45; }
 .card .stops { color: var(--muted); font-size: 0.82rem; }
 .card .stops strong { color: var(--ink); font-weight: 500; }
@@ -116,8 +124,11 @@ main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
   padding: 2px 8px; border-radius: 999px;
   background: rgba(184,85,45,0.08); color: var(--accent);
 }
-.card .meta .tag.region { background: rgba(28,28,28,0.06); color: var(--ink); }
-.card .meta .temp { color: var(--muted); margin-left: auto; padding: 2px 0; }
+.card .temp {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
 
 .card.filtered-out { display: none; }
 
@@ -255,15 +266,15 @@ footer.site {
 <div class="name-overlay">Tanzania</div>
 </div>
 <div class="body">
+<h3 class="region-label">Africa</h3>
 <div class="summary">Big-5 game drives in the northern Serengeti, then an Indian Ocean recovery on Zanzibar.</div>
 <div class="stops"><strong>Stops:</strong> Arusha · Serengeti · Ngorongoro Crater · Stone Town · Kendwa</div>
 <div class="meta">
 <span class="tag">Wildlife</span>
 <span class="tag">Beach</span>
 <span class="tag">Adventure</span>
-<span class="tag region">Africa</span>
-<span class="temp">55–75°F, peak dry season</span>
 </div>
+<div class="temp">55–75°F, peak dry season</div>
 </div>
 </a></div>
 <div class="card" data-months="Jun,Jul,Aug" data-themes="nature,adventure" data-region="europe">
@@ -273,14 +284,14 @@ footer.site {
 <div class="name-overlay">Iceland</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">A clockwise Ring Road drive — waterfalls, glaciers, geothermal pools, and the highlands.</div>
 <div class="stops"><strong>Stops:</strong> Reykjavík · Vík · Höfn · Mývatn · Snæfellsnes · Landmannalaugar</div>
 <div class="meta">
 <span class="tag">Nature</span>
 <span class="tag">Adventure</span>
-<span class="tag region">Europe</span>
-<span class="temp">55–65°F, endless daylight</span>
 </div>
+<div class="temp">55–65°F, endless daylight</div>
 </div>
 </a></div>
 <div class="card" data-months="May,Jun,Jul,Aug,Sep" data-themes="nature,culture,beach" data-region="europe">
@@ -290,15 +301,15 @@ footer.site {
 <div class="name-overlay">Slovenia</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Alpine lakes, turquoise rivers, and an island finish on Hvar.</div>
 <div class="stops"><strong>Stops:</strong> Ljubljana · Lake Bled · Soča Valley · Piran · Hvar</div>
 <div class="meta">
 <span class="tag">Nature</span>
 <span class="tag">Culture</span>
 <span class="tag">Beach</span>
-<span class="tag region">Europe</span>
-<span class="temp">75–80°F</span>
 </div>
+<div class="temp">75–80°F</div>
 </div>
 </a></div>
 <div class="card" data-months="May,Jun,Jul,Aug,Sep" data-themes="beach,history,culture" data-region="europe">
@@ -308,15 +319,15 @@ footer.site {
 <div class="name-overlay">Albania</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Ottoman old towns, the Albanian Riviera, and a Corfu detour.</div>
 <div class="stops"><strong>Stops:</strong> Tirana · Berat · Gjirokastër · Sarandë · Corfu · Dhërmi</div>
 <div class="meta">
 <span class="tag">Beach</span>
 <span class="tag">History</span>
 <span class="tag">Culture</span>
-<span class="tag region">Europe</span>
-<span class="temp">80–85°F coast, 95–100°F inland</span>
 </div>
+<div class="temp">80–85°F coast, 95–100°F inland</div>
 </div>
 </a></div>
 <div class="card" data-months="May,Jun,Jul,Aug,Sep,Oct" data-themes="culture,food,nature,adventure" data-region="europe">
@@ -326,6 +337,7 @@ footer.site {
 <div class="name-overlay">Georgia</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Tbilisi sulfur baths, the Caucasus, Kakheti wine, and a Black Sea finish.</div>
 <div class="stops"><strong>Stops:</strong> Tbilisi · Kazbegi · Truso Valley · Kakheti · Batumi</div>
 <div class="meta">
@@ -333,9 +345,8 @@ footer.site {
 <span class="tag">Food & Wine</span>
 <span class="tag">Nature</span>
 <span class="tag">Adventure</span>
-<span class="tag region">Europe</span>
-<span class="temp">75–85°F</span>
 </div>
+<div class="temp">75–85°F</div>
 </div>
 </a></div>
 <div class="card" data-months="Mar,Apr,May,Sep,Oct,Nov" data-themes="food,nature,city,adventure" data-region="latin-america">
@@ -345,6 +356,7 @@ footer.site {
 <div class="name-overlay">Argentina</div>
 </div>
 <div class="body">
+<h3 class="region-label">Latin America</h3>
 <div class="summary">Buenos Aires steaks and tango, Mendoza wine country, subtropical Iguazú Falls.</div>
 <div class="stops"><strong>Stops:</strong> Buenos Aires · Mendoza · Uco Valley · Iguazú</div>
 <div class="meta">
@@ -352,9 +364,8 @@ footer.site {
 <span class="tag">Nature</span>
 <span class="tag">City</span>
 <span class="tag">Adventure</span>
-<span class="tag region">Latin America</span>
-<span class="temp">55–60°F BA, 75°F Iguazú (Argentine winter)</span>
 </div>
+<div class="temp">55–60°F BA, 75°F Iguazú (Argentine winter)</div>
 </div>
 </a></div>
 <div class="card" data-months="May,Jun,Jul,Aug,Sep" data-themes="beach,wildlife,adventure,culture" data-region="asia-pacific">
@@ -364,6 +375,7 @@ footer.site {
 <div class="name-overlay">Indonesia</div>
 </div>
 <div class="body">
+<h3 class="region-label">Asia-Pacific</h3>
 <div class="summary">Bali jungle and clifftops, plus a Komodo liveaboard with dragons and reefs.</div>
 <div class="stops"><strong>Stops:</strong> Ubud · Uluwatu · Komodo National Park · Seminyak</div>
 <div class="meta">
@@ -371,9 +383,8 @@ footer.site {
 <span class="tag">Wildlife</span>
 <span class="tag">Adventure</span>
 <span class="tag">Culture</span>
-<span class="tag region">Asia-Pacific</span>
-<span class="temp">80–85°F</span>
 </div>
+<div class="temp">80–85°F</div>
 </div>
 </a></div>
 <div class="card" data-months="Jun,Jul,Aug" data-themes="culture,history,city" data-region="europe">
@@ -383,15 +394,15 @@ footer.site {
 <div class="name-overlay">Baltic Capitals</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Three medieval old towns in a row, plus the Curonian Spit sand dunes.</div>
 <div class="stops"><strong>Stops:</strong> Tallinn · Lahemaa · Riga · Sigulda · Vilnius · Trakai · Curonian Spit</div>
 <div class="meta">
 <span class="tag">Culture</span>
 <span class="tag">History</span>
 <span class="tag">City</span>
-<span class="tag region">Europe</span>
-<span class="temp">70–75°F, sun until ~10:30 pm</span>
 </div>
+<div class="temp">70–75°F, sun until ~10:30 pm</div>
 </div>
 </a></div>
 <div class="card" data-months="Apr,May,Jun,Sep,Oct" data-themes="culture,food,beach,city" data-region="europe">
@@ -401,6 +412,7 @@ footer.site {
 <div class="name-overlay">Portugal</div>
 </div>
 <div class="body">
+<h3 class="region-label">Europe</h3>
 <div class="summary">Lisbon, Sintra, a volcanic Azores stop, and Porto + Douro wine country.</div>
 <div class="stops"><strong>Stops:</strong> Lisbon · Sintra · São Miguel · Porto · Douro Valley</div>
 <div class="meta">
@@ -408,9 +420,8 @@ footer.site {
 <span class="tag">Food & Wine</span>
 <span class="tag">Beach</span>
 <span class="tag">City</span>
-<span class="tag region">Europe</span>
-<span class="temp">70–80°F</span>
 </div>
+<div class="temp">70–80°F</div>
 </div>
 </a></div>
 </div>
