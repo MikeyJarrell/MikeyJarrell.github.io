@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -236,30 +253,27 @@ footer.site {
 <p><em>Off-radar Alpine charm. Lake Bled island, Ljubljana old town, Postojna caves, <a href="https://en.wikipedia.org/wiki/So%C4%8Da" target="_blank" rel="noopener">Soča</a> River valley — pairs easily with a Croatian island. ~75–80°F.</em></p>
 </div>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-01-fly-san-ljubljana-via-frankfurt.jpg" alt="Thursday: Fly SAN → Ljubljana (~14h)" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-01-fly-san-ljubljana-via-frankfurt.jpg" alt="Day 1: Fly SAN → Ljubljana (~14h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Fly SAN → Ljubljana (~14h)</h3>
-<ul>
-<li>United/Lufthansa</li>
-<li>Land Friday morning</li>
-</ul>
+<h3>Day 1: Fly SAN → Ljubljana (~14h)</h3>
+
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-02-arrive-ljubljana.jpg" alt="Friday: Arrive Ljubljana" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-02-arrive-ljubljana.jpg" alt="Day 2: Arrive Ljubljana" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Arrive Ljubljana</h3>
+<h3>Day 2: Arrive Ljubljana</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.ihg.com/intercontinental/hotels/us/en/ljubljana/ljuln/hoteldetail" target="_blank" rel="noopener">InterContinental</a> or <a href="https://www.vanderhotel.com/" target="_blank" rel="noopener">Vander Hotel</a></p>
 <ul>
-<li><a href="https://www.ihg.com/intercontinental/hotels/us/en/ljubljana/ljuln/hoteldetail" target="_blank" rel="noopener">InterContinental</a> or <a href="https://www.vanderhotel.com/" target="_blank" rel="noopener">Vander Hotel</a></li>
 <li>Walk the Ljubljanica river</li>
 <li>Dinner at <a href="https://www.privitezu.si/" target="_blank" rel="noopener">Pri Vitezu</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-03-explore-old-ljubljana.jpg" alt="Saturday: Explore old Ljubljana" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-03-explore-old-ljubljana.jpg" alt="Day 3: Explore old Ljubljana" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Explore old Ljubljana</h3>
+<h3>Day 3: Explore old Ljubljana</h3>
 <ul>
 <li>Castle funicular + Tivoli Park</li>
 <li>Open Kitchen Saturday market</li>
@@ -268,9 +282,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-04-postojna-cave-day-trip.jpg" alt="Sunday: Postojna Cave day trip" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-04-postojna-cave-day-trip.jpg" alt="Day 4: Postojna Cave day trip" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Postojna Cave day trip</h3>
+<h3>Day 4: Postojna Cave day trip</h3>
 <ul>
 <li>Cave train + walking tour (or swap for the smaller, quieter Škocjan Caves UNESCO)</li>
 <li>Cliff-built <a href="https://www.postojnska-jama.eu/en/predjama-castle/" target="_blank" rel="noopener">Predjama Castle</a></li>
@@ -279,11 +293,11 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-05-drive-to-lake-bled.jpg" alt="Monday: Drive to Lake Bled (~1h)" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-05-drive-to-lake-bled.jpg" alt="Day 5: Drive to Lake Bled (~1h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Drive to Lake Bled (~1h)</h3>
+<h3>Day 5: Drive to Lake Bled (~1h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.brdo.si/en/vila-bled" target="_blank" rel="noopener">Vila Bled</a> or <a href="https://www.hoteltriglavbled.si/" target="_blank" rel="noopener">Hotel Triglav</a></p>
 <ul>
-<li><a href="https://www.brdo.si/en/vila-bled" target="_blank" rel="noopener">Vila Bled</a> or <a href="https://www.hoteltriglavbled.si/" target="_blank" rel="noopener">Hotel Triglav</a></li>
 <li>Pletna boat to island church</li>
 <li>Lake loop walk (~4mi flat)</li>
 <li>Overnight at Bled (night 1 of 2)</li>
@@ -291,9 +305,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-06-vintgar-gorge-lake-bohinj.jpg" alt="Tuesday: Vintgar Gorge + Lake Bohinj" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-06-vintgar-gorge-lake-bohinj.jpg" alt="Day 6: Vintgar Gorge + Lake Bohinj" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Vintgar Gorge + Lake Bohinj</h3>
+<h3>Day 6: Vintgar Gorge + Lake Bohinj</h3>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Vintgar_Gorge" target="_blank" rel="noopener">Vintgar</a> boardwalk (~1mi)</li>
 <li>Lake Bohinj + Savica waterfall</li>
@@ -303,21 +317,21 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-07-drive-soča-valley.jpg" alt="Wednesday: Drive Soča Valley" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-07-drive-soča-valley.jpg" alt="Day 7: Drive Soča Valley" loading="lazy"></div>
 <div class="day-body">
-<h3>Wednesday: Drive Soča Valley</h3>
+<h3>Day 7: Drive Soča Valley</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.hotelhvala.si/" target="_blank" rel="noopener">Hotel Hvala</a></p>
 <ul>
 <li>Vršič Pass scenic drive</li>
 <li><a href="https://en.wikipedia.org/wiki/So%C4%8Da" target="_blank" rel="noopener">Soča</a> River swim or kayak (turquoise gorge water)</li>
 <li>Tolmin Gorges + Kobarid WWI museum</li>
-<li>Overnight <a href="https://www.hotelhvala.si/" target="_blank" rel="noopener">Hotel Hvala</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-08-drive-to-piran.jpg" alt="Thursday: Drive to Piran (~3h)" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-08-drive-to-piran.jpg" alt="Day 8: Drive to Piran (~3h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Drive to Piran (~3h)</h3>
+<h3>Day 8: Drive to Piran (~3h)</h3>
 <ul>
 <li>Walk the city walls</li>
 <li>Seafood at Cantina Klet</li>
@@ -326,21 +340,21 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-09-ferry-trieste-hvar.jpg" alt="Friday: Drive to Ljubljana + fly to Split + ferry to Hvar" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-09-ferry-trieste-hvar.jpg" alt="Day 9: Drive to Ljubljana + fly to Split + ferry to Hvar" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Drive to Ljubljana + fly to Split + ferry to Hvar</h3>
+<h3>Day 9: Drive to Ljubljana + fly to Split + ferry to Hvar</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.suncanihvar.com/" target="_blank" rel="noopener">Hotel Park Hvar</a></p>
 <ul>
 <li>Drive Piran → Ljubljana airport (~1.5h)</li>
 <li>Fly Ljubljana → Split (~1h)</li>
 <li>Catamaran ferry Split → Hvar (~1h)</li>
-<li><a href="https://www.suncanihvar.com/hotel-park-hvar.html" target="_blank" rel="noopener">Hotel Park Hvar</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-10-pakleni-islands-swim-day.jpg" alt="Saturday: Pakleni Islands swim day" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-10-pakleni-islands-swim-day.jpg" alt="Day 10: Pakleni Islands swim day" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Pakleni Islands swim day</h3>
+<h3>Day 10: Pakleni Islands swim day</h3>
 <ul>
 <li>Water-taxi to Palmižana</li>
 <li>Lunch at Toto's</li>
@@ -349,9 +363,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-11-explore-hvar-interior.jpg" alt="Sunday: Explore Hvar interior" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-11-explore-hvar-interior.jpg" alt="Day 11: Explore Hvar interior" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Explore Hvar interior</h3>
+<h3>Day 11: Explore Hvar interior</h3>
 <ul>
 <li>Stari Grad UNESCO plain</li>
 <li>Lavender fields above Velo Grablje</li>
@@ -360,9 +374,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-12-hvar-ljubljana-via-pula.jpg" alt="Monday: Hvar → Ljubljana" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-12-hvar-ljubljana-via-pula.jpg" alt="Day 12: Hvar → Ljubljana" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Hvar → Ljubljana</h3>
+<h3>Day 12: Hvar → Ljubljana</h3>
 <ul>
 <li>Ferry Hvar → Split</li>
 <li>Fly Split → Ljubljana</li>
@@ -371,13 +385,12 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/slovenia/day-13-fly-home-from-ljubljana.jpg" alt="Tuesday: Fly home from Ljubljana" loading="lazy"></div>
+<div class="photo"><img src="photos/slovenia/day-13-fly-home-from-ljubljana.jpg" alt="Day 13: Fly home from Ljubljana" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Fly home from Ljubljana</h3>
+<h3>Day 13: Fly home from Ljubljana</h3>
 <ul>
 <li>Coffee at Le Petit</li>
 <li>Last walk along the river</li>
-<li>Afternoon flight</li>
 </ul>
 </div>
 </article>

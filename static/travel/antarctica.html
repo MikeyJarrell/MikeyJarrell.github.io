@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,19 +255,17 @@ footer.site {
 <div class="photo"><img src="photos/antarctica/day-01-day-1-fly-san-buenos-aires.jpg" alt="Day 1: Fly SAN → Buenos Aires" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Buenos Aires</h3>
-<ul>
-<li>Overnight flight</li>
-</ul>
+
 </div>
 </article>
 <article class="day">
 <div class="photo"><img src="photos/antarctica/day-02-day-2-connect-ba-ushuaia.jpg" alt="Day 2: Connect BA → Ushuaia" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 2: Connect BA → Ushuaia</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.arakur.com/" target="_blank" rel="noopener">Arakur Resort</a></p>
 <ul>
 <li>~3.5h south to the end of the world</li>
 <li>Walk the Beagle Channel waterfront</li>
-<li>Check in at <a href="https://www.arakur.com/" target="_blank" rel="noopener">Arakur Resort</a></li>
 </ul>
 </div>
 </article>
@@ -265,9 +280,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-04-days-45-drake-passage-crossing.jpg" alt="Days 4–5: Drake Passage crossing" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-04-days-45-drake-passage-crossing.jpg" alt="Day 4: Drake Passage crossing" loading="lazy"></div>
 <div class="day-body">
-<h3>Days 4–5: Drake Passage crossing</h3>
+<h3>Day 4: Drake Passage crossing</h3>
 <ul>
 <li>Two days at sea</li>
 <li>Lectures from the expedition team</li>
@@ -276,9 +291,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-05-day-6-south-shetland-islands.jpg" alt="Day 6: South Shetland Islands" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-05-day-6-south-shetland-islands.jpg" alt="Day 5: South Shetland Islands" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 6: South Shetland Islands</h3>
+<h3>Day 5: South Shetland Islands</h3>
 <ul>
 <li>Zodiac landing on Half Moon Island or Aitcho</li>
 <li>Chinstrap penguin colonies</li>
@@ -286,9 +301,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-06-day-7-antarctic-peninsula-neko-harbour.jpg" alt="Day 7: Antarctic Peninsula — Neko Harbour" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-06-day-7-antarctic-peninsula-neko-harbour.jpg" alt="Day 6: Antarctic Peninsula — Neko Harbour" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 7: Antarctic Peninsula — Neko Harbour</h3>
+<h3>Day 6: Antarctic Peninsula — Neko Harbour</h3>
 <ul>
 <li>Continental landing on mainland Antarctica</li>
 <li>Glacier-front kayaking</li>
@@ -297,9 +312,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-07-day-8-lemaire-channel-petermann-island.jpg" alt="Day 8: Lemaire Channel + Petermann Island" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-07-day-8-lemaire-channel-petermann-island.jpg" alt="Day 7: Lemaire Channel + Petermann Island" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 8: Lemaire Channel + Petermann Island</h3>
+<h3>Day 7: Lemaire Channel + Petermann Island</h3>
 <ul>
 <li>Sail through the narrowest channel of the trip</li>
 <li>Gentoo penguin colonies, leopard seals</li>
@@ -307,9 +322,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-08-day-9-paradise-bay.jpg" alt="Day 9: Paradise Bay" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-08-day-9-paradise-bay.jpg" alt="Day 8: Paradise Bay" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 9: Paradise Bay</h3>
+<h3>Day 8: Paradise Bay</h3>
 <ul>
 <li>Polar plunge (optional but mandatory bragging rights)</li>
 <li>Argentinian station visit if it's open</li>
@@ -317,9 +332,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-09-day-10-deception-island.jpg" alt="Day 10: Deception Island" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-09-day-10-deception-island.jpg" alt="Day 9: Deception Island" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 10: Deception Island</h3>
+<h3>Day 9: Deception Island</h3>
 <ul>
 <li>Volcanic caldera you sail into</li>
 <li>Walk on a black-sand beach with steaming geothermal vents</li>
@@ -327,30 +342,28 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-10-days-1112-drake-return.jpg" alt="Days 11–12: Drake return" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-10-days-1112-drake-return.jpg" alt="Day 10: Drake return" loading="lazy"></div>
 <div class="day-body">
-<h3>Days 11–12: Drake return</h3>
+<h3>Day 10: Drake return</h3>
 <ul>
 <li>Two days back across, often rougher than southbound</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-11-day-13-disembark-in-ushuaia-fly-to-ba.jpg" alt="Day 13: Disembark in Ushuaia, fly to BA" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-11-day-13-disembark-in-ushuaia-fly-to-ba.jpg" alt="Day 11: Disembark in Ushuaia, fly to BA" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 13: Disembark in Ushuaia, fly to BA</h3>
+<h3>Day 11: Disembark in Ushuaia, fly to BA</h3>
 <ul>
 <li>Last steak dinner in Buenos Aires</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/antarctica/day-12-day-14-fly-home.jpg" alt="Day 14: Fly home" loading="lazy"></div>
+<div class="photo"><img src="photos/antarctica/day-12-day-14-fly-home.jpg" alt="Day 12: Fly home" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 14: Fly home</h3>
-<ul>
-<li>Overnight to SAN</li>
-</ul>
+<h3>Day 12: Fly home</h3>
+
 </div>
 </article>
 </section>

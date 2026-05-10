@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -236,9 +253,9 @@ footer.site {
 <p><em>Lisbon old neighborhoods + Sintra day trip + a volcanic stop in the Azores + Porto and the Douro. 8 days, mostly walkable. ~70–80°F.</em></p>
 </div>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-01-sunday-explore-lisbon-alfama.jpg" alt="Sunday: Lisbon — Alfama" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-01-sunday-explore-lisbon-alfama.jpg" alt="Day 1: Lisbon — Alfama" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Lisbon — Alfama</h3>
+<h3>Day 1: Lisbon — Alfama</h3>
 <ul>
 <li><a href="https://memmoalfama.com/" target="_blank" rel="noopener">Memmo Alfama</a> (terrace pool with Tagus view)</li>
 <li><a href="https://castelodesaojorge.pt/en/" target="_blank" rel="noopener">Castelo de São Jorge</a> for the city panorama</li>
@@ -249,9 +266,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-02-monday-explore-lisbon-belem.jpg" alt="Monday: Lisbon — Belém" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-02-monday-explore-lisbon-belem.jpg" alt="Day 2: Lisbon — Belém" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Lisbon — Belém</h3>
+<h3>Day 2: Lisbon — Belém</h3>
 <ul>
 <li><a href="https://www.patrimoniocultural.gov.pt/en/museus-e-monumentos/rede-portuguesa/m/mosteiro-dos-jeronimos/" target="_blank" rel="noopener">Jerónimos Monastery</a> (Manueline cloister)</li>
 <li><a href="https://www.patrimoniocultural.gov.pt/en/museus-e-monumentos/rede-portuguesa/t/torre-de-belem/" target="_blank" rel="noopener">Belém Tower</a></li>
@@ -262,22 +279,22 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-03-tuesday-day-trip-to-sintra.jpg" alt="Tuesday: Sintra day trip" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-03-tuesday-day-trip-to-sintra.jpg" alt="Day 3: Sintra day trip" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Sintra day trip</h3>
+<h3>Day 3: Sintra day trip</h3>
 <ul>
 <li>Train to Sintra (~45 min)</li>
 <li><a href="https://www.parquesdesintra.pt/en/parks-monuments/park-and-national-palace-of-pena/" target="_blank" rel="noopener">Pena Palace</a> (the colorful one)</li>
 <li><a href="https://www.regaleira.pt/en/" target="_blank" rel="noopener">Quinta da Regaleira</a> initiation well</li>
-<li><a href="https://www.parquesdesintra.pt/en/parks-monuments/castle-of-the-moors/" target="_blank" rel="noopener">Castelo dos Mouros</a> if time allows</li>
+<li><a href="https://www.parquesdesintra.pt/en/" target="_blank" rel="noopener">Castelo dos Mouros</a> if time allows</li>
 <li>Lunch in old-town Sintra</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-04-tuesday-night-flight-to-ponta-delgada.jpg" alt="Tuesday night: Fly to Ponta Delgada" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-04-tuesday-night-flight-to-ponta-delgada.jpg" alt="Day 4: Fly to Ponta Delgada" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday night: Fly to Ponta Delgada</h3>
+<h3>Day 4: Fly to Ponta Delgada</h3>
 <ul>
 <li>Evening flight Lisbon → Ponta Delgada (~2.5h)</li>
 <li>Late check-in, easy night</li>
@@ -285,12 +302,12 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-05-wednesday-sete-cidades-terra-nostra.jpg" alt="Wednesday: Sete Cidades + Furnas" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-05-wednesday-sete-cidades-terra-nostra.jpg" alt="Day 5: Sete Cidades + Furnas" loading="lazy"></div>
 <div class="day-body">
-<h3>Wednesday: Sete Cidades + Furnas</h3>
+<h3>Day 5: Sete Cidades + Furnas</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.furnasboutiquehotel.com/" target="_blank" rel="noopener">Furnas Boutique Hotel</a></p>
 <ul>
-<li><a href="https://www.furnasboutiquehotel.com/" target="_blank" rel="noopener">Furnas Boutique Hotel</a> (or <a href="https://octanthotels.com/octant-furnas/" target="_blank" rel="noopener">Octant Furnas</a>)</li>
-<li>Vista do Rei viewpoint over <a href="https://en.wikipedia.org/wiki/Sete_Cidades_(Azores)" target="_blank" rel="noopener">Sete Cidades</a> twin lakes</li>
+<li>Vista do Rei viewpoint over <a href="https://en.wikipedia.org/wiki/Sete_Cidades" target="_blank" rel="noopener">Sete Cidades</a> twin lakes</li>
 <li>Kayak or hike between the green and blue lakes</li>
 <li>Soak in the iron-water thermal pool at <a href="https://www.terranostragarden.com/" target="_blank" rel="noopener">Terra Nostra Garden</a></li>
 <li>Cozido nas Furnas (stew cooked in the volcanic ground) at <a href="https://www.tonys-restaurante.com/" target="_blank" rel="noopener">Tony's</a></li>
@@ -298,34 +315,34 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-06-thursday-lagoa-do-fogo-cadeira-velha.jpg" alt="Thursday: Lagoa do Fogo + Caldeira Velha" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-06-thursday-lagoa-do-fogo-cadeira-velha.jpg" alt="Day 6: Lagoa do Fogo + Caldeira Velha" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Lagoa do Fogo + Caldeira Velha</h3>
+<h3>Day 6: Lagoa do Fogo + Caldeira Velha</h3>
 <ul>
 <li>Hike down to <a href="https://en.wikipedia.org/wiki/Lagoa_do_Fogo" target="_blank" rel="noopener">Lagoa do Fogo</a> crater lake (~2h round trip)</li>
-<li>Soak at <a href="https://parquesnaturais.azores.gov.pt/en/saomiguel/o-que-fazer/centros-ambientais/centro-de-interpretacao-da-caldeira-velha" target="_blank" rel="noopener">Caldeira Velha</a> thermal waterfall pools</li>
+<li>Soak at <a href="https://en.wikipedia.org/wiki/Caldeira_Velha" target="_blank" rel="noopener">Caldeira Velha</a> thermal waterfall pools</li>
 <li>Arruda pineapple plantation tour on the way back</li>
 <li>Optional: whale + dolphin trip from Ponta Delgada with <a href="https://www.futurismo.pt/" target="_blank" rel="noopener">Futurismo</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-07-friday-flight-to-porto.jpg" alt="Friday: Fly to Porto" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-07-friday-flight-to-porto.jpg" alt="Day 7: Fly to Porto" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Fly to Porto</h3>
+<h3>Day 7: Fly to Porto</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.the-yeatman-hotel.com/" target="_blank" rel="noopener">The Yeatman</a></p>
 <ul>
 <li>Flight Ponta Delgada → Porto (~2.5h)</li>
-<li><a href="https://www.the-yeatman-hotel.com/" target="_blank" rel="noopener">The Yeatman</a> (Michelin-star, port-themed, river views) or <a href="https://www.maison-albar-hotels-le-monumental-palace.com/en/" target="_blank" rel="noopener">Maison Albar Le Monumental Palace</a></li>
-<li>Walk <a href="https://en.wikipedia.org/wiki/Ribeira,_Porto" target="_blank" rel="noopener">Ribeira</a> waterfront and cross <a href="https://en.wikipedia.org/wiki/Dom_Lu%C3%ADs_I_Bridge" target="_blank" rel="noopener">Dom Luís I Bridge</a> at sunset</li>
+<li>Walk <a href="https://en.wikipedia.org/wiki/Ribeira_(Porto)" target="_blank" rel="noopener">Ribeira</a> waterfront and cross <a href="https://en.wikipedia.org/wiki/Dom_Lu%C3%ADs_I_Bridge" target="_blank" rel="noopener">Dom Luís I Bridge</a> at sunset</li>
 <li><a href="https://www.livrarialello.pt/en/" target="_blank" rel="noopener">Livraria Lello</a> bookshop</li>
-<li>Dinner at <a href="https://cantinhodoavillez.pt/" target="_blank" rel="noopener">Cantinho do Avillez</a> or <a href="https://www.ruipaula.com/dop" target="_blank" rel="noopener">DOP</a></li>
+<li>Dinner at <a href="https://cantinhodoavillez.pt/" target="_blank" rel="noopener">Cantinho do Avillez</a> or <a href="https://www.ruipaula.com/" target="_blank" rel="noopener">DOP</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/portugal/day-08-saturday-douro-river-cruise.jpg" alt="Saturday: Douro Valley" loading="lazy"></div>
+<div class="photo"><img src="photos/portugal/day-08-saturday-douro-river-cruise.jpg" alt="Day 8: Douro Valley" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Douro Valley</h3>
+<h3>Day 8: Douro Valley</h3>
 <ul>
 <li>Drive or train to Pinhão (~2h)</li>
 <li>Rabelo boat cruise on the Douro</li>

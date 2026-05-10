@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -249,9 +266,9 @@ footer.site {
 <div class="photo"><img src="photos/namibia/day-02-day-2-drive-to-sossusvlei-45h.jpg" alt="Day 2: Drive to Sossusvlei (~4.5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 2: Drive to Sossusvlei (~4.5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.andbeyond.com/our-lodges/africa/namibia/namib-desert/andbeyond-sossusvlei-desert-lodge/" target="_blank" rel="noopener">andBeyond Sossusvlei Desert Lodge</a></p>
 <ul>
 <li>Stop at Tropic of Capricorn marker</li>
-<li>Check in at <a href="https://www.andbeyond.com/our-lodges/africa/namibia/namib-desert/andbeyond-sossusvlei-desert-lodge/" target="_blank" rel="noopener">andBeyond Sossusvlei Desert Lodge</a></li>
 <li>Sundowner among the dunes</li>
 </ul>
 </div>
@@ -271,10 +288,10 @@ footer.site {
 <div class="photo"><img src="photos/namibia/day-04-day-4-drive-to-swakopmund-5h.jpg" alt="Day 4: Drive to Swakopmund (~5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 4: Drive to Swakopmund (~5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.hansahotel.com.na/" target="_blank" rel="noopener">Hansa Hotel</a></p>
 <ul>
 <li>Solitaire bakery stop for apple pie</li>
 <li>Walvis Bay flamingo lagoon</li>
-<li><a href="https://www.hansahotel.com.na/" target="_blank" rel="noopener">Hansa Hotel</a> in Swakopmund</li>
 </ul>
 </div>
 </article>
@@ -293,8 +310,8 @@ footer.site {
 <div class="photo"><img src="photos/namibia/day-06-day-6-drive-to-damaraland-5h.jpg" alt="Day 6: Drive to Damaraland (~5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 6: Drive to Damaraland (~5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://kipwe.com/" target="_blank" rel="noopener">Camp Kipwe</a> or <a href="https://www.mowani.com/" target="_blank" rel="noopener">Mowani Mountain Camp</a></p>
 <ul>
-<li>Check in at <a href="https://kipwe.com/" target="_blank" rel="noopener">Camp Kipwe</a> or <a href="https://www.mowani.com/" target="_blank" rel="noopener">Mowani Mountain Camp</a></li>
 <li>Rock art at Twyfelfontein</li>
 <li>Search for desert-adapted elephants</li>
 </ul>
@@ -304,8 +321,8 @@ footer.site {
 <div class="photo"><img src="photos/namibia/day-07-day-7-drive-to-etosha-south-5h.jpg" alt="Day 7: Drive to Etosha south (~5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 7: Drive to Etosha south (~5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.onguma.com/the-fort/" target="_blank" rel="noopener">Onguma The Fort</a> or <a href="https://ongava.com/lodge/" target="_blank" rel="noopener">Ongava Lodge</a></p>
 <ul>
-<li><a href="https://www.onguma.com/the-fort/" target="_blank" rel="noopener">Onguma The Fort</a> or <a href="https://ongava.com/lodge/" target="_blank" rel="noopener">Ongava Lodge</a></li>
 <li>Afternoon game drive</li>
 <li>Sit at a waterhole at dusk</li>
 </ul>
@@ -335,9 +352,7 @@ footer.site {
 <div class="photo"><img src="photos/namibia/day-10-day-10-fly-home.jpg" alt="Day 10: Fly home" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 10: Fly home</h3>
-<ul>
-<li>Long flight day</li>
-</ul>
+
 </div>
 </article>
 </section>

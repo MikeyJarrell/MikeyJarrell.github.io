@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,8 +255,8 @@ footer.site {
 <div class="photo"><img src="photos/alaska/day-01-day-1-fly-san-anchorage-7h.jpg" alt="Day 1: Fly SAN → Anchorage (~7h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Anchorage (~7h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://captaincook.com/" target="_blank" rel="noopener">Hotel Captain Cook</a> downtown</p>
 <ul>
-<li><a href="https://captaincook.com/" target="_blank" rel="noopener">Hotel Captain Cook</a> downtown</li>
 <li>Walk Ship Creek for salmon spawning</li>
 </ul>
 </div>
@@ -248,9 +265,9 @@ footer.site {
 <div class="photo"><img src="photos/alaska/day-02-day-2-train-to-talkeetna-denali-base.jpg" alt="Day 2: Train to Talkeetna (Denali base)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 2: Train to Talkeetna (Denali base)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.talkeetnalodge.com/" target="_blank" rel="noopener">Talkeetna Alaskan Lodge</a></p>
 <ul>
 <li><a href="https://alaskarailroad.com/" target="_blank" rel="noopener">Alaska Railroad</a> Hurricane Turn</li>
-<li><a href="https://www.talkeetnalodge.com/" target="_blank" rel="noopener">Talkeetna Alaskan Lodge</a></li>
 <li>Flightseeing over <a href="https://www.nps.gov/dena/" target="_blank" rel="noopener">Denali</a> if clear</li>
 </ul>
 </div>
@@ -259,10 +276,10 @@ footer.site {
 <div class="photo"><img src="photos/alaska/day-03-day-3-denali-national-park.jpg" alt="Day 3: Denali National Park" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 3: Denali National Park</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://campdenali.com/" target="_blank" rel="noopener">Camp <a href="https://www.nps.gov/dena/" target="_blank" rel="noopener">Denali</a></a></p>
 <ul>
 <li>Park bus to Eielson Visitor Center</li>
 <li>Wildlife: grizzlies, caribou, Dall sheep, moose</li>
-<li>Stay at <a href="https://campdenali.com/" target="_blank" rel="noopener">Camp <a href="https://www.nps.gov/dena/" target="_blank" rel="noopener">Denali</a></a></li>
 </ul>
 </div>
 </article>
@@ -280,9 +297,9 @@ footer.site {
 <div class="photo"><img src="photos/alaska/day-05-day-5-drive-to-seward.jpg" alt="Day 5: Drive to Seward" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 5: Drive to Seward</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://kenaifjordsglacierlodge.com/" target="_blank" rel="noopener">Kenai Fjords Glacier Lodge</a> by water taxi</p>
 <ul>
 <li>Drive ~6h south</li>
-<li><a href="https://kenaifjordsglacierlodge.com/" target="_blank" rel="noopener">Kenai Fjords Glacier Lodge</a> by water taxi</li>
 </ul>
 </div>
 </article>
@@ -321,9 +338,9 @@ footer.site {
 <div class="photo"><img src="photos/alaska/day-09-day-9-katmai-full-day.jpg" alt="Day 9: Katmai — full day" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 9: Katmai — full day</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.katmailand.com/brooks-lodge/" target="_blank" rel="noopener">Brooks Lodge</a></p>
 <ul>
 <li>Multiple viewing platforms</li>
-<li>Sleep at <a href="https://www.katmailand.com/brooks-lodge/" target="_blank" rel="noopener">Brooks Lodge</a></li>
 </ul>
 </div>
 </article>

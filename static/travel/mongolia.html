@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -239,8 +256,8 @@ footer.site {
 <div class="photo"><img src="photos/mongolia/day-01-day-1-fly-san-ulaanbaatar-17h-via-seoul-or-beijing.jpg" alt="Day 1: Fly SAN → Ulaanbaatar (~17h via Seoul or Beijing)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Ulaanbaatar (~17h via Seoul or Beijing)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.shangri-la.com/ulaanbaatar/shangrila/" target="_blank" rel="noopener">Shangri-La Ulaanbaatar</a></p>
 <ul>
-<li><a href="https://www.shangri-la.com/ulaanbaatar/shangrila/" target="_blank" rel="noopener">Shangri-La Ulaanbaatar</a></li>
 <li>Welcome dinner at Modern Nomads</li>
 </ul>
 </div>
@@ -257,9 +274,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-03-days-34-naadam-festival.jpg" alt="Days 3–4: Naadam Festival" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-03-days-34-naadam-festival.jpg" alt="Day 3: Naadam Festival" loading="lazy"></div>
 <div class="day-body">
-<h3>Days 3–4: Naadam Festival</h3>
+<h3>Day 3: Naadam Festival</h3>
 <ul>
 <li>Opening ceremony at the National Sports Stadium</li>
 <li>Wrestling, archery, horse racing</li>
@@ -268,30 +285,30 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-04-day-5-drive-to-hustai-national-park-2h.jpg" alt="Day 5: Drive to Hustai National Park (~2h)" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-04-day-5-drive-to-hustai-national-park-2h.jpg" alt="Day 4: Drive to Hustai National Park (~2h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 5: Drive to Hustai National Park (~2h)</h3>
+<h3>Day 4: Drive to Hustai National Park (~2h)</h3>
+<p class="stay"><span class="stay-label">Stay</span>Hustai Camp</p>
 <ul>
 <li>Search for the Przewalski's horse (only true wild horse species)</li>
-<li>Overnight at Hustai Camp</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-05-day-6-fly-south-to-the-gobi.jpg" alt="Day 6: Fly south to the Gobi" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-05-day-6-fly-south-to-the-gobi.jpg" alt="Day 5: Fly south to the Gobi" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 6: Fly south to the Gobi</h3>
+<h3>Day 5: Fly south to the Gobi</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://threecamellodge.com/" target="_blank" rel="noopener">Three Camel Lodge</a></p>
 <ul>
 <li>Charter to Dalanzadgad</li>
-<li><a href="https://threecamellodge.com/" target="_blank" rel="noopener">Three Camel Lodge</a></li>
 <li>Sunset at Khongoryn Els (singing dunes)</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-06-day-7-gobi-yolyn-am-ice-canyon.jpg" alt="Day 7: Gobi — Yolyn Am ice canyon" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-06-day-7-gobi-yolyn-am-ice-canyon.jpg" alt="Day 6: Gobi — Yolyn Am ice canyon" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 7: Gobi — Yolyn Am ice canyon</h3>
+<h3>Day 6: Gobi — Yolyn Am ice canyon</h3>
 <ul>
 <li>Hike through the gorge</li>
 <li>Ice in summer at the base</li>
@@ -300,9 +317,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-07-day-8-bayanzag-flaming-cliffs.jpg" alt="Day 8: Bayanzag — Flaming Cliffs" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-07-day-8-bayanzag-flaming-cliffs.jpg" alt="Day 7: Bayanzag — Flaming Cliffs" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 8: Bayanzag — Flaming Cliffs</h3>
+<h3>Day 7: Bayanzag — Flaming Cliffs</h3>
 <ul>
 <li>Roy Chapman Andrews' dinosaur-egg site</li>
 <li>Sunset on the red sandstone</li>
@@ -310,19 +327,19 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-08-day-9-fly-back-to-ub-drive-kharkhorin-5h.jpg" alt="Day 9: Fly back to UB, drive Kharkhorin (~5h)" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-08-day-9-fly-back-to-ub-drive-kharkhorin-5h.jpg" alt="Day 8: Fly back to UB, drive Kharkhorin (~5h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 9: Fly back to UB, drive Kharkhorin (~5h)</h3>
+<h3>Day 8: Fly back to UB, drive Kharkhorin (~5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span>Ger camp on the steppe near the old Mongol capital</p>
 <ul>
 <li>Erdene Zuu Monastery</li>
-<li>Ger camp on the steppe near the old Mongol capital</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-09-day-10-khustai-or-terelj-horse-trekking.jpg" alt="Day 10: Khustai or Terelj — horse trekking" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-09-day-10-khustai-or-terelj-horse-trekking.jpg" alt="Day 9: Khustai or Terelj — horse trekking" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 10: Khustai or Terelj — horse trekking</h3>
+<h3>Day 9: Khustai or Terelj — horse trekking</h3>
 <ul>
 <li>Half-day horseback ride through the steppe</li>
 <li>Stay with a nomadic family</li>
@@ -330,9 +347,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-10-day-11-drive-back-to-ub.jpg" alt="Day 11: Drive back to UB" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-10-day-11-drive-back-to-ub.jpg" alt="Day 10: Drive back to UB" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 11: Drive back to UB</h3>
+<h3>Day 10: Drive back to UB</h3>
 <ul>
 <li>Khaan Brewery dinner</li>
 <li>Cashmere shopping</li>
@@ -340,9 +357,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-11-day-12-fly-home.jpg" alt="Day 12: Fly home" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-11-day-12-fly-home.jpg" alt="Day 11: Fly home" loading="lazy"></div>
 <div class="day-body">
-<h3>Day 12: Fly home</h3>
+<h3>Day 11: Fly home</h3>
 
 </div>
 </article>

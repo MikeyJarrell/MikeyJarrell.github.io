@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -236,9 +253,9 @@ footer.site {
 <p><em>March 21–30, 2025. Late winter — Oslo, Bergen, the Arctic. Train + fjord cruise to Bergen, Northern Lights, ice hotel, husky and reindeer sledding.</em></p>
 </div>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-02-saturday-arrive-oslo.jpg" alt="Friday Mar 21: Fly SAN → Oslo" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-02-saturday-arrive-oslo.jpg" alt="Day 1: Fly SAN → Oslo" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday Mar 21: Fly SAN → Oslo</h3>
+<h3>Day 1: Fly SAN → Oslo</h3>
 <ul>
 <li>Lufthansa SAN → Munich (overnight)</li>
 <li>LH2454 Munich → Oslo (arrive 17:55)</li>
@@ -246,20 +263,20 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-02-saturday-arrive-oslo.jpg" alt="Saturday Mar 22: Arrive Oslo" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-02-saturday-arrive-oslo.jpg" alt="Day 2: Arrive Oslo" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday Mar 22: Arrive Oslo</h3>
+<h3>Day 2: Arrive Oslo</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://amerikalinjen.com/" target="_blank" rel="noopener">Amerikalinjen</a> hotel</p>
 <ul>
-<li><a href="https://amerikalinjen.com/" target="_blank" rel="noopener">Amerikalinjen</a> hotel</li>
 <li>Dinner at Alex Sushi</li>
 <li>Cocktails at Himkok</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-05-tuesday-bergen.jpg" alt="Sunday Mar 23: Explore Oslo" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-05-tuesday-bergen.jpg" alt="Day 3: Explore Oslo" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday Mar 23: Explore Oslo</h3>
+<h3>Day 3: Explore Oslo</h3>
 <ul>
 <li>Walk the city</li>
 <li>Freiabutikken chocolate</li>
@@ -267,21 +284,21 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-04-monday-train-fjord-to-bergen.jpg" alt="Monday Mar 24: Train + fjord cruise to Bergen" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-04-monday-train-fjord-to-bergen.jpg" alt="Day 4: Train + fjord cruise to Bergen" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday Mar 24: Train + fjord cruise to Bergen</h3>
+<h3>Day 4: Train + fjord cruise to Bergen</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://skostredet.no/" target="_blank" rel="noopener">Charmante Skostredet</a> Hotel</p>
 <ul>
 <li><a href="https://www.norskreiseliv.no/destinations/bergen-railway/" target="_blank" rel="noopener">Bergen Railway</a> Oslo (08:25) → Bergen (19:25)</li>
 <li>Naerøyfjord cruise leg en route</li>
-<li><a href="https://skostredet.no/" target="_blank" rel="noopener">Charmante Skostredet</a> Hotel</li>
 <li>Evening on the harbor</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-05-tuesday-bergen.jpg" alt="Tuesday Mar 25: Bergen" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-05-tuesday-bergen.jpg" alt="Day 5: Bergen" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday Mar 25: Bergen</h3>
+<h3>Day 5: Bergen</h3>
 <ul>
 <li>Mt. Fløyen funicular</li>
 <li>Mt. Ulriken cable car</li>
@@ -290,9 +307,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-06-wednesday-fly-to-tromso.jpg" alt="Wednesday Mar 26: Fly to Tromsø" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-06-wednesday-fly-to-tromso.jpg" alt="Day 6: Fly to Tromsø" loading="lazy"></div>
 <div class="day-body">
-<h3>Wednesday Mar 26: Fly to Tromsø</h3>
+<h3>Day 6: Fly to Tromsø</h3>
 <ul>
 <li>WF622 BGO → TOS (07:50–09:50)</li>
 <li>Fjellheisen cable car</li>
@@ -301,43 +318,43 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-07-thursday-fly-to-alta-husky.jpg" alt="Thursday Mar 27: Fly to Alta + husky sledding" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-07-thursday-fly-to-alta-husky.jpg" alt="Day 7: Fly to Alta + husky sledding" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday Mar 27: Fly to Alta + husky sledding</h3>
+<h3>Day 7: Fly to Alta + husky sledding</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.holmenhuskylodge.no/" target="_blank" rel="noopener">Holmen Husky Lodge</a></p>
 <ul>
 <li>WF912 TOS → ALF (13:25–14:05)</li>
-<li><a href="https://www.holmenhuskylodge.no/" target="_blank" rel="noopener">Holmen Husky Lodge</a></li>
 <li>Gold-package husky sledding</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-08-friday-sami-northern-lights.jpg" alt="Friday Mar 28: Sami culture + Northern Lights" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-08-friday-sami-northern-lights.jpg" alt="Day 8: Sami culture + Northern Lights" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday Mar 28: Sami culture + Northern Lights</h3>
+<h3>Day 8: Sami culture + Northern Lights</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.sorrisniva.no/" target="_blank" rel="noopener">Sorrisniva Igloo Hotel</a></p>
 <ul>
-<li><a href="https://www.sorrisniva.no/" target="_blank" rel="noopener">Sorrisniva Igloo Hotel</a></li>
 <li>Sami culture experience + reindeer sledding</li>
 <li>Northern Lights hunt (minivan tour)</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-09-saturday-snowmobile.jpg" alt="Saturday Mar 29: Snowmobile + fly to Oslo" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-09-saturday-snowmobile.jpg" alt="Day 9: Snowmobile + fly to Oslo" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday Mar 29: Snowmobile + fly to Oslo</h3>
+<h3>Day 9: Snowmobile + fly to Oslo</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.radissonhotels.com/en-us/hotels/radisson-blu-scandinavia-oslo" target="_blank" rel="noopener">Radisson Blu</a> Oslo</p>
 <ul>
 <li>Arctic-light snowmobile excursion</li>
 <li>WF937 ALF → TOS (15:40–16:20)</li>
 <li>SK4431 TOS → OSL (19:20–21:20)</li>
-<li><a href="https://www.radissonhotels.com/en-us/hotels/radisson-blu-scandinavia-oslo" target="_blank" rel="noopener">Radisson Blu</a> Oslo</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/norway/day-10-sunday-fly-home.jpg" alt="Sunday Mar 30: Fly home" loading="lazy"></div>
+<div class="photo"><img src="photos/norway/day-10-sunday-fly-home.jpg" alt="Day 10: Fly home" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday Mar 30: Fly home</h3>
+<h3>Day 10: Fly home</h3>
 <ul>
 <li>LH2457 OSL → Munich (07:15–09:30)</li>
 <li>LH466 Munich → SAN (12:45–15:25)</li>

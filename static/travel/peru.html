@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,8 +255,8 @@ footer.site {
 <div class="photo"><img src="photos/peru/day-01-day-1-fly-san-lima-9h.jpg" alt="Day 1: Fly SAN → Lima (~9h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Lima (~9h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://hotelb.pe/" target="_blank" rel="noopener">Hotel B</a></p>
 <ul>
-<li><a href="https://hotelb.pe/" target="_blank" rel="noopener">Hotel B</a> in Barranco district</li>
 <li>Dinner at <a href="https://maido.pe/" target="_blank" rel="noopener">Maido</a> (one of the world's top restaurants)</li>
 </ul>
 </div>
@@ -259,8 +276,8 @@ footer.site {
 <div class="photo"><img src="photos/peru/day-03-day-3-fly-to-cusco-15h.jpg" alt="Day 3: Fly to Cusco (~1.5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 3: Fly to Cusco (~1.5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.belmond.com/hotels/south-america/peru/cusco/belmond-hotel-monasterio/" target="_blank" rel="noopener">Belmond Hotel Monasterio</a></p>
 <ul>
-<li><a href="https://www.belmond.com/hotels/south-america/peru/cusco/belmond-hotel-monasterio/" target="_blank" rel="noopener">Belmond Hotel Monasterio</a> (former monastery)</li>
 <li>Slow afternoon — Cusco is 11,150 ft, acclimate</li>
 <li>Coca tea</li>
 </ul>
@@ -270,8 +287,8 @@ footer.site {
 <div class="photo"><img src="photos/peru/day-04-day-4-sacred-valley-pisac-ollantaytambo.jpg" alt="Day 4: Sacred Valley — Pisac + Ollantaytambo" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 4: Sacred Valley — Pisac + Ollantaytambo</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://hotelsolyluna.com/" target="_blank" rel="noopener">Sol y Luna Lodge</a></p>
 <ul>
-<li><a href="https://hotelsolyluna.com/" target="_blank" rel="noopener">Sol y Luna Lodge</a> in Urubamba</li>
 <li>Pisac ruins in the morning</li>
 <li>Ollantaytambo fortress + town walk</li>
 </ul>
@@ -292,9 +309,9 @@ footer.site {
 <div class="photo"><img src="photos/peru/day-06-day-6-train-to-machu-picchu.jpg" alt="Day 6: Train to Machu Picchu" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 6: Train to Machu Picchu</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.belmond.com/hotels/south-america/peru/machu-picchu/belmond-sanctuary-lodge/" target="_blank" rel="noopener">Belmond Sanctuary Lodge</a></p>
 <ul>
 <li><a href="https://www.perurail.com/" target="_blank" rel="noopener">PeruRail</a> Vistadome from Ollantaytambo</li>
-<li><a href="https://www.belmond.com/hotels/south-america/peru/machu-picchu/belmond-sanctuary-lodge/" target="_blank" rel="noopener">Belmond Sanctuary Lodge</a> (only hotel at the gates)</li>
 <li>Late-afternoon entry to beat crowds</li>
 </ul>
 </div>
@@ -324,9 +341,9 @@ footer.site {
 <div class="photo"><img src="photos/peru/day-09-day-9-fly-to-puerto-maldonado.jpg" alt="Day 9: Fly to Puerto Maldonado" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 9: Fly to Puerto Maldonado</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.inkaterra.com/inkaterra/inkaterra-reserva-amazonica/" target="_blank" rel="noopener">Inkaterra Reserva Amazónica</a></p>
 <ul>
 <li>Amazon rainforest gateway</li>
-<li><a href="https://www.inkaterra.com/inkaterra/inkaterra-reserva-amazonica/" target="_blank" rel="noopener">Inkaterra Reserva Amazónica</a></li>
 <li>Night walk for caimans</li>
 </ul>
 </div>
@@ -348,7 +365,6 @@ footer.site {
 <ul>
 <li>Cusco → Lima</li>
 <li>Late dinner at <a href="https://www.astridygaston.com/" target="_blank" rel="noopener">Astrid y Gastón</a></li>
-<li>Overnight to SAN</li>
 </ul>
 </div>
 </article>

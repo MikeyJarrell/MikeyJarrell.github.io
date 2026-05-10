@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,9 +255,7 @@ footer.site {
 <div class="photo"><img src="photos/egypt-jordan/day-01-day-1-fly-san-cairo-22h-via-frankfurt-or-istanbul.jpg" alt="Day 1: Fly SAN → Cairo (~22h via Frankfurt or Istanbul)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Cairo (~22h via Frankfurt or Istanbul)</h3>
-<ul>
-<li><a href="https://www.marriott.com/en-us/hotels/caimn-marriott-mena-house-cairo/" target="_blank" rel="noopener">Marriott Mena House</a> — pyramids out the window</li>
-</ul>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.marriott.com/en-us/hotels/caimn-marriott-mena-house-cairo/" target="_blank" rel="noopener">Marriott Mena House</a></p>
 </div>
 </article>
 <article class="day">
@@ -269,10 +284,10 @@ footer.site {
 <div class="photo"><img src="photos/egypt-jordan/day-04-day-4-fly-to-luxor.jpg" alt="Day 4: Fly to Luxor" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 4: Fly to Luxor</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://all.accor.com/hotel/1661/index.en.shtml" target="_blank" rel="noopener">Sofitel Winter Palace</a></p>
 <ul>
 <li>East Bank: <a href="https://en.wikipedia.org/wiki/Karnak" target="_blank" rel="noopener">Karnak</a> + Luxor Temple</li>
 <li>Hot air balloon over the <a href="https://en.wikipedia.org/wiki/Valley_of_the_Kings" target="_blank" rel="noopener">Valley of the Kings</a> at dawn (next morning)</li>
-<li><a href="https://all.accor.com/hotel/1661/index.en.shtml" target="_blank" rel="noopener">Sofitel Winter Palace</a></li>
 </ul>
 </div>
 </article>
@@ -312,9 +327,9 @@ footer.site {
 <div class="photo"><img src="photos/egypt-jordan/day-08-day-8-fly-cairo-amman.jpg" alt="Day 8: Fly Cairo → Amman" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 8: Fly Cairo → Amman</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.fourseasons.com/amman/" target="_blank" rel="noopener">Four Seasons Amman</a></p>
 <ul>
 <li>Connection in Cairo</li>
-<li><a href="https://www.fourseasons.com/amman/" target="_blank" rel="noopener">Four Seasons Amman</a></li>
 </ul>
 </div>
 </article>
@@ -322,8 +337,8 @@ footer.site {
 <div class="photo"><img src="photos/egypt-jordan/day-09-day-9-drive-to-petra-3h.jpg" alt="Day 9: Drive to Petra (~3h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 9: Drive to Petra (~3h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://all.accor.com/" target="_blank" rel="noopener">Mövenpick</a> at the gates</p>
 <ul>
-<li><a href="https://movenpick.accor.com/en/asia/jordan/petra/resort-petra.html" target="_blank" rel="noopener">Mövenpick</a> at the gates</li>
 <li><a href="https://www.visitpetra.jo/" target="_blank" rel="noopener">Petra</a> by Night candlelight walk</li>
 </ul>
 </div>
@@ -343,8 +358,8 @@ footer.site {
 <div class="photo"><img src="photos/egypt-jordan/day-11-day-11-drive-to-wadi-rum.jpg" alt="Day 11: Drive to Wadi Rum" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 11: Drive to Wadi Rum</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://aichaluxurycamp.com/" target="_blank" rel="noopener">Memories Aicha</a> Luxury Camp</p>
 <ul>
-<li><a href="https://aichaluxurycamp.com/" target="_blank" rel="noopener">Memories Aicha</a> Luxury Camp (bubble domes)</li>
 <li>Jeep tour through Lawrence of Arabia's desert</li>
 <li>Stargazing at the camp</li>
 </ul>

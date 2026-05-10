@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,8 +255,8 @@ footer.site {
 <div class="photo"><img src="photos/sri-lanka/day-01-day-1-fly-san-colombo-21h-via-dubai-or-singapore.jpg" alt="Day 1: Fly SAN → Colombo (~21h via Dubai or Singapore)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Colombo (~21h via Dubai or Singapore)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.shangri-la.com/colombo/shangrila/" target="_blank" rel="noopener">Shangri-La Colombo</a></p>
 <ul>
-<li><a href="https://www.shangri-la.com/colombo/shangrila/" target="_blank" rel="noopener">Shangri-La Colombo</a></li>
 <li>Dinner at <a href="https://ministryofcrab.com/" target="_blank" rel="noopener">Ministry of Crab</a></li>
 </ul>
 </div>
@@ -248,8 +265,8 @@ footer.site {
 <div class="photo"><img src="photos/sri-lanka/day-02-day-2-drive-to-sigiriya-4h.jpg" alt="Day 2: Drive to Sigiriya (~4h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 2: Drive to Sigiriya (~4h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.heritancehotels.com/kandalama/" target="_blank" rel="noopener">Heritance Kandalama</a></p>
 <ul>
-<li><a href="https://www.heritancehotels.com/kandalama/" target="_blank" rel="noopener">Heritance Kandalama</a> (Geoffrey Bawa architecture)</li>
 <li>Climb Pidurangala Rock for sunset view of <a href="https://en.wikipedia.org/wiki/Sigiriya" target="_blank" rel="noopener">Sigiriya</a></li>
 </ul>
 </div>
@@ -268,10 +285,10 @@ footer.site {
 <div class="photo"><img src="photos/sri-lanka/day-04-day-4-drive-to-kandy-3h.jpg" alt="Day 4: Drive to Kandy (~3h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 4: Drive to Kandy (~3h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://helgasfolly.com/" target="_blank" rel="noopener">Helga's Folly</a></p>
 <ul>
 <li>Dambulla cave temples en route</li>
 <li>Temple of the Tooth at dusk</li>
-<li>Stay at <a href="https://helgasfolly.com/" target="_blank" rel="noopener">Helga's Folly</a></li>
 </ul>
 </div>
 </article>
@@ -279,10 +296,10 @@ footer.site {
 <div class="photo"><img src="photos/sri-lanka/day-05-day-5-train-kandy-ella-7h.jpg" alt="Day 5: Train Kandy → Ella (~7h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 5: Train Kandy → Ella (~7h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://98acresresort.com/" target="_blank" rel="noopener">98 Acres Resort</a></p>
 <ul>
 <li>One of the world's great train rides</li>
 <li>Tea-country views and Nine Arches Bridge</li>
-<li>Stay at <a href="https://98acresresort.com/" target="_blank" rel="noopener">98 Acres Resort</a></li>
 </ul>
 </div>
 </article>
@@ -301,8 +318,8 @@ footer.site {
 <div class="photo"><img src="photos/sri-lanka/day-07-day-7-drive-to-yala-4h.jpg" alt="Day 7: Drive to Yala (~4h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 7: Drive to Yala (~4h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.resplendentceylon.com/" target="_blank" rel="noopener">Wild Coast Tented Lodge</a></p>
 <ul>
-<li><a href="https://www.resplendentceylon.com/wildcoasttentedlodge/" target="_blank" rel="noopener">Wild Coast Tented Lodge</a></li>
 <li>Afternoon safari for leopards</li>
 </ul>
 </div>
@@ -354,7 +371,6 @@ footer.site {
 <h3>Day 12: Fly home from Colombo</h3>
 <ul>
 <li>Drive back to Colombo (~3h)</li>
-<li>Late-night flight</li>
 </ul>
 </div>
 </article>

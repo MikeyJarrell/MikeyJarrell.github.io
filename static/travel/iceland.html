@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -236,19 +253,19 @@ footer.site {
 <p><em>Endless daylight and zero humidity. Ring Road drive, Reynisfjara black sands, Jökulsárlón glacier lagoon, <a href="https://www.skylagoon.com/" target="_blank" rel="noopener">Sky Lagoon</a> soak. ~55–65°F all month.</em></p>
 </div>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-01-fly-san-reykjavík-via-seattle.jpg" alt="Thursday: Fly SAN → Reykjavík (~12h)" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-01-fly-san-reykjavík-via-seattle.jpg" alt="Day 1: Fly SAN → Reykjavík (~12h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Fly SAN → Reykjavík (~12h)</h3>
+<h3>Day 1: Fly SAN → Reykjavík (~12h)</h3>
 <ul>
-<li>Icelandair red-eye to Keflavík</li>
+<li>Red-eye to Keflavík</li>
 <li>Pick up rental at the airport</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-02-reykjavík-sky-lagoon.jpg" alt="Friday: Reykjavík + Sky Lagoon" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-02-reykjavík-sky-lagoon.jpg" alt="Day 2: Reykjavík + Sky Lagoon" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Reykjavík + Sky Lagoon</h3>
+<h3>Day 2: Reykjavík + Sky Lagoon</h3>
 <ul>
 <li>7-step <a href="https://www.skylagoon.com/" target="_blank" rel="noopener">Sky Lagoon</a> ritual to fight jet lag</li>
 <li>Walk Reykjavík harbor</li>
@@ -257,9 +274,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-03-drive-the-golden-circle.jpg" alt="Saturday: Drive the Golden Circle" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-03-drive-the-golden-circle.jpg" alt="Day 3: Drive the Golden Circle" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Drive the Golden Circle</h3>
+<h3>Day 3: Drive the Golden Circle</h3>
 <ul>
 <li>Þingvellir, Geysir, Gullfoss</li>
 <li>Soak at Secret Lagoon</li>
@@ -268,32 +285,32 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-04-drive-south-coast.jpg" alt="Sunday: Drive south coast (~3h)" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-04-drive-south-coast.jpg" alt="Day 4: Drive south coast (~3h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Drive south coast (~3h)</h3>
+<h3>Day 4: Drive south coast (~3h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://hotelkria.is/" target="_blank" rel="noopener">Hotel Kría</a></p>
 <ul>
 <li>Seljalandsfoss + Skógafoss</li>
 <li>Reynisfjara black-sand beach</li>
-<li>Overnight <a href="https://hotelkria.is/" target="_blank" rel="noopener">Hotel Kría</a> in Vík</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-05-skaftafell-jökulsárlón.jpg" alt="Monday: Skaftafell + Jökulsárlón" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-05-skaftafell-jökulsárlón.jpg" alt="Day 5: Skaftafell + Jökulsárlón" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Skaftafell + Jökulsárlón</h3>
+<h3>Day 5: Skaftafell + Jökulsárlón</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.fosshotel.is/hotels-in-iceland/fosshotel-glacier-lagoon" target="_blank" rel="noopener">Hali Country Hotel</a> or <a href="https://www.islandshotel.is/hotels-in-iceland/fosshotel-glacier-lagoon/" target="_blank" rel="noopener">Fosshotel Glacier Lagoon</a></p>
 <ul>
 <li>Skaftafell Svartifoss loop (~2mi flat)</li>
 <li>Jökulsárlón glacier lagoon boat ride</li>
 <li>Diamond Beach</li>
-<li>Overnight <a href="https://hali.is/en/" target="_blank" rel="noopener">Hali Country Hotel</a> or <a href="https://www.islandshotel.is/hotels-in-iceland/fosshotel-glacier-lagoon/" target="_blank" rel="noopener">Fosshotel Glacier Lagoon</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-06-drive-east-to-egilsstaðir.jpg" alt="Tuesday: Drive east to Egilsstaðir (~5h)" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-06-drive-east-to-egilsstaðir.jpg" alt="Day 6: Drive east to Egilsstaðir (~5h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Drive east to Egilsstaðir (~5h)</h3>
+<h3>Day 6: Drive east to Egilsstaðir (~5h)</h3>
 <ul>
 <li>Stokksnes / Vestrahorn stop</li>
 <li>Long scenic drive along the east fjords</li>
@@ -302,9 +319,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-07-mývatn-area.jpg" alt="Wednesday: Mývatn area" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-07-mývatn-area.jpg" alt="Day 7: Mývatn area" loading="lazy"></div>
 <div class="day-body">
-<h3>Wednesday: Mývatn area</h3>
+<h3>Day 7: Mývatn area</h3>
 <ul>
 <li>Mývatn Nature Baths</li>
 <li>Krafla geothermal area + Goðafoss</li>
@@ -313,20 +330,20 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-08-drive-to-snæfellsnes.jpg" alt="Thursday: Drive to Snæfellsnes (~5h)" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-08-drive-to-snæfellsnes.jpg" alt="Day 8: Drive to Snæfellsnes (~5h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Drive to Snæfellsnes (~5h)</h3>
+<h3>Day 8: Drive to Snæfellsnes (~5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.budir.is/" target="_blank" rel="noopener">Hotel Búðir</a> or <a href="https://www.fosshotel.is/hotels-in-iceland/fosshotel-stykkisholmur" target="_blank" rel="noopener">Stykkishólmur</a></p>
 <ul>
 <li>Forest Lagoon morning soak</li>
 <li>Long drive south</li>
-<li><a href="https://www.budir.is/" target="_blank" rel="noopener">Hotel Búðir</a> or <a href="https://www.fosshotel.is/hotels-in-iceland/fosshotel-stykkisholmur" target="_blank" rel="noopener">Stykkishólmur</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-09-snæfellsnes-peninsula.jpg" alt="Friday: Snæfellsnes peninsula" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-09-snæfellsnes-peninsula.jpg" alt="Day 9: Snæfellsnes peninsula" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Snæfellsnes peninsula</h3>
+<h3>Day 9: Snæfellsnes peninsula</h3>
 <ul>
 <li>Kirkjufell viewpoint</li>
 <li>Arnarstapi cliff walk (~2mi)</li>
@@ -335,31 +352,31 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-10-drive-back-to-reykjavík.jpg" alt="Saturday: Drive back to Reykjavík (~3h) + Glymur hike" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-10-drive-back-to-reykjavík.jpg" alt="Day 10: Drive back to Reykjavík (~3h) + Glymur hike" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Drive back to Reykjavík (~3h) + Glymur hike</h3>
+<h3>Day 10: Drive back to Reykjavík (~3h) + Glymur hike</h3>
 <ul>
 <li>Glymur waterfall hike (~2-3h, second-tallest in Iceland)</li>
 <li>Borgarnes Settlement Center stop</li>
-<li>Lunch at <a href="https://www.landnam.is/en/" target="_blank" rel="noopener">Settlement Café</a></li>
+<li>Lunch at <a href="https://www.landnam.is/" target="_blank" rel="noopener">Settlement Café</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-11-explore-reykjavík.jpg" alt="Sunday: Explore Reykjavík" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-11-explore-reykjavík.jpg" alt="Day 11: Explore Reykjavík" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Explore Reykjavík</h3>
+<h3>Day 11: Explore Reykjavík</h3>
 <ul>
-<li><a href="https://hallgrimskirkja.is/en" target="_blank" rel="noopener">Hallgrímskirkja</a> tower</li>
+<li><a href="https://www.hallgrimskirkja.is/" target="_blank" rel="noopener">Hallgrímskirkja</a> tower</li>
 <li><a href="https://www.harpa.is/en/" target="_blank" rel="noopener">Harpa</a> concert hall</li>
 <li>Fish and chips at <a href="https://reykjavikfish.is/" target="_blank" rel="noopener">Reykjavík Fish</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-12-whale-watching-from-old-harbour.jpg" alt="Monday: Landmannalaugar super-jeep day" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-12-whale-watching-from-old-harbour.jpg" alt="Day 12: Landmannalaugar super-jeep day" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Landmannalaugar super-jeep day</h3>
+<h3>Day 12: Landmannalaugar super-jeep day</h3>
 <ul>
 <li>Full-day super-jeep into the highlands (~10-12h)</li>
 <li>Rhyolite mountains, hot-river soak at Laugavegur trailhead</li>
@@ -369,13 +386,12 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/iceland/day-13-blue-lagoon-fly-home.jpg" alt="Tuesday: Blue Lagoon, fly home" loading="lazy"></div>
+<div class="photo"><img src="photos/iceland/day-13-blue-lagoon-fly-home.jpg" alt="Day 13: Blue Lagoon, fly home" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Blue Lagoon, fly home</h3>
+<h3>Day 13: Blue Lagoon, fly home</h3>
 <ul>
 <li>Premium booking with Lava Restaurant lunch</li>
 <li>Drop rental at Keflavík</li>
-<li>Afternoon flight</li>
 </ul>
 </div>
 </article>

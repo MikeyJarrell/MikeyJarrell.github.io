@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -238,9 +255,9 @@ footer.site {
 <div class="photo"><img src="photos/ethiopia/day-01-day-1-fly-san-addis-ababa-22h-via-frankfurt-or-dub.jpg" alt="Day 1: Fly SAN → Addis Ababa (~22h via Frankfurt or Dubai)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 1: Fly SAN → Addis Ababa (~22h via Frankfurt or Dubai)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.marriott.com/" target="_blank" rel="noopener">Sheraton Addis</a> or Skylight Hotel</p>
 <ul>
-<li><a href="https://www.marriott.com/en-us/hotels/addsi-sheraton-addis/" target="_blank" rel="noopener">Sheraton Addis</a> or Skylight Hotel</li>
-<li>Tej (honey wine) at <a href="https://yodethiopia.com/" target="_blank" rel="noopener">Yod Abyssinia</a></li>
+<li>Tej (honey wine) at <a href="https://www.yodethiopia.com/" target="_blank" rel="noopener">Yod Abyssinia</a></li>
 </ul>
 </div>
 </article>
@@ -260,7 +277,7 @@ footer.site {
 <div class="day-body">
 <h3>Day 3: Fly to Lalibela</h3>
 <ul>
-<li>Ethiopian Airlines ~1h</li>
+<li>~1h flight</li>
 <li>Mountain View Hotel</li>
 <li>Afternoon at Bet Medhane Alem</li>
 </ul>
@@ -291,8 +308,8 @@ footer.site {
 <div class="photo"><img src="photos/ethiopia/day-06-day-6-drive-to-simien-mountains-3h.jpg" alt="Day 6: Drive to Simien Mountains (~3h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 6: Drive to Simien Mountains (~3h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://limalimolodge.com/" target="_blank" rel="noopener">Limalimo Lodge</a></p>
 <ul>
-<li><a href="https://limalimolodge.com/" target="_blank" rel="noopener">Limalimo Lodge</a> — clifftop views</li>
 <li>Walk among gelada baboons</li>
 </ul>
 </div>
@@ -343,7 +360,7 @@ footer.site {
 <div class="day-body">
 <h3>Day 11: Fly back to Addis</h3>
 <ul>
-<li>Last meal at <a href="https://yodethiopia.com/" target="_blank" rel="noopener">Yod Abyssinia</a></li>
+<li>Last meal at <a href="https://www.yodethiopia.com/" target="_blank" rel="noopener">Yod Abyssinia</a></li>
 <li>Coffee ceremony</li>
 </ul>
 </div>

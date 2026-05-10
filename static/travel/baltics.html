@@ -192,6 +192,23 @@ article.day a {
 article.day a:hover { border-bottom-color: var(--accent); }
 article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
 
+article.day p.stay {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+article.day p.stay .stay-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+article.day p.stay a { color: var(--accent); }
+
 footer.site {
   text-align: center; padding: 48px 16px;
   color: var(--muted); font-size: 0.85rem;
@@ -236,30 +253,27 @@ footer.site {
 <p><em>Three medieval old towns in a row — Tallinn, Riga, Vilnius. Sea breezes at the <a href="https://en.wikipedia.org/wiki/Curonian_Spit" target="_blank" rel="noopener">Curonian Spit</a>, late-night sunsets (sun until ~10:30 pm). ~70–75°F. Cruise daytrippers pack the old towns midday — eat early or late.</em></p>
 </div>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-01-fly-san-tallinn.jpg" alt="Thursday: Fly SAN → Tallinn (~16h)" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-01-fly-san-tallinn.jpg" alt="Day 1: Fly SAN → Tallinn (~16h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Fly SAN → Tallinn (~16h)</h3>
-<ul>
-<li>United + Finnair</li>
-<li>Land Friday afternoon</li>
-</ul>
+<h3>Day 1: Fly SAN → Tallinn (~16h)</h3>
+
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-02-arrive-tallinn.jpg" alt="Friday: Arrive Tallinn" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-02-arrive-tallinn.jpg" alt="Day 2: Arrive Tallinn" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Arrive Tallinn</h3>
+<h3>Day 2: Arrive Tallinn</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://hoteltelegraaf.com/" target="_blank" rel="noopener">Hotel Telegraaf</a> or <a href="https://www.schlossle-hotels.com/" target="_blank" rel="noopener">Schlössle</a></p>
 <ul>
-<li><a href="https://hoteltelegraaf.com/" target="_blank" rel="noopener">Hotel Telegraaf</a> or <a href="https://www.schlossle-hotels.com/" target="_blank" rel="noopener">Schlössle</a></li>
 <li>Walk old town in long evening light</li>
 <li>Dinner at <a href="https://www.oldehansa.ee/" target="_blank" rel="noopener">Olde Hansa</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-03-toompea-old-town.jpg" alt="Saturday: Toompea + old town" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-03-toompea-old-town.jpg" alt="Day 3: Toompea + old town" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Toompea + old town</h3>
+<h3>Day 3: Toompea + old town</h3>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Toompea" target="_blank" rel="noopener">Toompea</a> viewpoints</li>
 <li>KGB Museum at Hotel Viru</li>
@@ -268,9 +282,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-04-lahemaa-national-park.jpg" alt="Sunday: Lahemaa National Park" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-04-lahemaa-national-park.jpg" alt="Day 4: Lahemaa National Park" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Lahemaa National Park</h3>
+<h3>Day 4: Lahemaa National Park</h3>
 <ul>
 <li>Private driver (~1h each way)</li>
 <li>Viru Bog boardwalk</li>
@@ -279,9 +293,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-05-patarei-kadriorg.jpg" alt="Monday: Patarei + Kadriorg" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-05-patarei-kadriorg.jpg" alt="Day 5: Patarei + Kadriorg" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Patarei + Kadriorg</h3>
+<h3>Day 5: Patarei + Kadriorg</h3>
 <ul>
 <li>Patarei Sea Fortress (former Soviet prison)</li>
 <li>KUMU art museum in Kadriorg Park</li>
@@ -290,20 +304,20 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-06-bus-to-riga.jpg" alt="Tuesday: Bus to Riga (~4.5h)" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-06-bus-to-riga.jpg" alt="Day 6: Bus to Riga (~4.5h)" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Bus to Riga (~4.5h)</h3>
+<h3>Day 6: Bus to Riga (~4.5h)</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://all.accor.com/hotel/B6P1/index.en.shtml" target="_blank" rel="noopener">Pullman Riga</a> or <a href="https://www.grandpoet.lv/" target="_blank" rel="noopener">Grand Poet</a></p>
 <ul>
 <li><a href="https://luxexpress.eu/" target="_blank" rel="noopener">LUX Express</a></li>
-<li><a href="https://all.accor.com/hotel/B6P1/index.en.shtml" target="_blank" rel="noopener">Pullman Riga</a> or <a href="https://www.grandpoet.lv/" target="_blank" rel="noopener">Grand Poet</a></li>
 <li>Evening at <a href="https://en.wikipedia.org/wiki/House_of_the_Blackheads_(Riga)" target="_blank" rel="noopener">House of Blackheads</a></li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-07-riga-art-nouveau.jpg" alt="Wednesday: Riga Art Nouveau" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-07-riga-art-nouveau.jpg" alt="Day 7: Riga Art Nouveau" loading="lazy"></div>
 <div class="day-body">
-<h3>Wednesday: Riga Art Nouveau</h3>
+<h3>Day 7: Riga Art Nouveau</h3>
 <ul>
 <li>Alberta iela facades</li>
 <li><a href="https://centralrestaurante.com.pe/" target="_blank" rel="noopener">Central</a> Market in old zeppelin hangars</li>
@@ -312,9 +326,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-08-sigulda-cesis.jpg" alt="Thursday: Sigulda + Cēsis" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-08-sigulda-cesis.jpg" alt="Day 8: Sigulda + Cēsis" loading="lazy"></div>
 <div class="day-body">
-<h3>Thursday: Sigulda + Cēsis</h3>
+<h3>Day 8: Sigulda + Cēsis</h3>
 <ul>
 <li>Train ~1h to Sigulda</li>
 <li><a href="https://en.wikipedia.org/wiki/Turaida_Castle" target="_blank" rel="noopener">Turaida Castle</a> + Gauja gondola</li>
@@ -323,21 +337,21 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-09-riga-vilnius-hill-of-crosses.jpg" alt="Friday: Riga → Vilnius via Hill of Crosses" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-09-riga-vilnius-hill-of-crosses.jpg" alt="Day 9: Riga → Vilnius via Hill of Crosses" loading="lazy"></div>
 <div class="day-body">
-<h3>Friday: Riga → Vilnius via Hill of Crosses</h3>
+<h3>Day 9: Riga → Vilnius via Hill of Crosses</h3>
+<p class="stay"><span class="stay-label">Stay</span><a href="https://www.pacai.lt/" target="_blank" rel="noopener">Hotel Pacai</a></p>
 <ul>
 <li><a href="https://luxexpress.eu/" target="_blank" rel="noopener">LUX Express</a>, ~6h with stop</li>
 <li><a href="https://en.wikipedia.org/wiki/Hill_of_Crosses" target="_blank" rel="noopener">Hill of Crosses</a> at Šiauliai</li>
-<li><a href="https://www.pacai.lt/" target="_blank" rel="noopener">Hotel Pacai</a> in Vilnius</li>
 <li>Evening in Užupis</li>
 </ul>
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-10-old-vilnius.jpg" alt="Saturday: Old Vilnius" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-10-old-vilnius.jpg" alt="Day 10: Old Vilnius" loading="lazy"></div>
 <div class="day-body">
-<h3>Saturday: Old Vilnius</h3>
+<h3>Day 10: Old Vilnius</h3>
 <ul>
 <li>Cathedral Square + Gediminas Tower</li>
 <li>Bernardinai Gardens</li>
@@ -346,9 +360,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-11-trakai-castle.jpg" alt="Sunday: Trakai Castle" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-11-trakai-castle.jpg" alt="Day 11: Trakai Castle" loading="lazy"></div>
 <div class="day-body">
-<h3>Sunday: Trakai Castle</h3>
+<h3>Day 11: Trakai Castle</h3>
 <ul>
 <li>30 min drive or train</li>
 <li>Lake-island brick castle</li>
@@ -357,9 +371,9 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-12-curonian-spit.jpg" alt="Monday: Curonian Spit" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-12-curonian-spit.jpg" alt="Day 12: Curonian Spit" loading="lazy"></div>
 <div class="day-body">
-<h3>Monday: Curonian Spit</h3>
+<h3>Day 12: Curonian Spit</h3>
 <ul>
 <li>Vilnius → Klaipėda (~3.5h), ferry, drive to Nida</li>
 <li>Parnidis Dune + Thomas Mann's summer house</li>
@@ -368,12 +382,11 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/baltics/day-13-fly-home.jpg" alt="Tuesday: Fly home from Vilnius" loading="lazy"></div>
+<div class="photo"><img src="photos/baltics/day-13-fly-home.jpg" alt="Day 13: Fly home from Vilnius" loading="lazy"></div>
 <div class="day-body">
-<h3>Tuesday: Fly home from Vilnius</h3>
+<h3>Day 13: Fly home from Vilnius</h3>
 <ul>
 <li>Last cafés like Crooked House</li>
-<li>Afternoon flight</li>
 </ul>
 </div>
 </article>
