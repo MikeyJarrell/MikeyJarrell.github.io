@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Vietnam — Travel Wishlist</title><style>
+:root {
+  --bg: #f7f5f1;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #555;
+  --accent: #b8552d;
+  --hairline: #e6e0d6;
+  --max-width: 1200px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+
+header.site {
+  padding: 56px 24px 28px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+}
+header.site h1 { margin: 0; font-weight: 600; font-size: 2.4rem; letter-spacing: -0.01em; }
+header.site .page-link {
+  display: inline-block; margin-top: 14px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+header.site .page-link:hover { text-decoration: underline; }
+
+main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
+
+/* --- Filter bar --- */
+.filter-bar { background: var(--surface); border-bottom: 1px solid var(--hairline); padding: 14px 16px; }
+.filter-bar-inner {
+  max-width: var(--max-width); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center;
+}
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-right: 4px; font-weight: 600;
+}
+.filter-month select {
+  font: inherit; border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 8px; background: var(--surface);
+}
+.chip { cursor: pointer; font-size: 0.85rem; user-select: none; }
+.chip input { display: none; }
+.chip span {
+  display: inline-block; padding: 4px 10px;
+  border: 1px solid var(--hairline); border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.chip:hover span { border-color: var(--accent); }
+.chip input:checked + span {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.filter-clear {
+  margin-left: auto; font: inherit; background: none;
+  border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 12px; cursor: pointer; color: var(--muted);
+}
+.filter-clear:hover { color: var(--ink); border-color: var(--muted); }
+.filter-status {
+  max-width: var(--max-width); margin: 12px auto 0;
+  font-size: 0.85rem; color: var(--muted);
+}
+
+/* --- Card grid --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding-top: 40px;
+}
+@media (min-width: 700px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.card a.card-link { color: inherit; text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.card .photo { aspect-ratio: 16/10; background: #ddd; overflow: hidden; position: relative; }
+.card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .photo .name-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 18px; color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  font-size: 1.4rem; font-weight: 600; letter-spacing: -0.005em;
+}
+.card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card .region-label {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 600;
+}
+.card .summary { color: var(--ink); font-size: 0.95rem; line-height: 1.45; }
+.card .stops { color: var(--muted); font-size: 0.82rem; }
+.card .stops strong { color: var(--ink); font-weight: 500; }
+.card .meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px;
+  font-size: 0.75rem;
+}
+.card .meta .tag {
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(184,85,45,0.08); color: var(--accent);
+}
+.card .temp {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.card.filtered-out { display: none; }
+
+/* --- Detail page --- */
+.detail-back {
+  display: inline-block; padding: 14px 16px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+.detail-back:hover { text-decoration: underline; }
+
+section.destination { margin: 8px 0 64px; }
+
+section.destination > .hero {
+  position: relative; margin: 0 -16px 24px;
+  aspect-ratio: 16/7; background: #222; overflow: hidden; cursor: zoom-in;
+}
+@media (min-width: 800px) {
+  section.destination > .hero { margin: 0 0 24px; border-radius: 14px; }
+}
+section.destination > .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+section.destination > .hero .hero-title {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff; pointer-events: none;
+}
+section.destination > .hero .hero-title h2 {
+  font-size: 2.4rem; margin: 0 0 6px; font-weight: 600;
+}
+
+section.destination > .intro {
+  font-size: 1.05rem; color: var(--muted); margin: 0 0 32px;
+}
+section.destination > .intro p { margin: 0 0 14px; }
+section.destination > .intro strong { color: var(--ink); }
+
+article.day {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-bottom: 28px;
+  border-top: 1px solid var(--hairline); padding-top: 24px;
+}
+@media (min-width: 700px) {
+  article.day { grid-template-columns: 360px 1fr; gap: 28px; }
+}
+article.day .photo {
+  aspect-ratio: 4/3; background: #ddd;
+  overflow: hidden; border-radius: 8px; cursor: zoom-in;
+}
+article.day .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+article.day .photo.placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--hairline); color: var(--muted); font-size: 0.85rem; cursor: default;
+}
+article.day h3 { margin: 0 0 10px; font-size: 1.15rem; font-weight: 600; }
+article.day ul { margin: 0; padding-left: 20px; }
+article.day ul li { margin-bottom: 4px; }
+article.day a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(184,85,45,0.25);
+}
+article.day a:hover { border-bottom-color: var(--accent); }
+article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
+
+footer.site {
+  text-align: center; padding: 48px 16px;
+  color: var(--muted); font-size: 0.85rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* --- Lightbox --- */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; cursor: zoom-out; padding: 24px;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; border-radius: 6px;
+  box-shadow: 0 10px 60px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  color: #fff; font-size: 28px; line-height: 1;
+  background: none; border: 0; cursor: pointer; opacity: 0.8;
+}
+.lightbox-close:hover { opacity: 1; }
+</style></head><body>
+<header class="site">
+<h1>Vietnam</h1>
+<a class="page-link" href="index.html">← Back to Travel Wishlist</a>
+</header>
+<main>
+<section class="destination" id="vietnam">
+<div class="hero">
+<img src="photos/vietnam/overview.jpg" alt="Vietnam hero">
+<div class="hero-title"><h2>Vietnam</h2></div>
+</div>
+<div class="intro">
+<p>Hanoi old quarter, Ha Long Bay overnight, Hoi An lantern town, southern beaches.</p>
+<p><strong>Stops:</strong> Hanoi · Ha Long Bay · Ninh Binh · Hoi An · Saigon · Phu Quoc</p>
+<p><strong>Temp:</strong> 65–85°F</p>
+</div>
+<div class="intro">
+</div>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-01-day-1-fly-san-hanoi-22h-via-tokyo-or-seoul.jpg" alt="Day 1: Fly SAN → Hanoi (~22h via Tokyo or Seoul)" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 1: Fly SAN → Hanoi (~22h via Tokyo or Seoul)</h3>
+<ul>
+<li><a href="https://www.sofitel-legend-metropole-hanoi.com/" target="_blank" rel="noopener">Sofitel Legend Metropole Hanoi</a></li>
+<li>Phở Bát Đàn for first meal</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-02-day-2-hanoi-old-quarter.jpg" alt="Day 2: Hanoi — Old Quarter" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 2: Hanoi — Old Quarter</h3>
+<ul>
+<li>Hoan Kiem Lake morning tai chi</li>
+<li>Ho Chi Minh Mausoleum</li>
+<li>Egg coffee at Café Giảng</li>
+<li>Water-puppet show</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-03-day-3-ha-long-bay-overnight-cruise.jpg" alt="Day 3: Ha Long Bay overnight cruise" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 3: Ha Long Bay overnight cruise</h3>
+<ul>
+<li>Drive ~2.5h to Ha Long</li>
+<li>Board Heritage Bình Chuẩn or Indochine Cruise</li>
+<li>Kayak among the limestone karsts</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-04-day-4-ha-long-drive-to-ninh-binh.jpg" alt="Day 4: Ha Long → drive to Ninh Binh" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 4: Ha Long → drive to Ninh Binh</h3>
+<ul>
+<li>"Inland Halong" — limestone peaks rising from rice paddies</li>
+<li>Tam Coc boat ride</li>
+<li>Stay at Tam Coc Garden</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-05-day-5-fly-to-hoi-an.jpg" alt="Day 5: Fly to Hoi An" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 5: Fly to Hoi An</h3>
+<ul>
+<li>Hanoi → Da Nang flight, drive 30 min</li>
+<li><a href="https://www.fourseasons.com/hoian/" target="_blank" rel="noopener">Four Seasons The Nam Hai</a></li>
+<li>Bicycle the rice paddies to old town</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-06-day-6-hoi-an-lantern-night.jpg" alt="Day 6: Hoi An — lantern night" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 6: Hoi An — lantern night</h3>
+<ul>
+<li>Tailor a custom suit (delivered next day)</li>
+<li>Cooking class at Red Bridge</li>
+<li>Old town after dark when lanterns light up</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-07-day-7-day-trip-to-my-son-sanctuary.jpg" alt="Day 7: Day trip to My Son sanctuary" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 7: Day trip to My Son sanctuary</h3>
+<ul>
+<li>Cham Hindu temple ruins</li>
+<li>Beach afternoon at An Bang</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-08-day-8-fly-to-saigon-ho-chi-minh-city.jpg" alt="Day 8: Fly to Saigon (Ho Chi Minh City)" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 8: Fly to Saigon (Ho Chi Minh City)</h3>
+<ul>
+<li><a href="https://www.hyatt.com/en-US/hotel/vietnam/park-hyatt-saigon/sgnph" target="_blank" rel="noopener">Park Hyatt Saigon</a> on Lam Son Square</li>
+<li>Banh mi at Huynh Hoa</li>
+<li>Rooftop drinks at Chill Skybar</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-09-day-9-saigon-highlights.jpg" alt="Day 9: Saigon highlights" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 9: Saigon highlights</h3>
+<ul>
+<li>War Remnants Museum</li>
+<li>Notre-Dame Basilica + <a href="https://centralrestaurante.com.pe/" target="_blank" rel="noopener">Central</a> Post Office</li>
+<li>Cu Chi Tunnels half-day trip</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-10-day-10-fly-to-phu-quoc.jpg" alt="Day 10: Fly to Phu Quoc" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 10: Fly to Phu Quoc</h3>
+<ul>
+<li><a href="https://www.marriott.com/en-us/hotels/pqcjw-jw-marriott-phu-quoc-emerald-bay-resort-and-spa/" target="_blank" rel="noopener">JW Marriott Emerald Bay</a></li>
+<li>Beach + snorkel</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-11-day-11-phu-quoc-hon-thom-island.jpg" alt="Day 11: Phu Quoc — Hon Thom island" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 11: Phu Quoc — Hon Thom island</h3>
+<ul>
+<li>World's longest 3-rope cable car</li>
+<li>Beach hopping on Hon Thom</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-12-day-12-fly-back-to-saigon-overnight.jpg" alt="Day 12: Fly back to Saigon, overnight" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 12: Fly back to Saigon, overnight</h3>
+<ul>
+<li>Last bowl of bun bo Hue at Quan An Ngon</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/vietnam/day-13-day-13-fly-home.jpg" alt="Day 13: Fly home" loading="lazy"></div>
+<div class="day-body">
+<h3>Day 13: Fly home</h3>
+<ul>
+<li>Long flight back via Tokyo or Seoul</li>
+</ul>
+</div>
+</article>
+</section>
+</main>
+<script>
+(function() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('img');
+  const closeLb = () => { overlay.classList.remove('active'); lbImg.src = ''; };
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) closeLb();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  document.querySelectorAll('.day .photo:not(.placeholder) img, .hero img').forEach(el => {
+    el.style.cursor = 'zoom-in';
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      lbImg.src = el.src; lbImg.alt = el.alt;
+      overlay.classList.add('active');
+    });
+  });
+})();
+</script>
+</body></html>
