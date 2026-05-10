@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Denali wildlife, Kenai Fjords kayaking, and bear-fishing at Brooks Falls.</p>
 <p><strong>Stops:</strong> Anchorage · Denali · Seward · Kenai Fjords · Katmai</p>
-<p><strong>Temp:</strong> 50–70°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;17\u201325\u00b0F&quot;, &quot;Feb&quot;: &quot;21\u201329\u00b0F&quot;, &quot;Mar&quot;: &quot;28\u201336\u00b0F&quot;, &quot;Apr&quot;: &quot;38\u201346\u00b0F&quot;, &quot;May&quot;: &quot;50\u201358\u00b0F&quot;, &quot;Jun&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Jul&quot;: &quot;60\u201368\u00b0F&quot;, &quot;Aug&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Sep&quot;: &quot;49\u201357\u00b0F&quot;, &quot;Oct&quot;: &quot;34\u201342\u00b0F&quot;, &quot;Nov&quot;: &quot;21\u201329\u00b0F&quot;, &quot;Dec&quot;: &quot;16\u201324\u00b0F&quot;}" data-fallback="50–70°F">50–70°F</span></p>
 </div>
 <div class="intro">
 </div>
@@ -262,7 +262,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/alaska/day-03-denali-national-park-grizzly-bear-alaska.jpg" alt="Day 2: Train to Talkeetna (Denali base)" loading="lazy"></div>
+<div class="photo"><img src="photos/alaska/day-02-talkeetna-alaska.jpg" alt="Day 2: Train to Talkeetna (Denali base)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 2: Train to Talkeetna (Denali base)</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://www.talkeetnalodge.com/" target="_blank" rel="noopener">Talkeetna Alaskan Lodge</a></p>
@@ -363,6 +363,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -381,6 +382,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

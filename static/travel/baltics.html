@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Three medieval old towns in a row, plus the Curonian Spit sand dunes.</p>
 <p><strong>Stops:</strong> Tallinn · Lahemaa · Riga · Sigulda · Vilnius · Trakai · Curonian Spit</p>
-<p><strong>Temp:</strong> 70–75°F, sun until ~10:30 pm</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;20\u201328\u00b0F&quot;, &quot;Feb&quot;: &quot;22\u201330\u00b0F&quot;, &quot;Mar&quot;: &quot;30\u201338\u00b0F&quot;, &quot;Apr&quot;: &quot;42\u201350\u00b0F&quot;, &quot;May&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Jun&quot;: &quot;62\u201370\u00b0F&quot;, &quot;Jul&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Aug&quot;: &quot;64\u201372\u00b0F&quot;, &quot;Sep&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Oct&quot;: &quot;44\u201352\u00b0F&quot;, &quot;Nov&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Dec&quot;: &quot;24\u201332\u00b0F&quot;}" data-fallback="70–75°F, sun until ~10:30 pm">70–75°F, sun until ~10:30 pm</span></p>
 </div>
 <div class="intro">
 <p><em>Three medieval old towns in a row — Tallinn, Riga, Vilnius. Sea breezes at the <a href="https://en.wikipedia.org/wiki/Curonian_Spit" target="_blank" rel="noopener">Curonian Spit</a>, late-night sunsets (sun until ~10:30 pm). ~70–75°F. Cruise daytrippers pack the old towns midday — eat early or late.</em></p>
@@ -402,6 +402,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -420,6 +421,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

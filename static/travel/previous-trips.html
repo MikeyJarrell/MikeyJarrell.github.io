@@ -339,15 +339,22 @@ footer.site {
     else if (visible === 0) status.textContent = 'No destinations match. Try fewer filters.';
     else status.textContent = `Showing ${visible} of ${cards.length} destinations.`;
   }
-  monthSel.addEventListener('change', applyFilters);
+  function saveMonth() { try { localStorage.setItem('travel.month', monthSel.value); } catch(e){} }
+  monthSel.addEventListener('change', () => { saveMonth(); applyFilters(); });
   themeBoxes.forEach(b => b.addEventListener('change', applyFilters));
   regionBoxes.forEach(b => b.addEventListener('change', applyFilters));
   clearBtn.addEventListener('click', () => {
     monthSel.value = '';
     themeBoxes.forEach(b => b.checked = false);
     regionBoxes.forEach(b => b.checked = false);
+    saveMonth();
     applyFilters();
   });
+  // Restore previous month selection on load
+  try {
+    const saved = localStorage.getItem('travel.month');
+    if (saved) { monthSel.value = saved; applyFilters(); }
+  } catch(e) {}
 })();
 </script>
 </body></html>

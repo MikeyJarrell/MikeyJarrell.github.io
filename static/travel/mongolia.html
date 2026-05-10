@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Naadam festival, Gobi dunes, and ger camps under the endless steppe sky.</p>
 <p><strong>Stops:</strong> Ulaanbaatar · Hustai NP · Gobi Desert · Kharkhorin</p>
-<p><strong>Temp:</strong> 60–80°F, cool nights</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;2\u201310\u00b0F&quot;, &quot;Feb&quot;: &quot;7\u201315\u00b0F&quot;, &quot;Mar&quot;: &quot;22\u201330\u00b0F&quot;, &quot;Apr&quot;: &quot;40\u201348\u00b0F&quot;, &quot;May&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Jun&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Jul&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Aug&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Sep&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Oct&quot;: &quot;37\u201345\u00b0F&quot;, &quot;Nov&quot;: &quot;17\u201325\u00b0F&quot;, &quot;Dec&quot;: &quot;4\u201312\u00b0F&quot;}" data-fallback="60–80°F, cool nights">60–80°F, cool nights</span></p>
 </div>
 <div class="intro">
 <p><em>Best timed around <a href="https://en.wikipedia.org/wiki/Naadam" target="_blank" rel="noopener">Naadam Festival</a> (July 11–13).</em></p>
@@ -352,7 +352,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/mongolia/day-11-mongolia-airport-farewell.jpg" alt="Day 10: Drive back to UB" loading="lazy"></div>
+<div class="photo"><img src="photos/mongolia/day-10-mongolia-horseback-steppe.jpg" alt="Day 10: Drive back to UB" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 10: Drive back to UB</h3>
 <p class="stay"><span class="stay-label">Stay</span>Ger camp on the steppe near the old Mongol capital</p>
@@ -373,6 +373,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -391,6 +392,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

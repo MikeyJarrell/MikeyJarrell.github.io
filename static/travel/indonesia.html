@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Bali jungle and clifftops, plus a Komodo liveaboard with dragons and reefs.</p>
 <p><strong>Stops:</strong> Ubud · Uluwatu · Komodo National Park · Seminyak</p>
-<p><strong>Temp:</strong> 80–85°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Feb&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Mar&quot;: &quot;80\u201388\u00b0F&quot;, &quot;Apr&quot;: &quot;80\u201388\u00b0F&quot;, &quot;May&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Jun&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Jul&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Aug&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Sep&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Oct&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Nov&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Dec&quot;: &quot;79\u201387\u00b0F&quot;}" data-fallback="80–85°F">80–85°F</span></p>
 </div>
 <div class="intro">
 <p><em>Bali in dry season plus a <a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> liveaboard. Ubud rice terraces, Uluwatu cliffs, snorkeling and dragons in the Komodo archipelago. ~80–85°F. <strong>Peak season warning:</strong> Bali in July is busy — book restaurants (<a href="https://locavore.co.id/" target="_blank" rel="noopener">Locavore</a>, <a href="https://mamasanbali.com/" target="_blank" rel="noopener">Mama San</a>) months ahead.</em></p>
@@ -404,6 +404,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -422,6 +423,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

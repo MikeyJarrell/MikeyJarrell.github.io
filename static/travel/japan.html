@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Tokyo neon, Kyoto temples, ryokan onsens, Hokkaido volcanic peaks.</p>
 <p><strong>Stops:</strong> Tokyo · Kamakura · Kyoto · Nara · Hakone · Hokkaido</p>
-<p><strong>Temp:</strong> 50–75°F, cherry blossom or autumn color</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;42\u201350\u00b0F&quot;, &quot;Feb&quot;: &quot;43\u201351\u00b0F&quot;, &quot;Mar&quot;: &quot;49\u201357\u00b0F&quot;, &quot;Apr&quot;: &quot;58\u201366\u00b0F&quot;, &quot;May&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Jun&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Jul&quot;: &quot;75\u201383\u00b0F&quot;, &quot;Aug&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Sep&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Oct&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Nov&quot;: &quot;51\u201359\u00b0F&quot;, &quot;Dec&quot;: &quot;44\u201352\u00b0F&quot;}" data-fallback="50–75°F, cherry blossom or autumn color">50–75°F, cherry blossom or autumn color</span></p>
 </div>
 <div class="intro">
 </div>
@@ -408,15 +408,14 @@ footer.site {
 <div class="photo"><img src="photos/japan/day-14-tokyo-narita-airport-japan-farewell.jpg" alt="Day 14: Fly home" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 14: Fly home</h3>
-<ul>
-<li>Direct to SAN</li>
-</ul>
+
 </div>
 </article>
 </section>
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -435,6 +434,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

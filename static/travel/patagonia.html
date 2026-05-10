@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Granite spires, glacier kayaking, and the W-trek through Torres del Paine.</p>
 <p><strong>Stops:</strong> El Calafate · El Chaltén · Torres del Paine · Punta Arenas</p>
-<p><strong>Temp:</strong> 40–65°F, southern summer</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Feb&quot;: &quot;55\u201363\u00b0F&quot;, &quot;Mar&quot;: &quot;50\u201358\u00b0F&quot;, &quot;Apr&quot;: &quot;43\u201351\u00b0F&quot;, &quot;May&quot;: &quot;36\u201344\u00b0F&quot;, &quot;Jun&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Jul&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Aug&quot;: &quot;35\u201343\u00b0F&quot;, &quot;Sep&quot;: &quot;41\u201349\u00b0F&quot;, &quot;Oct&quot;: &quot;47\u201355\u00b0F&quot;, &quot;Nov&quot;: &quot;52\u201360\u00b0F&quot;, &quot;Dec&quot;: &quot;55\u201363\u00b0F&quot;}" data-fallback="40–65°F, southern summer">40–65°F, southern summer</span></p>
 </div>
 <div class="intro">
 </div>
@@ -336,7 +336,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/patagonia/day-09-torres-del-paine-french-valley-hike.jpg" alt="Day 9: Torres del Paine — French Valley" loading="lazy"></div>
+<div class="photo"><img src="photos/patagonia/day-09-patagonia-french-valley.jpg" alt="Day 9: Torres del Paine — French Valley" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 9: Torres del Paine — French Valley</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://www.tierrahotels.com/" target="_blank" rel="noopener">Tierra Patagonia</a> or <a href="https://www.explora.com/" target="_blank" rel="noopener">Explora Patagonia</a></p>
@@ -374,7 +374,6 @@ footer.site {
 <h3>Day 12: Fly home from BA</h3>
 <ul>
 <li>Brunch in Palermo</li>
-<li>Overnight flight to SAN</li>
 </ul>
 </div>
 </article>
@@ -382,6 +381,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -400,6 +400,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

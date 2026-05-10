@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Lake Louise, Moraine Lake, and the Icefields Parkway drive to Jasper.</p>
 <p><strong>Stops:</strong> Banff · Lake Louise · Icefields Parkway · Jasper</p>
-<p><strong>Temp:</strong> 55–75°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;20\u201328\u00b0F&quot;, &quot;Feb&quot;: &quot;24\u201332\u00b0F&quot;, &quot;Mar&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Apr&quot;: &quot;43\u201351\u00b0F&quot;, &quot;May&quot;: &quot;53\u201361\u00b0F&quot;, &quot;Jun&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Jul&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Aug&quot;: &quot;63\u201371\u00b0F&quot;, &quot;Sep&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Oct&quot;: &quot;43\u201351\u00b0F&quot;, &quot;Nov&quot;: &quot;28\u201336\u00b0F&quot;, &quot;Dec&quot;: &quot;20\u201328\u00b0F&quot;}" data-fallback="55–75°F">55–75°F</span></p>
 </div>
 <div class="intro">
 </div>
@@ -324,7 +324,6 @@ footer.site {
 <p class="stay"><span class="stay-label">Stay</span><a href="https://www.fairmont.com/jasper/" target="_blank" rel="noopener">Jasper Park Lodge</a></p>
 <ul>
 <li>Bow Valley scenic route</li>
-<li>Late flight home</li>
 </ul>
 </div>
 </article>
@@ -332,6 +331,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -350,6 +350,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

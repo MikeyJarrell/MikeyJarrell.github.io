@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Machu Picchu at dawn, Lima's food scene, the Sacred Valley, Amazon canoeing.</p>
 <p><strong>Stops:</strong> Lima · Cusco · Sacred Valley · Machu Picchu · Puerto Maldonado</p>
-<p><strong>Temp:</strong> 40–75°F (varies by altitude)</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;70\u201378\u00b0F&quot;, &quot;Feb&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Mar&quot;: &quot;70\u201378\u00b0F&quot;, &quot;Apr&quot;: &quot;66\u201374\u00b0F&quot;, &quot;May&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Jun&quot;: &quot;58\u201366\u00b0F&quot;, &quot;Jul&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Aug&quot;: &quot;58\u201366\u00b0F&quot;, &quot;Sep&quot;: &quot;59\u201367\u00b0F&quot;, &quot;Oct&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Nov&quot;: &quot;64\u201372\u00b0F&quot;, &quot;Dec&quot;: &quot;68\u201376\u00b0F&quot;}" data-fallback="40–75°F (varies by altitude)">40–75°F (varies by altitude)</span></p>
 </div>
 <div class="intro">
 </div>
@@ -378,6 +378,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -396,6 +397,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

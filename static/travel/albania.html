@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Ottoman old towns, the Albanian Riviera, and a Corfu detour.</p>
 <p><strong>Stops:</strong> Tirana · Berat · Gjirokastër · Sarandë · Corfu · Dhërmi</p>
-<p><strong>Temp:</strong> 80–85°F coast, 95–100°F inland</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;44\u201352\u00b0F&quot;, &quot;Feb&quot;: &quot;47\u201355\u00b0F&quot;, &quot;Mar&quot;: &quot;52\u201360\u00b0F&quot;, &quot;Apr&quot;: &quot;59\u201367\u00b0F&quot;, &quot;May&quot;: &quot;68\u201376\u00b0F&quot;, &quot;Jun&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Jul&quot;: &quot;82\u201390\u00b0F&quot;, &quot;Aug&quot;: &quot;82\u201390\u00b0F&quot;, &quot;Sep&quot;: &quot;74\u201382\u00b0F&quot;, &quot;Oct&quot;: &quot;63\u201371\u00b0F&quot;, &quot;Nov&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Dec&quot;: &quot;47\u201355\u00b0F&quot;}" data-fallback="80–85°F coast, 95–100°F inland">80–85°F coast, 95–100°F inland</span></p>
 </div>
 <div class="intro">
 <p><em>The Adriatic the rest of Europe hasn't found yet. Ksamil and Dhërmi beaches, Ottoman-era Berat and Gjirokastër, Tirana cafés. <strong>Heat warning:</strong> ~80–85°F coast but inland (Berat / Gjirokastër) routinely 95–100°F in July — plan dawn / late-afternoon walks.</em></p>
@@ -402,6 +402,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -420,6 +421,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

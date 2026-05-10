@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Disko Bay icebergs, helicopter onto the ice sheet, Inuit settlements.</p>
 <p><strong>Stops:</strong> Copenhagen · Ilulissat · Disko Island</p>
-<p><strong>Temp:</strong> 40–55°F, midnight sun</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;10\u201318\u00b0F&quot;, &quot;Feb&quot;: &quot;9\u201317\u00b0F&quot;, &quot;Mar&quot;: &quot;14\u201322\u00b0F&quot;, &quot;Apr&quot;: &quot;22\u201330\u00b0F&quot;, &quot;May&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Jun&quot;: &quot;40\u201348\u00b0F&quot;, &quot;Jul&quot;: &quot;44\u201352\u00b0F&quot;, &quot;Aug&quot;: &quot;42\u201350\u00b0F&quot;, &quot;Sep&quot;: &quot;34\u201342\u00b0F&quot;, &quot;Oct&quot;: &quot;24\u201332\u00b0F&quot;, &quot;Nov&quot;: &quot;16\u201324\u00b0F&quot;, &quot;Dec&quot;: &quot;11\u201319\u00b0F&quot;}" data-fallback="40–55°F, midnight sun">40–55°F, midnight sun</span></p>
 </div>
 <div class="intro">
 </div>
@@ -331,6 +331,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -349,6 +350,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

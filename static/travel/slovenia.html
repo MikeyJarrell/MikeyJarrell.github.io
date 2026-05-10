@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Alpine lakes, turquoise rivers, and an island finish on Hvar.</p>
 <p><strong>Stops:</strong> Ljubljana · Lake Bled · Soča Valley · Piran · Hvar</p>
-<p><strong>Temp:</strong> 75–80°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;30\u201338\u00b0F&quot;, &quot;Feb&quot;: &quot;34\u201342\u00b0F&quot;, &quot;Mar&quot;: &quot;43\u201351\u00b0F&quot;, &quot;Apr&quot;: &quot;52\u201360\u00b0F&quot;, &quot;May&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Jun&quot;: &quot;67\u201375\u00b0F&quot;, &quot;Jul&quot;: &quot;72\u201380\u00b0F&quot;, &quot;Aug&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Sep&quot;: &quot;63\u201371\u00b0F&quot;, &quot;Oct&quot;: &quot;52\u201360\u00b0F&quot;, &quot;Nov&quot;: &quot;40\u201348\u00b0F&quot;, &quot;Dec&quot;: &quot;32\u201340\u00b0F&quot;}" data-fallback="75–80°F">75–80°F</span></p>
 </div>
 <div class="intro">
 <p><em>Off-radar Alpine charm. Lake Bled island, Ljubljana old town, Postojna caves, <a href="https://en.wikipedia.org/wiki/So%C4%8Da" target="_blank" rel="noopener">Soča</a> River valley — pairs easily with a Croatian island. ~75–80°F.</em></p>
@@ -405,6 +405,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -423,6 +424,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

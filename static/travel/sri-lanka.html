@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Sigiriya rock fortress, leopards in Yala, tea country trains, southern beaches.</p>
 <p><strong>Stops:</strong> Colombo · Sigiriya · Kandy · Ella · Yala · Galle</p>
-<p><strong>Temp:</strong> 75–90°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Feb&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Mar&quot;: &quot;80\u201388\u00b0F&quot;, &quot;Apr&quot;: &quot;80\u201388\u00b0F&quot;, &quot;May&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Jun&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Jul&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Aug&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Sep&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Oct&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Nov&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Dec&quot;: &quot;78\u201386\u00b0F&quot;}" data-fallback="75–90°F">75–90°F</span></p>
 </div>
 <div class="intro">
 </div>
@@ -350,7 +350,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/sri-lanka/day-11-mirissa-beach-sri-lanka-surf.jpg" alt="Day 10: South coast — stilt fishermen" loading="lazy"></div>
+<div class="photo"><img src="photos/sri-lanka/day-10-stilt-fisherman-silhouette.jpg" alt="Day 10: South coast — stilt fishermen" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 10: South coast — stilt fishermen</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://www.resplendentceylon.com/" target="_blank" rel="noopener">Wild Coast Tented Lodge</a></p>
@@ -385,6 +385,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -403,6 +404,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

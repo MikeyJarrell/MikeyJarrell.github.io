@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Lalibela rock churches, Simien gelada baboons, and the Danakil sulfur fields.</p>
 <p><strong>Stops:</strong> Addis Ababa · Lalibela · Gondar · Simien Mountains · Danakil Depression</p>
-<p><strong>Temp:</strong> 60–95°F (varies dramatically)</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;66\u201374\u00b0F&quot;, &quot;Feb&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Mar&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Apr&quot;: &quot;69\u201377\u00b0F&quot;, &quot;May&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Jun&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Jul&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Aug&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Sep&quot;: &quot;63\u201371\u00b0F&quot;, &quot;Oct&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Nov&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Dec&quot;: &quot;65\u201373\u00b0F&quot;}" data-fallback="60–95°F (varies dramatically)">60–95°F (varies dramatically)</span></p>
 </div>
 <div class="intro">
 </div>
@@ -385,6 +385,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -403,6 +404,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

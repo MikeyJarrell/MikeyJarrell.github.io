@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>A clockwise Ring Road drive — waterfalls, glaciers, geothermal pools, and the highlands.</p>
 <p><strong>Stops:</strong> Reykjavík · Vík · Höfn · Mývatn · Snæfellsnes · Landmannalaugar</p>
-<p><strong>Temp:</strong> 55–65°F, endless daylight</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;29\u201337\u00b0F&quot;, &quot;Feb&quot;: &quot;30\u201338\u00b0F&quot;, &quot;Mar&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Apr&quot;: &quot;37\u201345\u00b0F&quot;, &quot;May&quot;: &quot;44\u201352\u00b0F&quot;, &quot;Jun&quot;: &quot;50\u201358\u00b0F&quot;, &quot;Jul&quot;: &quot;52\u201360\u00b0F&quot;, &quot;Aug&quot;: &quot;52\u201360\u00b0F&quot;, &quot;Sep&quot;: &quot;47\u201355\u00b0F&quot;, &quot;Oct&quot;: &quot;38\u201346\u00b0F&quot;, &quot;Nov&quot;: &quot;32\u201340\u00b0F&quot;, &quot;Dec&quot;: &quot;30\u201338\u00b0F&quot;}" data-fallback="55–65°F, endless daylight">55–65°F, endless daylight</span></p>
 </div>
 <div class="intro">
 <p><em>Endless daylight and zero humidity. Ring Road drive, Reynisfjara black sands, Jökulsárlón glacier lagoon, <a href="https://www.skylagoon.com/" target="_blank" rel="noopener">Sky Lagoon</a> soak. ~55–65°F all month.</em></p>
@@ -405,6 +405,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -423,6 +424,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

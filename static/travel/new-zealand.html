@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Mostly South Island — fjords, glaciers, Tongariro volcanoes, Queenstown adrenaline.</p>
 <p><strong>Stops:</strong> Auckland · Rotorua · Tongariro · Mt. Cook · Queenstown · Milford Sound</p>
-<p><strong>Temp:</strong> 50–75°F, southern summer</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Feb&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Mar&quot;: &quot;61\u201369\u00b0F&quot;, &quot;Apr&quot;: &quot;55\u201363\u00b0F&quot;, &quot;May&quot;: &quot;47\u201355\u00b0F&quot;, &quot;Jun&quot;: &quot;42\u201350\u00b0F&quot;, &quot;Jul&quot;: &quot;40\u201348\u00b0F&quot;, &quot;Aug&quot;: &quot;43\u201351\u00b0F&quot;, &quot;Sep&quot;: &quot;49\u201357\u00b0F&quot;, &quot;Oct&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Nov&quot;: &quot;59\u201367\u00b0F&quot;, &quot;Dec&quot;: &quot;63\u201371\u00b0F&quot;}" data-fallback="50–75°F, southern summer">50–75°F, southern summer</span></p>
 </div>
 <div class="intro">
 </div>
@@ -388,7 +388,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/new-zealand/day-13-new-zealand-south-island-farewell.jpg" alt="Day 13: Drive to Christchurch (~5h)" loading="lazy"></div>
+<div class="photo"><img src="photos/new-zealand/day-13-new-zealand-sheep-countryside.jpg" alt="Day 13: Drive to Christchurch (~5h)" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 13: Drive to Christchurch (~5h)</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://www.edgewater.co.nz/" target="_blank" rel="noopener">Edgewater</a> Hotel</p>
@@ -402,15 +402,14 @@ footer.site {
 <div class="photo"><img src="photos/new-zealand/day-14-day-14-fly-home.jpg" alt="Day 14: Fly home" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 14: Fly home</h3>
-<ul>
-<li>Long flight back to SAN</li>
-</ul>
+
 </div>
 </article>
 </section>
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -429,6 +428,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

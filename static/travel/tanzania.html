@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Big-5 game drives in the northern Serengeti, then an Indian Ocean recovery on Zanzibar.</p>
 <p><strong>Stops:</strong> Arusha · Serengeti · Ngorongoro Crater · Stone Town · Kendwa</p>
-<p><strong>Temp:</strong> 55–75°F, peak dry season</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Feb&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Mar&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Apr&quot;: &quot;74\u201382\u00b0F&quot;, &quot;May&quot;: &quot;72\u201380\u00b0F&quot;, &quot;Jun&quot;: &quot;68\u201376\u00b0F&quot;, &quot;Jul&quot;: &quot;67\u201375\u00b0F&quot;, &quot;Aug&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Sep&quot;: &quot;74\u201382\u00b0F&quot;, &quot;Oct&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Nov&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Dec&quot;: &quot;77\u201385\u00b0F&quot;}" data-fallback="55–75°F, peak dry season">55–75°F, peak dry season</span></p>
 </div>
 <div class="intro">
 <p><em>Big-5 game drives in the northern Serengeti, Ngorongoro Crater, beach finish on Zanzibar. ~75°F days, ~55°F nights — peak dry season.</em></p>
@@ -397,6 +397,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -415,6 +416,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

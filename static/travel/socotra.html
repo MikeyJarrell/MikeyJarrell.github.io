@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Dragon's blood trees, alien endemics, white-sand coves on Yemen's lost-island Eden.</p>
 <p><strong>Stops:</strong> Hadibo · Firmhin plateau · Detwah Lagoon · Hoq Cave · Arher</p>
-<p><strong>Temp:</strong> 75–90°F, dry season</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;73\u201381\u00b0F&quot;, &quot;Feb&quot;: &quot;75\u201383\u00b0F&quot;, &quot;Mar&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Apr&quot;: &quot;80\u201388\u00b0F&quot;, &quot;May&quot;: &quot;81\u201389\u00b0F&quot;, &quot;Jun&quot;: &quot;81\u201389\u00b0F&quot;, &quot;Jul&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Aug&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Sep&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Oct&quot;: &quot;78\u201386\u00b0F&quot;, &quot;Nov&quot;: &quot;76\u201384\u00b0F&quot;, &quot;Dec&quot;: &quot;74\u201382\u00b0F&quot;}" data-fallback="75–90°F, dry season">75–90°F, dry season</span></p>
 </div>
 <div class="intro">
 <p><em>Visa: Yemen, currently obtained via tour operator on arrival in Cairo or Abu Dhabi (charter flights). Confirm requirements 2 months ahead.</em></p>
@@ -296,7 +296,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/socotra/day-05-detwah-lagoon-socotra-white-sand.jpg" alt="Day 5: Detwah Lagoon" loading="lazy"></div>
+<div class="photo"><img src="photos/socotra/day-05-socotra-detwah-lagoon-clear.jpg" alt="Day 5: Detwah Lagoon" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 5: Detwah Lagoon</h3>
 <p class="stay"><span class="stay-label">Stay</span>Camp</p>
@@ -318,7 +318,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/socotra/day-07-arher-beach-socotra-dunes.jpg" alt="Day 7: Archer Beach + Erissel Point" loading="lazy"></div>
+<div class="photo"><img src="photos/socotra/day-07-socotra-arher-empty-dunes.jpg" alt="Day 7: Archer Beach + Erissel Point" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 7: Archer Beach + Erissel Point</h3>
 <p class="stay"><span class="stay-label">Stay</span>Camp on the dunes</p>
@@ -343,6 +343,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -361,6 +362,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

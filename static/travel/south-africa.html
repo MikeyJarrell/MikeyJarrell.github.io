@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Cape Town wine country, the Garden Route, and a Big-5 Kruger safari.</p>
 <p><strong>Stops:</strong> Cape Town · Stellenbosch · Hermanus · Garden Route · Kruger</p>
-<p><strong>Temp:</strong> 55–80°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;70\u201378\u00b0F&quot;, &quot;Feb&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Mar&quot;: &quot;69\u201377\u00b0F&quot;, &quot;Apr&quot;: &quot;65\u201373\u00b0F&quot;, &quot;May&quot;: &quot;60\u201368\u00b0F&quot;, &quot;Jun&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Jul&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Aug&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Sep&quot;: &quot;58\u201366\u00b0F&quot;, &quot;Oct&quot;: &quot;62\u201370\u00b0F&quot;, &quot;Nov&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Dec&quot;: &quot;69\u201377\u00b0F&quot;}" data-fallback="55–80°F">55–80°F</span></p>
 </div>
 <div class="intro">
 </div>
@@ -349,7 +349,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/south-africa/day-11-kruger-giraffes-savanna.jpg" alt="Day 10: Kruger — full safari day" loading="lazy"></div>
+<div class="photo"><img src="photos/south-africa/day-10-kruger-leopard-tree.jpg" alt="Day 10: Kruger — full safari day" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 10: Kruger — full safari day</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://singita.com/lodge/singita-lebombo-lodge/" target="_blank" rel="noopener">Singita Lebombo</a> or <a href="https://www.theroyalportfolio.com/royal-malewane/" target="_blank" rel="noopener">Royal Malewane</a></p>
@@ -371,7 +371,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo placeholder">no photo yet</div>
+<div class="photo"><img src="photos/south-africa/day-12-cape-town-va-waterfront.jpg" alt="Day 12: Fly back to Cape Town" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 12: Fly back to Cape Town</h3>
 <p class="stay"><span class="stay-label">Stay</span><a href="https://singita.com/lodge/singita-lebombo-lodge/" target="_blank" rel="noopener">Singita Lebombo</a> or <a href="https://www.theroyalportfolio.com/royal-malewane/" target="_blank" rel="noopener">Royal Malewane</a></p>
@@ -385,15 +385,14 @@ footer.site {
 <div class="photo"><img src="photos/south-africa/day-13-cape-town-airport-south-africa-farewell.jpg" alt="Day 13: Fly home" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 13: Fly home</h3>
-<ul>
-<li>Overnight flight to SAN</li>
-</ul>
+
 </div>
 </article>
 </section>
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -412,6 +411,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

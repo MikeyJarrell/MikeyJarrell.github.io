@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Small-ship liveaboard with naturalist guides, daily zodiac landings, snorkeling with sea lions.</p>
 <p><strong>Stops:</strong> Quito · Española · Floreana · Isabela · Fernandina · Santa Cruz · Genovesa</p>
-<p><strong>Temp:</strong> 70–85°F</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;79\u201387\u00b0F&quot;, &quot;Feb&quot;: &quot;80\u201388\u00b0F&quot;, &quot;Mar&quot;: &quot;81\u201389\u00b0F&quot;, &quot;Apr&quot;: &quot;80\u201388\u00b0F&quot;, &quot;May&quot;: &quot;77\u201385\u00b0F&quot;, &quot;Jun&quot;: &quot;74\u201382\u00b0F&quot;, &quot;Jul&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Aug&quot;: &quot;70\u201378\u00b0F&quot;, &quot;Sep&quot;: &quot;71\u201379\u00b0F&quot;, &quot;Oct&quot;: &quot;73\u201381\u00b0F&quot;, &quot;Nov&quot;: &quot;74\u201382\u00b0F&quot;, &quot;Dec&quot;: &quot;77\u201385\u00b0F&quot;}" data-fallback="70–85°F">70–85°F</span></p>
 </div>
 <div class="intro">
 </div>
@@ -343,15 +343,14 @@ footer.site {
 <div class="photo"><img src="photos/galapagos/day-09-day-9-fly-home.jpg" alt="Day 9: Fly home" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 9: Fly home</h3>
-<ul>
-<li>Quito → SAN with connection</li>
-</ul>
+
 </div>
 </article>
 </section>
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -370,6 +369,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

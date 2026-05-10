@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Bolivia's mirror salt flats, flamingo lagoons, and Mars-on-Earth Atacama Desert.</p>
 <p><strong>Stops:</strong> La Paz · Uyuni · Laguna Colorada · San Pedro de Atacama</p>
-<p><strong>Temp:</strong> 30–70°F, big altitude swings</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Feb&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Mar&quot;: &quot;57\u201365\u00b0F&quot;, &quot;Apr&quot;: &quot;59\u201367\u00b0F&quot;, &quot;May&quot;: &quot;59\u201367\u00b0F&quot;, &quot;Jun&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Jul&quot;: &quot;54\u201362\u00b0F&quot;, &quot;Aug&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Sep&quot;: &quot;59\u201367\u00b0F&quot;, &quot;Oct&quot;: &quot;62\u201370\u00b0F&quot;, &quot;Nov&quot;: &quot;62\u201370\u00b0F&quot;, &quot;Dec&quot;: &quot;59\u201367\u00b0F&quot;}" data-fallback="30–70°F, big altitude swings">30–70°F, big altitude swings</span></p>
 </div>
 <div class="intro">
 </div>
@@ -316,7 +316,7 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/uyuni-atacama/day-07-valle-de-la-luna-atacama-chile.jpg" alt="Day 7: Atacama — Valle de la Luna" loading="lazy"></div>
+<div class="photo"><img src="photos/uyuni-atacama/day-07-valle-de-la-luna-mars.jpg" alt="Day 7: Atacama — Valle de la Luna" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 7: Atacama — Valle de la Luna</h3>
 <p class="stay"><span class="stay-label">Stay</span>Tierra Atacama Hotel</p>
@@ -344,7 +344,6 @@ footer.site {
 <p class="stay"><span class="stay-label">Stay</span>Tierra Atacama Hotel</p>
 <ul>
 <li>Connection in Santiago</li>
-<li>Overnight flight to SAN</li>
 </ul>
 </div>
 </article>
@@ -352,6 +351,7 @@ footer.site {
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -370,6 +370,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>

@@ -247,7 +247,7 @@ footer.site {
 <div class="intro">
 <p>Yurt camps and 4WD across one of the world's most remote highways.</p>
 <p><strong>Stops:</strong> Bishkek · Song-Köl · Osh · Murghab · Wakhan · Dushanbe</p>
-<p><strong>Temp:</strong> 50–80°F (high-altitude)</p>
+<p><strong>Temp:</strong> <span class="dyn-temp" data-temps="{&quot;Jan&quot;: &quot;17\u201325\u00b0F&quot;, &quot;Feb&quot;: &quot;21\u201329\u00b0F&quot;, &quot;Mar&quot;: &quot;31\u201339\u00b0F&quot;, &quot;Apr&quot;: &quot;43\u201351\u00b0F&quot;, &quot;May&quot;: &quot;53\u201361\u00b0F&quot;, &quot;Jun&quot;: &quot;60\u201368\u00b0F&quot;, &quot;Jul&quot;: &quot;65\u201373\u00b0F&quot;, &quot;Aug&quot;: &quot;64\u201372\u00b0F&quot;, &quot;Sep&quot;: &quot;56\u201364\u00b0F&quot;, &quot;Oct&quot;: &quot;44\u201352\u00b0F&quot;, &quot;Nov&quot;: &quot;31\u201339\u00b0F&quot;, &quot;Dec&quot;: &quot;21\u201329\u00b0F&quot;}" data-fallback="50–80°F (high-altitude)">50–80°F (high-altitude)</span></p>
 </div>
 <div class="intro">
 <p><strong>Pamir Highway (Kyrgyzstan + Tajikistan)</strong></p>
@@ -392,18 +392,17 @@ footer.site {
 </div>
 </article>
 <article class="day">
-<div class="photo"><img src="photos/pamir/day-14-tajikistan-farewell-mountain.jpg" alt="Day 14: Fly home from Dushanbe" loading="lazy"></div>
+<div class="photo"><img src="photos/pamir/day-14-tajikistan-pamir-snowy-peaks.jpg" alt="Day 14: Fly home from Dushanbe" loading="lazy"></div>
 <div class="day-body">
 <h3>Day 14: Fly home from Dushanbe</h3>
-<ul>
-<li>Via Istanbul, long return</li>
-</ul>
+
 </div>
 </article>
 </section>
 </main>
 <script>
 (function() {
+  // Lightbox
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
   overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
@@ -422,6 +421,21 @@ footer.site {
       overlay.classList.add('active');
     });
   });
+
+  // Temperature display: read selected month from localStorage and update
+  try {
+    const month = localStorage.getItem('travel.month');
+    document.querySelectorAll('.dyn-temp').forEach(el => {
+      if (month) {
+        let temps = {};
+        try { temps = JSON.parse(el.dataset.temps || '{}'); } catch(e) {}
+        const val = temps[month] || el.dataset.fallback || '';
+        el.textContent = val + ' in ' + month;
+      } else {
+        el.textContent = el.dataset.fallback || '';
+      }
+    });
+  } catch(e) {}
 })();
 </script>
 </body></html>
