@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Indonesia — Travel Wishlist</title><style>
+:root {
+  --bg: #f7f5f1;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #555;
+  --accent: #b8552d;
+  --hairline: #e6e0d6;
+  --max-width: 1200px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+
+header.site {
+  padding: 56px 24px 28px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+}
+header.site h1 { margin: 0; font-weight: 600; font-size: 2.4rem; letter-spacing: -0.01em; }
+header.site .page-link {
+  display: inline-block; margin-top: 14px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+header.site .page-link:hover { text-decoration: underline; }
+
+main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
+
+/* --- Filter bar --- */
+.filter-bar { background: var(--surface); border-bottom: 1px solid var(--hairline); padding: 14px 16px; }
+.filter-bar-inner {
+  max-width: var(--max-width); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center;
+}
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-right: 4px; font-weight: 600;
+}
+.filter-month select {
+  font: inherit; border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 8px; background: var(--surface);
+}
+.chip { cursor: pointer; font-size: 0.85rem; user-select: none; }
+.chip input { display: none; }
+.chip span {
+  display: inline-block; padding: 4px 10px;
+  border: 1px solid var(--hairline); border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.chip:hover span { border-color: var(--accent); }
+.chip input:checked + span {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.filter-clear {
+  margin-left: auto; font: inherit; background: none;
+  border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 12px; cursor: pointer; color: var(--muted);
+}
+.filter-clear:hover { color: var(--ink); border-color: var(--muted); }
+.filter-status {
+  max-width: var(--max-width); margin: 12px auto 0;
+  font-size: 0.85rem; color: var(--muted);
+}
+
+/* --- Card grid --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding-top: 40px;
+}
+@media (min-width: 700px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.card a.card-link { color: inherit; text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.card .photo { aspect-ratio: 16/10; background: #ddd; overflow: hidden; position: relative; }
+.card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .photo .name-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 18px; color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  font-size: 1.4rem; font-weight: 600; letter-spacing: -0.005em;
+}
+.card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card .summary { color: var(--ink); font-size: 0.95rem; line-height: 1.45; }
+.card .stops { color: var(--muted); font-size: 0.82rem; }
+.card .stops strong { color: var(--ink); font-weight: 500; }
+.card .meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px;
+  font-size: 0.75rem;
+}
+.card .meta .tag {
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(184,85,45,0.08); color: var(--accent);
+}
+.card .meta .tag.region { background: rgba(28,28,28,0.06); color: var(--ink); }
+.card .meta .temp { color: var(--muted); margin-left: auto; padding: 2px 0; }
+
+.card.filtered-out { display: none; }
+
+/* --- Detail page --- */
+.detail-back {
+  display: inline-block; padding: 14px 16px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+.detail-back:hover { text-decoration: underline; }
+
+section.destination { margin: 8px 0 64px; }
+
+section.destination > .hero {
+  position: relative; margin: 0 -16px 24px;
+  aspect-ratio: 16/7; background: #222; overflow: hidden; cursor: zoom-in;
+}
+@media (min-width: 800px) {
+  section.destination > .hero { margin: 0 0 24px; border-radius: 14px; }
+}
+section.destination > .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+section.destination > .hero .hero-title {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff; pointer-events: none;
+}
+section.destination > .hero .hero-title h2 {
+  font-size: 2.4rem; margin: 0 0 6px; font-weight: 600;
+}
+
+section.destination > .intro {
+  font-size: 1.05rem; color: var(--muted); margin: 0 0 32px;
+}
+section.destination > .intro p { margin: 0 0 14px; }
+section.destination > .intro strong { color: var(--ink); }
+
+article.day {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-bottom: 28px;
+  border-top: 1px solid var(--hairline); padding-top: 24px;
+}
+@media (min-width: 700px) {
+  article.day { grid-template-columns: 360px 1fr; gap: 28px; }
+}
+article.day .photo {
+  aspect-ratio: 4/3; background: #ddd;
+  overflow: hidden; border-radius: 8px; cursor: zoom-in;
+}
+article.day .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+article.day .photo.placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--hairline); color: var(--muted); font-size: 0.85rem; cursor: default;
+}
+article.day h3 { margin: 0 0 10px; font-size: 1.15rem; font-weight: 600; }
+article.day ul { margin: 0; padding-left: 20px; }
+article.day ul li { margin-bottom: 4px; }
+article.day a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(184,85,45,0.25);
+}
+article.day a:hover { border-bottom-color: var(--accent); }
+article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
+
+footer.site {
+  text-align: center; padding: 48px 16px;
+  color: var(--muted); font-size: 0.85rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* --- Lightbox --- */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; cursor: zoom-out; padding: 24px;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; border-radius: 6px;
+  box-shadow: 0 10px 60px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  color: #fff; font-size: 28px; line-height: 1;
+  background: none; border: 0; cursor: pointer; opacity: 0.8;
+}
+.lightbox-close:hover { opacity: 1; }
+</style></head><body>
+<header class="site">
+<h1>Indonesia</h1>
+<a class="page-link" href="index.html">← Back to Travel Wishlist</a>
+</header>
+<main>
+<section class="destination" id="indonesia">
+<div class="hero">
+<img src="photos/indonesia/overview.jpg" alt="Indonesia hero">
+<div class="hero-title"><h2>Indonesia</h2></div>
+</div>
+<div class="intro">
+<p>Bali jungle and clifftops, plus a Komodo liveaboard with dragons and reefs.</p>
+<p><strong>Stops:</strong> Ubud · Uluwatu · Komodo National Park · Seminyak   <strong>Temp:</strong> 80–85°F</p>
+</div>
+<div class="intro">
+<p><em>Bali in dry season plus a <a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> liveaboard. Ubud rice terraces, Uluwatu cliffs, snorkeling and dragons in the Komodo archipelago. ~80–85°F. <strong>Peak season warning:</strong> Bali in July is busy — book restaurants (<a href="https://locavore.co.id/" target="_blank" rel="noopener">Locavore</a>, <a href="https://mamasanbali.com/" target="_blank" rel="noopener">Mama San</a>) months ahead.</em></p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-01-fly-san-bali-via-tokyo.jpg" alt="Thursday: Fly SAN → Bali (~24h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Bali (~24h)</h3>
+<ul>
+<li>ANA or Singapore Airlines</li>
+<li>Lose Friday to time zones</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-02-land-bali-transfer-to-ubud.jpg" alt="Friday: Land Bali, transfer to Ubud" loading="lazy"></div>
+<div class="day-body">
+<h3>Friday: Land Bali, transfer to Ubud</h3>
+<ul>
+<li>Land Denpasar evening</li>
+<li>Drive to Ubud (~1.5h)</li>
+<li><a href="https://www.comohotels.com/en/umaubud" target="_blank" rel="noopener">Como Uma Ubud</a> or <a href="https://www.ritzcarlton.com/en/hotels/dpsrz-mandapa-a-ritz-carlton-reserve/" target="_blank" rel="noopener">Mandapa</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-03-explore-ubud.jpg" alt="Saturday: Explore Ubud" loading="lazy"></div>
+<div class="day-body">
+<h3>Saturday: Explore Ubud</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tegallalang_rice_terraces" target="_blank" rel="noopener">Tegallalang</a> rice terraces walk</li>
+<li>Sacred Monkey Forest</li>
+<li>Dinner at <a href="https://locavore.co.id/" target="_blank" rel="noopener">Locavore</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-04-tirta-empul-cooking-class.jpg" alt="Sunday: Tirta Empul + cooking class" loading="lazy"></div>
+<div class="day-body">
+<h3>Sunday: Tirta Empul + cooking class</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tirta_Empul_temple" target="_blank" rel="noopener">Tirta Empul</a> holy-spring bathing</li>
+<li>Balinese cooking class with market visit</li>
+<li>Evening Kecak fire dance</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-05-drive-to-uluwatu.jpg" alt="Monday: Drive to Uluwatu (~2h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Monday: Drive to Uluwatu (~2h)</h3>
+<ul>
+<li><a href="https://www.bulgarihotels.com/bali" target="_blank" rel="noopener">Bulgari Resort</a> or <a href="https://www.sixsenses.com/en/resorts/uluwatu" target="_blank" rel="noopener">Six Senses</a></li>
+<li><a href="https://singlefinbali.com/" target="_blank" rel="noopener">Single Fin</a> sunset cocktails</li>
+<li><a href="https://en.wikipedia.org/wiki/Uluwatu_Temple" target="_blank" rel="noopener">Pura Luhur Uluwatu</a> cliff temple</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-06-uluwatu-beach-day.jpg" alt="Tuesday: Uluwatu beach day" loading="lazy"></div>
+<div class="day-body">
+<h3>Tuesday: Uluwatu beach day</h3>
+<ul>
+<li>Padang Padang or Bingin</li>
+<li>Lunch at Suka Espresso</li>
+<li>Resort spa</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-07-fly-to-komodo.jpg" alt="Wednesday: Fly to Komodo (~1.5h) — board liveaboard" loading="lazy"></div>
+<div class="day-body">
+<h3>Wednesday: Fly to Komodo (~1.5h) — board liveaboard</h3>
+<ul>
+<li>Denpasar → Labuan Bajo flight</li>
+<li>Board <a href="https://www.plataranliveaboard.com/" target="_blank" rel="noopener">Plataran</a> or Aliikai (4-night charter)</li>
+<li>Sunset at Kalong Island bat colony</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-08-liveaboard-padar-pink-beach.jpg" alt="Thursday: Liveaboard — Padar + Pink Beach" loading="lazy"></div>
+<div class="day-body">
+<h3>Thursday: Liveaboard — Padar + Pink Beach</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Padar_Island" target="_blank" rel="noopener">Padar Island</a> short hike (3-cove viewpoint)</li>
+<li>Pink Beach snorkel</li>
+<li>Manta Point if currents allow (often skipped if conditions are unsafe — flag this with the operator)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-09-liveaboard-komodo-dragons.jpg" alt="Friday: Liveaboard — Komodo dragons" loading="lazy"></div>
+<div class="day-body">
+<h3>Friday: Liveaboard — Komodo dragons</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> Island guided dragon trek (~1mi)</li>
+<li>Snorkel at Taka Makassar sandbar</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-10-liveaboard-rinca-return.jpg" alt="Saturday: Liveaboard — Rinca Island" loading="lazy"></div>
+<div class="day-body">
+<h3>Saturday: Liveaboard — Rinca Island</h3>
+<ul>
+<li>Rinca Island dragons (often better wildlife viewing than <a href="https://en.wikipedia.org/wiki/Komodo_National_Park" target="_blank" rel="noopener">Komodo</a> Island)</li>
+<li>Sebayur reef snorkel</li>
+<li>Sunset at anchor</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-11-fly-back-to-bali.jpg" alt="Sunday: Liveaboard return → fly to Bali" loading="lazy"></div>
+<div class="day-body">
+<h3>Sunday: Liveaboard return → fly to Bali</h3>
+<ul>
+<li>Morning snorkel at Pulau Sabolan</li>
+<li>Disembark Labuan Bajo afternoon</li>
+<li>Fly LBJ → DPS, drive Seminyak</li>
+<li><a href="https://mamasanbali.com/" target="_blank" rel="noopener">Mama San</a> for dinner</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-12-final-bali-day.jpg" alt="Monday: Final Bali day" loading="lazy"></div>
+<div class="day-body">
+<h3>Monday: Final Bali day</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tanah_Lot" target="_blank" rel="noopener">Tanah Lot</a> temple — visit <strong>early morning</strong>, before the sunset crowds (or skip for Pura Ulun Danu Beratan, the lake temple)</li>
+<li>Spa afternoon</li>
+<li>Resort sunset</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/indonesia/day-13-fly-home-from-bali.jpg" alt="Tuesday: Fly home from Bali (~24h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from Bali (~24h)</h3>
+<ul>
+<li>Spa morning</li>
+<li>Late checkout</li>
+<li>Overnight</li>
+</ul>
+</div>
+</article>
+</section>
+</main>
+<footer class="site">Source: <code>Itineraries.md</code>. Photos in <code>photos/</code>.</footer>
+<script>
+(function() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('img');
+  const closeLb = () => { overlay.classList.remove('active'); lbImg.src = ''; };
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) closeLb();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  document.querySelectorAll('.day .photo:not(.placeholder) img, .hero img').forEach(el => {
+    el.style.cursor = 'zoom-in';
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      lbImg.src = el.src; lbImg.alt = el.alt;
+      overlay.classList.add('active');
+    });
+  });
+})();
+</script>
+</body></html>

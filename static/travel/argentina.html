@@ -1,0 +1,392 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Argentina — Travel Wishlist</title><style>
+:root {
+  --bg: #f7f5f1;
+  --surface: #ffffff;
+  --ink: #1c1c1c;
+  --muted: #555;
+  --accent: #b8552d;
+  --hairline: #e6e0d6;
+  --max-width: 1200px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+
+header.site {
+  padding: 56px 24px 28px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--hairline);
+}
+header.site h1 { margin: 0; font-weight: 600; font-size: 2.4rem; letter-spacing: -0.01em; }
+header.site .page-link {
+  display: inline-block; margin-top: 14px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+header.site .page-link:hover { text-decoration: underline; }
+
+main { max-width: var(--max-width); margin: 0 auto; padding: 0 16px 80px; }
+
+/* --- Filter bar --- */
+.filter-bar { background: var(--surface); border-bottom: 1px solid var(--hairline); padding: 14px 16px; }
+.filter-bar-inner {
+  max-width: var(--max-width); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center;
+}
+.filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filter-label {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-right: 4px; font-weight: 600;
+}
+.filter-month select {
+  font: inherit; border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 8px; background: var(--surface);
+}
+.chip { cursor: pointer; font-size: 0.85rem; user-select: none; }
+.chip input { display: none; }
+.chip span {
+  display: inline-block; padding: 4px 10px;
+  border: 1px solid var(--hairline); border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.chip:hover span { border-color: var(--accent); }
+.chip input:checked + span {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.filter-clear {
+  margin-left: auto; font: inherit; background: none;
+  border: 1px solid var(--hairline); border-radius: 6px;
+  padding: 4px 12px; cursor: pointer; color: var(--muted);
+}
+.filter-clear:hover { color: var(--ink); border-color: var(--muted); }
+.filter-status {
+  max-width: var(--max-width); margin: 12px auto 0;
+  font-size: 0.85rem; color: var(--muted);
+}
+
+/* --- Card grid --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding-top: 40px;
+}
+@media (min-width: 700px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.card a.card-link { color: inherit; text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.card .photo { aspect-ratio: 16/10; background: #ddd; overflow: hidden; position: relative; }
+.card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .photo .name-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 18px; color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  font-size: 1.4rem; font-weight: 600; letter-spacing: -0.005em;
+}
+.card .body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card .summary { color: var(--ink); font-size: 0.95rem; line-height: 1.45; }
+.card .stops { color: var(--muted); font-size: 0.82rem; }
+.card .stops strong { color: var(--ink); font-weight: 500; }
+.card .meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px;
+  font-size: 0.75rem;
+}
+.card .meta .tag {
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(184,85,45,0.08); color: var(--accent);
+}
+.card .meta .tag.region { background: rgba(28,28,28,0.06); color: var(--ink); }
+.card .meta .temp { color: var(--muted); margin-left: auto; padding: 2px 0; }
+
+.card.filtered-out { display: none; }
+
+/* --- Detail page --- */
+.detail-back {
+  display: inline-block; padding: 14px 16px;
+  color: var(--accent); text-decoration: none; font-size: 0.95rem;
+}
+.detail-back:hover { text-decoration: underline; }
+
+section.destination { margin: 8px 0 64px; }
+
+section.destination > .hero {
+  position: relative; margin: 0 -16px 24px;
+  aspect-ratio: 16/7; background: #222; overflow: hidden; cursor: zoom-in;
+}
+@media (min-width: 800px) {
+  section.destination > .hero { margin: 0 0 24px; border-radius: 14px; }
+}
+section.destination > .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+section.destination > .hero .hero-title {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 32px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff; pointer-events: none;
+}
+section.destination > .hero .hero-title h2 {
+  font-size: 2.4rem; margin: 0 0 6px; font-weight: 600;
+}
+
+section.destination > .intro {
+  font-size: 1.05rem; color: var(--muted); margin: 0 0 32px;
+}
+section.destination > .intro p { margin: 0 0 14px; }
+section.destination > .intro strong { color: var(--ink); }
+
+article.day {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-bottom: 28px;
+  border-top: 1px solid var(--hairline); padding-top: 24px;
+}
+@media (min-width: 700px) {
+  article.day { grid-template-columns: 360px 1fr; gap: 28px; }
+}
+article.day .photo {
+  aspect-ratio: 4/3; background: #ddd;
+  overflow: hidden; border-radius: 8px; cursor: zoom-in;
+}
+article.day .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+article.day .photo.placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--hairline); color: var(--muted); font-size: 0.85rem; cursor: default;
+}
+article.day h3 { margin: 0 0 10px; font-size: 1.15rem; font-weight: 600; }
+article.day ul { margin: 0; padding-left: 20px; }
+article.day ul li { margin-bottom: 4px; }
+article.day a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(184,85,45,0.25);
+}
+article.day a:hover { border-bottom-color: var(--accent); }
+article.day p.note { font-size: 0.9rem; color: var(--muted); font-style: italic; margin: 8px 0 0; }
+
+footer.site {
+  text-align: center; padding: 48px 16px;
+  color: var(--muted); font-size: 0.85rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* --- Lightbox --- */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  z-index: 1000; cursor: zoom-out; padding: 24px;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; border-radius: 6px;
+  box-shadow: 0 10px 60px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  color: #fff; font-size: 28px; line-height: 1;
+  background: none; border: 0; cursor: pointer; opacity: 0.8;
+}
+.lightbox-close:hover { opacity: 1; }
+</style></head><body>
+<header class="site">
+<h1>Argentina</h1>
+<a class="page-link" href="index.html">← Back to Travel Wishlist</a>
+</header>
+<main>
+<section class="destination" id="argentina">
+<div class="hero">
+<img src="photos/argentina/overview.jpg" alt="Argentina hero">
+<div class="hero-title"><h2>Argentina</h2></div>
+</div>
+<div class="intro">
+<p>Buenos Aires steaks and tango, Mendoza wine country, subtropical Iguazú Falls.</p>
+<p><strong>Stops:</strong> Buenos Aires · Mendoza · Uco Valley · Iguazú   <strong>Temp:</strong> 55–60°F BA, 75°F Iguazú (Argentine winter)</p>
+</div>
+<div class="intro">
+<p><em>Southern winter — mild, not cold. Buenos Aires steaks and tango, Mendoza wine country, subtropical Iguazú Falls (~75°F). BA ~55–60°F. Mendoza vines are bare in July (no green canopy) but the Andes backdrop is dramatic.</em></p>
+<p><strong>🚨 Brazil visa required.</strong> As of April 2025, US citizens need an eVisa for Brazil. Day 12 (Brazilian-side falls) requires it. <strong>Apply weeks in advance.</strong> If the visa won't process in time, drop the Brazilian-side day and add a helicopter tour over the falls or a return Devil's Throat morning visit.</p>
+</div>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-01-fly-san-buenos-aires-via-dallas.jpg" alt="Thursday: Fly SAN → Buenos Aires (~14h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Thursday: Fly SAN → Buenos Aires (~14h)</h3>
+<ul>
+<li>American Airlines</li>
+<li>Land Friday morning</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-02-arrive-palermo.jpg" alt="Friday: Arrive Palermo" loading="lazy"></div>
+<div class="day-body">
+<h3>Friday: Arrive Palermo</h3>
+<ul>
+<li><a href="https://www.faena.com/buenos-aires" target="_blank" rel="noopener">Faena</a> or <a href="https://homebuenosaires.com/" target="_blank" rel="noopener">Home Hotel Palermo</a></li>
+<li><a href="https://cafetortoni.com.ar/" target="_blank" rel="noopener">Café Tortoni</a> medialunas</li>
+<li>Easy Bosques de Palermo stroll</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-03-buenos-aires-highlights.jpg" alt="Saturday: Buenos Aires highlights" loading="lazy"></div>
+<div class="day-body">
+<h3>Saturday: Buenos Aires highlights</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/La_Recoleta_Cemetery" target="_blank" rel="noopener">Recoleta Cemetery</a> (Evita's tomb)</li>
+<li><a href="https://www.malba.org.ar/" target="_blank" rel="noopener">MALBA</a> modern art museum</li>
+<li><a href="https://parrilladonjulio.com/" target="_blank" rel="noopener">Don Julio</a> for parrilla (book ahead)</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-04-san-telmo-sunday-tango.jpg" alt="Sunday: San Telmo Sunday + tango" loading="lazy"></div>
+<div class="day-body">
+<h3>Sunday: San Telmo Sunday + tango</h3>
+<ul>
+<li>San Telmo Sunday market</li>
+<li>Mate tasting</li>
+<li>Milonga at La Catedral</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-05-tigre-delta-day-trip.jpg" alt="Monday: Tigre Delta day trip" loading="lazy"></div>
+<div class="day-body">
+<h3>Monday: Tigre Delta day trip</h3>
+<ul>
+<li>Train Retiro → <a href="https://en.wikipedia.org/wiki/Tigre,_Buenos_Aires" target="_blank" rel="noopener">Tigre</a></li>
+<li>Wooden launch through the delta</li>
+<li>Lunch at El Gato Blanco</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-06-fly-to-mendoza.jpg" alt="Tuesday: Fly to Mendoza (~2h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Tuesday: Fly to Mendoza (~2h)</h3>
+<ul>
+<li><a href="https://www.cavaswinelodge.com/" target="_blank" rel="noopener">Cavas Wine Lodge</a> or <a href="https://entrecielos.com/" target="_blank" rel="noopener">Entre Cielos</a></li>
+<li>Welcome dinner at the lodge</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-07-maipú-wine-region.jpg" alt="Wednesday: Maipú wine region" loading="lazy"></div>
+<div class="day-body">
+<h3>Wednesday: Maipú wine region</h3>
+<ul>
+<li><a href="https://www.familiazuccardi.com/en/" target="_blank" rel="noopener">Familia Zuccardi</a> + <a href="https://trapiche.com.ar/" target="_blank" rel="noopener">Trapiche</a></li>
+<li>Asado lunch at Casa El Enemigo</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-08-uco-valley-wines.jpg" alt="Thursday: Uco Valley wines" loading="lazy"></div>
+<div class="day-body">
+<h3>Thursday: Uco Valley wines</h3>
+<ul>
+<li><a href="https://www.bodegasalentein.com/en/" target="_blank" rel="noopener">Salentein</a> and <a href="https://andeluna.com/en/" target="_blank" rel="noopener">Andeluna</a></li>
+<li>Andean foothill views</li>
+<li>Long lunch at <a href="https://vinesresortandspa.com/" target="_blank" rel="noopener">The Vines</a></li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-09-cacheuta-hot-springs.jpg" alt="Friday: Andean horseback ride" loading="lazy"></div>
+<div class="day-body">
+<h3>Friday: Andean horseback ride</h3>
+<ul>
+<li>Half-day Andes horseback trail with gaucho guide</li>
+<li>Asado lunch at the estancia</li>
+<li>Sunset back at the wine lodge</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-10-fly-to-iguazú.jpg" alt="Saturday: Fly to Iguazú (via BA)" loading="lazy"></div>
+<div class="day-body">
+<h3>Saturday: Fly to Iguazú (via BA)</h3>
+<ul>
+<li>Aerolíneas Argentinas</li>
+<li><a href="https://www.melia.com/en/hotels/argentina/iguazu/gran-melia-iguazu/" target="_blank" rel="noopener">Gran Meliá Iguazú</a></li>
+<li>Evening on Argentine side</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-11-argentine-side-falls.jpg" alt="Sunday: Argentine side falls" loading="lazy"></div>
+<div class="day-body">
+<h3>Sunday: Argentine side falls</h3>
+<ul>
+<li>Devil's Throat boardwalk</li>
+<li>Lower circuit + jungle train</li>
+<li>Coatis everywhere</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-12-brazilian-side-fly-to-ba.jpg" alt="Monday: Brazilian side, fly to BA" loading="lazy"></div>
+<div class="day-body">
+<h3>Monday: Brazilian side, fly to BA</h3>
+<ul>
+<li>Cross the border (visa required — see top)</li>
+<li><a href="https://www.belmond.com/hotels/south-america/brazil/iguassu-falls/belmond-hotel-das-cataratas/" target="_blank" rel="noopener">Belmond Hotel das Cataratas</a> lunch</li>
+<li>Evening flight to BA</li>
+</ul>
+</div>
+</article>
+<article class="day">
+<div class="photo"><img src="photos/argentina/day-13-fly-home-from-ba.jpg" alt="Tuesday: Fly home from BA (~14h)" loading="lazy"></div>
+<div class="day-body">
+<h3>Tuesday: Fly home from BA (~14h)</h3>
+<ul>
+<li>Coffee at LAB Tostadores</li>
+<li>Empanadas to-go</li>
+<li>American Airlines overnight</li>
+</ul>
+</div>
+</article>
+</section>
+</main>
+<footer class="site">Source: <code>Itineraries.md</code>. Photos in <code>photos/</code>.</footer>
+<script>
+(function() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.innerHTML = '<button class="lightbox-close" aria-label="Close">×</button><img alt="">';
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('img');
+  const closeLb = () => { overlay.classList.remove('active'); lbImg.src = ''; };
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) closeLb();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  document.querySelectorAll('.day .photo:not(.placeholder) img, .hero img').forEach(el => {
+    el.style.cursor = 'zoom-in';
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      lbImg.src = el.src; lbImg.alt = el.alt;
+      overlay.classList.add('active');
+    });
+  });
+})();
+</script>
+</body></html>
