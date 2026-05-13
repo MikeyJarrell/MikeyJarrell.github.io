@@ -5,6 +5,7 @@ resources/
 
 # macOS metadata
 .DS_Store
+**/.DS_Store
 
 # Stray PDF-conversion artifact (don't deploy)
 static/pdf/cv.md
