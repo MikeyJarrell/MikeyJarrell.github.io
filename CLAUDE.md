@@ -42,6 +42,10 @@ The 404-redirect approach means the HTTP status for `mikeyjarrell.com/refi` is t
 4. Commit and push.
 5. `mikeyjarrell.com/<new-name>` will now work.
 
+### Travel wishlist sub-project
+
+The travel wishlist at `mikeyjarrell.com/travel` is hand-built static HTML (no Hugo) living in `~/Documents/GitHub/mikeyjarrell-private/travel/`. **Before adding or modifying a destination, read `~/Documents/GitHub/mikeyjarrell-private/travel/CLAUDE.md`** — it documents the page structure, the per-destination YAML format, the Pexels photo fetcher (`_scripts/fetch_photos.py`), and the alphabetical card-insertion convention on the index. Don't reverse-engineer the format from existing pages each time; the recipe is written down.
+
 ## Repo conventions
 
 - **Don't edit `themes/academimal/`** directly. Override via files in `layouts/` at the repo root — Hugo's lookup prefers root over theme.
