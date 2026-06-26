@@ -1,4 +1,5 @@
 __Email__: [mjarrell@ucsd.edu](mailto:mjarrell@ucsd.edu)  
+__Book a meeting__: [cal.com/mikey-jarrell](https://cal.com/mikey-jarrell)  
 __Phone__: +1 (585) 208-2818  
 __LinkedIn__: [Mikey Jarrell](https://www.linkedin.com/in/mikey-jarrell)  
 __Twitter__: [@Mikey_Jarrell](https://www.twitter.com/Mikey_Jarrell)

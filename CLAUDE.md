@@ -15,13 +15,13 @@ This applies to: `git` (add, commit, push, pull, branch, force-push, anything), 
 - **Hosting:** GitHub Pages, auto-built by `.github/workflows/hugo.yml` on push to `main`. Hugo version pinned in the workflow file.
 - **Custom domain:** `mikeyjarrell.com`, locked in `static/CNAME` (committed) and confirmed in repo Settings → Pages.
 
-## Private projects (refi, dashboard, ducking, travel, papers)
+## Private projects (refi, dashboard, ducking, travel)
 
 These live in a **separate private repo: `MikeyJarrell/mikeyjarrell-private`** (cloned at `~/Documents/GitHub/mikeyjarrell-private`). It has its own GitHub Pages enabled (deploy from `main`, root). Its content is publicly *accessible by URL* but not visible in the public repo source.
 
 ### How the redirect works
 
-1. Visitor goes to `mikeyjarrell.com/refi` (or `/dashboard`, `/ducking`, `/travel`, `/papers`).
+1. Visitor goes to `mikeyjarrell.com/refi` (or `/dashboard`, `/ducking`, `/travel`).
 2. The public Website doesn't have that path → GitHub serves Hugo's 404 page.
 3. The 404 page is **`layouts/404.html`** in this repo — it contains JS that detects whether the requested path is one of the "passthroughs" and, if so, `location.replace`s to `/mikeyjarrell-private/<path>/`.
 4. `mikeyjarrell.com/mikeyjarrell-private/<path>/` is served by the **private repo's** GitHub Pages, surfaced under the user-level domain.

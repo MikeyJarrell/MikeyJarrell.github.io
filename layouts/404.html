@@ -13,7 +13,7 @@
     (function () {
       var p = window.location.pathname.replace(/^\/+/, "");
       var first = p.split("/")[0];
-      var passthroughs = ["refi", "dashboard", "ducking", "travel", "papers"];
+      var passthroughs = ["refi", "dashboard", "ducking", "travel"];
       if (passthroughs.indexOf(first) !== -1) {
         var dest = "/mikeyjarrell-private/" + p + window.location.search + window.location.hash;
         window.location.replace(dest);
