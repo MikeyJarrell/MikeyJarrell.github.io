@@ -13,7 +13,10 @@
     (function () {
       var p = window.location.pathname.replace(/^\/+/, "");
       var first = p.split("/")[0];
-      var passthroughs = ["refi", "dashboard", "ducking", "travel"];
+      // "ducking" is deliberately NOT here: it is served directly from
+      // static/ducking/index.html, so this 404 page never fires for it.
+      // See CLAUDE.md — the private-repo passthrough route is currently dead.
+      var passthroughs = ["refi", "dashboard", "travel"];
       if (passthroughs.indexOf(first) !== -1) {
         var dest = "/mikeyjarrell-private/" + p + window.location.search + window.location.hash;
         window.location.replace(dest);

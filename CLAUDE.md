@@ -15,13 +15,25 @@ This applies to: `git` (add, commit, push, pull, branch, force-push, anything), 
 - **Hosting:** GitHub Pages, auto-built by `.github/workflows/hugo.yml` on push to `main`. Hugo version pinned in the workflow file.
 - **Custom domain:** `mikeyjarrell.com`, locked in `static/CNAME` (committed) and confirmed in repo Settings → Pages.
 
-## Private projects (refi, dashboard, ducking, travel)
+## Private projects (refi, dashboard, travel)
 
-These live in a **separate private repo: `MikeyJarrell/mikeyjarrell-private`** (cloned at `~/Documents/GitHub/mikeyjarrell-private`). It has its own GitHub Pages enabled (deploy from `main`, root). Its content is publicly *accessible by URL* but not visible in the public repo source.
+> **BROKEN as of 2026-08-01 — the passthrough route below currently serves nothing.**
+> `mikeyjarrell.com/refi`, `/dashboard`, and `/travel` all return 404 with no content.
+> Cause: **GitHub Pages will not serve a site from a PRIVATE repo on the Free plan**, and
+> `mikeyjarrell-private` is private. The GitHub API still reports that Pages site as
+> `"status": "built"` — a stale value from when it did work — so nothing looks wrong until
+> you actually load a page. It presumably worked while the account was on a paid plan.
+> To restore: make `mikeyjarrell-private` public, move to GitHub Pro, or serve each path
+> directly from this repo the way `/ducking` and `/calendar` now are (see below).
+>
+> **`/ducking` no longer uses this route.** It is served directly from
+> `static/ducking/index.html` and is removed from the `layouts/404.html` passthrough list.
+
+These live in a **separate private repo: `MikeyJarrell/mikeyjarrell-private`** (cloned at `~/Documents/GitHub/mikeyjarrell-private`). It has its own GitHub Pages enabled (deploy from `main`, root). Its content was intended to be publicly *accessible by URL* but not visible in the public repo source — note that this was always obscurity, not privacy.
 
 ### How the redirect works
 
-1. Visitor goes to `mikeyjarrell.com/refi` (or `/dashboard`, `/ducking`, `/travel`).
+1. Visitor goes to `mikeyjarrell.com/refi` (or `/dashboard`, `/travel`).
 2. The public Website doesn't have that path → GitHub serves Hugo's 404 page.
 3. The 404 page is **`layouts/404.html`** in this repo — it contains JS that detects whether the requested path is one of the "passthroughs" and, if so, `location.replace`s to `/mikeyjarrell-private/<path>/`.
 4. `mikeyjarrell.com/mikeyjarrell-private/<path>/` is served by the **private repo's** GitHub Pages, surfaced under the user-level domain.
