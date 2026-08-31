@@ -17,14 +17,11 @@ This applies to: `git` (add, commit, push, pull, branch, force-push, anything), 
 
 ## Private projects (refi, dashboard, travel)
 
-> **BROKEN as of 2026-08-01 — the passthrough route below currently serves nothing.**
-> `mikeyjarrell.com/refi`, `/dashboard`, and `/travel` all return 404 with no content.
-> Cause: **GitHub Pages will not serve a site from a PRIVATE repo on the Free plan**, and
-> `mikeyjarrell-private` is private. The GitHub API still reports that Pages site as
-> `"status": "built"` — a stale value from when it did work — so nothing looks wrong until
-> you actually load a page. It presumably worked while the account was on a paid plan.
-> To restore: make `mikeyjarrell-private` public, move to GitHub Pro, or serve each path
-> directly from this repo the way `/ducking` and `/calendar` now are (see below).
+> **Working again as of 2026-08-31: the account moved to GitHub Pro, which serves Pages
+> from private repos.** `mikeyjarrell.com/refi`, `/dashboard`, and `/travel` serve through
+> the passthrough again (verified by loading them). If the Pro plan ever lapses this breaks
+> the way it did on 2026-08-01: GitHub Free will not serve Pages from a private repo, the
+> API keeps reporting the site as `"built"`, and nothing looks wrong until you load a page.
 >
 > **`/ducking` no longer uses this route.** It is served directly from
 > `static/ducking/index.html` and is removed from the `layouts/404.html` passthrough list.

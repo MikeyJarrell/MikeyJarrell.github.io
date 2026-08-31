@@ -15,7 +15,7 @@
       var first = p.split("/")[0];
       // "ducking" is deliberately NOT here: it is served directly from
       // static/ducking/index.html, so this 404 page never fires for it.
-      // See CLAUDE.md — the private-repo passthrough route is currently dead.
+      // See CLAUDE.md — the passthrough serves via GitHub Pro (Pages from the private repo) and dies if that plan lapses.
       var passthroughs = ["refi", "dashboard", "travel"];
       if (passthroughs.indexOf(first) !== -1) {
         var dest = "/mikeyjarrell-private/" + p + window.location.search + window.location.hash;
