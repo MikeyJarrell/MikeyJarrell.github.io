@@ -20,6 +20,3 @@ __Other Experience__
 * 2016–17: Sportswriter, The Sports Quotient
 * 2014–15: Research Assistant, Forensic Economics Inc. (Rochester, NY)
 * 2015: Camp Counselor, Night Eagle Wilderness Adventures (Wallingford, VT)
-___
-
-This website was built with the [Hugo](https://gohugo.io) theme [Academimal](https://github.com/yangl1996/academimal). See my [GitHub page](https://github.com/MikeyJarrell).

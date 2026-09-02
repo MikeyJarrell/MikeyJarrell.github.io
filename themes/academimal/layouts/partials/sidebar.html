@@ -1,7 +1,4 @@
 <p class="contactinfo"><a href="{{ "#bio" | relURL }}">Bio</a></p>
-{{ with .GetPage "/sections/contact.md" }}
-<p class="contactinfo"><a href="{{ "#contact" | relURL }}">Contact</a></p>
-{{ end }}
 {{ with .GetPage "/sections/office-hours.md" }}
 <p class="contactinfo"><a href="{{ "#officehours" | relURL }}">Office Hours</a></p>
 {{ end }}
@@ -15,5 +12,8 @@
 <p class="contactinfo"><a href="{{ "#previouslives" | relURL }}">Previous Lives</a></p>
 {{ end }}
 {{ with .GetPage "/sections/cv.md" }}
-<p class="lastcontactinfo"><a href="{{ "#cv" | relURL }}">Curriculum Vitae</a></p>
+<p class="contactinfo"><a href="{{ "#cv" | relURL }}">Curriculum Vitae</a></p>
+{{ end }}
+{{ with .GetPage "/sections/contact.md" }}
+<p class="lastcontactinfo"><a href="{{ "#contact" | relURL }}">Contact</a></p>
 {{ end }}

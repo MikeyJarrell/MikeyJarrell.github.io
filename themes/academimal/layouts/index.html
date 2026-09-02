@@ -4,13 +4,6 @@
 {{ .Content }}
 {{ end }}
 
-
-{{ with .GetPage "/sections/contact.md" }}
-<hr>
-<h2 id="contact">Contact</h2>
-{{ .Content }}
-{{ end }}
-
 {{ with .GetPage "/sections/office-hours.md" }}
 <hr>
 <h2 id="officehours">Office Hours</h2>
@@ -69,6 +62,14 @@
 <hr>
 <h2 id="cv">Curriculum Vitae <a href="/pdf/cv.pdf" target="_blank" class="pdf-link">(PDF)</a></h2>
 {{ .Content }}
+{{ end }}
+
+{{ with .GetPage "/sections/contact.md" }}
+<hr>
+<h2 id="contact">Contact</h2>
+<div class="contact-links">
+{{ .Content }}
+</div>
 {{ end }}
 
 {{ .Content }}
