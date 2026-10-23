@@ -36,5 +36,4 @@ works:
   links:
     - url:
       text:
-  abstract: >
-    In the history of the developing world, by far the largest intervention intended to reduce lead exposure is China's 2011 crackdown on the lead-acid battery industry, which permanently shut down hundreds of firms throughout the country virtually overnight. The health benefits from these shutdowns may have been tremendous; however, if targeting were done poorly, the intervention could have accomplished very little or even completely backfired. Overall, how do the benefits compare to the costs of this crackdown? To answer this question, we create a novel dataset on the universe of lead battery firms at the time of the crackdown, including their locations and whether they were shut down or allowed to continue operations. We hope to link this dataset to relevant outcomes to estimate the causal effect of the crackdown on health. Back-of-the-envelope calculations value the expected benefit at $8 billion per year.
+  abstract:
