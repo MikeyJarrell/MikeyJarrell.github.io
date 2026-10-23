@@ -1,10 +1,10 @@
 __Education__
 * Ph.D. in Economics, University of California San Diego, 2029 (expected)
-* M.A.Sc. in Data, Economics, and Development Policy, Massachusetts Institute of Technology, 2022
+* M.A.Sc. in Economics, Massachusetts Institute of Technology, 2022
 * B.A. in Romance Languages and Neuroscience, Bowdoin College, 2014
 
 __Relevant Experience__
-* 2025–present: Research Director, Partnership for Battery Action
+* 2025–present: Applied Research Lead, Partnership for Battery Action
 * 2022–23: Research Assistant to Esther Duflo, J-PAL/MIT
 
 __Personal__
@@ -12,7 +12,7 @@ __Personal__
 * Languages: English (native), Spanish (fluent), French (advanced), Italian (advanced), Portuguese (intermediate)
 
 __Other Experience__
-* 2018–20: Professional Long Drive Golfer, [World Long Drive](https://worldlongdrive.com)
+* 2018–20: Professional Golfer, [World Long Drive](https://worldlongdrive.com)
 * 2017–19: Project Manager, 2020 MicroClinic Initiative (Nairobi, Kenya)
 * 2014–19: Photographer and Documentary Filmmaker, [Average Content](https://www.youtube.com/@average_content)
 * 2018: Safari Guide, Field Guides Association of Southern Africa (NQF2)
