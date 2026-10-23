@@ -62,6 +62,10 @@ The travel wishlist at `mikeyjarrell.com/travel` is hand-built static HTML (no H
 - **Don't put private content in `static/`** — the whole point is keeping it out of the public repo. Put it in `~/Documents/GitHub/mikeyjarrell-private/`.
 - **Hugo data files**: `data/<category>/list.yaml`. Categories: `publications`, `working_papers`, `work_in_progress`, `in_progress`, `merely_ideas`. The "in_progress" and "work_in_progress" YAMLs both reference the "Who's in Charge" paper — keep them in sync.
 
+## CV
+
+The CV’s LaTeX source is `cv/cv.tex` (moved here 2026-10-23 from `~/Documents/Academic/UCSD/CV`, which now keeps only Mikey’s private notes). `bash cv/build.sh` builds it and copies the PDF to `static/pdf/cv.pdf`; commit the two together, and check `content/sections/cv.md`, the short CV on the home page, for the same change. This repo is public: no grades, GPA, test scores or private remarks go in `cv/`, including LaTeX comments, which are invisible in the PDF but readable here. Those private notes stay in `~/Documents/Academic/UCSD/CV/AGENTS.md`. The CV follows `~/.claude/latex-style-guide.md`: `\indentedline{...}` for continuation lines, `\pub{...}` for publication entries, own name bolded in author lists.
+
 ## Commit message hygiene
 
 Mikey's CV-page-style audience can see public commit messages. Don't mention:

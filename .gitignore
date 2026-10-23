@@ -9,3 +9,6 @@ resources/
 
 # Stray PDF-conversion artifact (don't deploy)
 static/pdf/cv.md
+
+# CV build scratch files (cv/build.sh writes them here)
+cv/build/
