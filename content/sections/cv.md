@@ -4,7 +4,7 @@ __Education__
 * B.A. in Romance Languages and Neuroscience, Bowdoin College, 2014
 
 __Relevant Experience__
-* 2025–present: Research Director, Partnership for Battery Action
+* 2025–present: Applied Research Lead, Partnership for Battery Action
 * 2022–23: Research Assistant to Esther Duflo, J-PAL/MIT
 
 __Personal__
