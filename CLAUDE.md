@@ -64,7 +64,7 @@ The travel wishlist at `mikeyjarrell.com/travel` is hand-built static HTML (no H
 
 ## CV
 
-The CV’s LaTeX source is `cv/cv.tex` (moved here 2026-10-23 from `~/Documents/Academic/UCSD/CV`, which now keeps only Mikey’s private notes). `bash cv/build.sh` builds it and copies the PDF to `static/pdf/cv.pdf`; commit the two together, and check `content/sections/cv.md`, the short CV on the home page, for the same change. This repo is public: no grades, GPA, test scores or private remarks go in `cv/`, including LaTeX comments, which are invisible in the PDF but readable here. Those private notes stay in `~/Documents/Academic/UCSD/CV/AGENTS.md`. The CV follows `~/.claude/latex-style-guide.md`: `\indentedline{...}` for continuation lines, `\pub{...}` for publication entries, own name bolded in author lists.
+The CV’s LaTeX source is `cv/cv.tex` (moved here 2026-10-23 from `~/Documents/Academic/UCSD/CV`, since retired). `bash cv/build.sh` builds it and copies the PDF to `static/pdf/cv.pdf`; commit the two together, and check `content/sections/cv.md`, the short CV on the home page, for the same change. This repo is public: no grades, GPA, test scores or private remarks go in `cv/`, including LaTeX comments, which are invisible in the PDF but readable here. Those private notes are in `~/Dropbox/website/cv-private/notes.md`, with other people’s CVs used as layout models in `~/Dropbox/website/cv-private/example-cvs/`. The CV follows `~/.claude/latex-style-guide.md`: `\indentedline{...}` for continuation lines, `\pub{...}` for publication entries, own name bolded in author lists.
 
 ## Commit message hygiene
 
