@@ -36,6 +36,7 @@ A **theme** is a bundle of HTML templates and CSS that decides how your content 
 | `data/work_in_progress/list.yaml` | Work-in-progress papers |
 | `data/in_progress/list.yaml` | (Subset used for a specific section — see `content/sections/`) |
 | `data/merely_ideas/list.yaml` | Idea-stage work |
+| `cv/` | LaTeX source for the CV (`cv.tex`) and `build.sh`, which builds it into `static/pdf/cv.pdf`. Not part of the published site |
 | `static/` | Files served as-is: profile picture, CV PDF, favicon, `CNAME` |
 | `static/pdf/` | PDFs linked from the publications lists |
 | `themes/academimal/` | The theme (HTML templates + CSS). **Don't edit directly.** |
@@ -108,7 +109,7 @@ Put the actual PDF in `static/pdf/`. The `pdflink:` path is relative to `static/
 
 ### Update your CV PDF
 
-Replace `static/pdf/cv.pdf` with your new file (keep the filename the same).
+Edit `cv/cv.tex`, then run `bash cv/build.sh`. It compiles the CV and copies the PDF to `static/pdf/cv.pdf`, the file the site links to. Commit both files together. The text on the home page’s CV section (`content/sections/cv.md`) is separate, so update it too when the change belongs there.
 
 ### Change the favicon
 
