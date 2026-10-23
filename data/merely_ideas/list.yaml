@@ -16,8 +16,7 @@ works:
   links:
     - url:
       text:
-  abstract: >
-    Suppose a coalition of countries or battery manufacturers buys recycled lead only from certified (safe) recyclers. Does that create new safe recycling capacity, or does it just steer existing clean lead to the coalition and dirty lead to everyone else? I model when partial certification pushes recyclers to invest in safer technology, and how moving dirty recycling between places changes the harm it does, since the same ton of lead does more damage near more people.
+  abstract:
 
 - title: "Lead Poisoning in Poor Countries: Causes, Effects, and Solutions"
   pdflink: "/pdf/ideas.pdf"
