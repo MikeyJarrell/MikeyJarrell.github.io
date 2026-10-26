@@ -61,6 +61,12 @@ The travel wishlist at `mikeyjarrell.com/travel` is hand-built static HTML (no H
 - **Don't commit `public/` or `resources/`** — gitignored. GitHub Actions rebuilds `public/` fresh on every push.
 - **Don't put private content in `static/`** — the whole point is keeping it out of the public repo. Put it in `~/Documents/GitHub/mikeyjarrell-private/`.
 - **Hugo data files**: `data/<category>/list.yaml`. Categories: `publications`, `working_papers`, `work_in_progress`, `in_progress`, `merely_ideas`. The "in_progress" and "work_in_progress" YAMLs both reference the "Who's in Charge" paper — keep them in sync.
+- **Only three data files appear on the home page:** `publications`, `in_progress`, and `merely_ideas` (see `themes/academimal/layouts/index.html`). `work_in_progress` and `working_papers` are not shown. The paper titles and sections in these three must match the CV’s Publications, In Progress, and Ideas lists in `cv/cv.tex`.
+- **Abstracts come from Mikey only.** Leave `abstract:` empty for a new entry unless he supplies the text; an empty abstract hides the “Abstract” link. Don’t draft one from project notes or rewrite an existing one (2026-10-23: he removed two drafted abstracts and declined an update to the Brazil one).
+
+## CV
+
+The CV’s LaTeX source is `cv/cv.tex` (moved here 2026-10-23 from `~/Documents/Academic/UCSD/CV`, since retired). `bash cv/build.sh` builds it and copies the PDF to `static/pdf/cv.pdf`; commit the two together, and check `content/sections/cv.md`, the short CV on the home page, for the same change. This repo is public: no grades, GPA, test scores or private remarks go in `cv/`, including LaTeX comments, which are invisible in the PDF but readable here. Those private notes are in `~/Dropbox/website/cv-private/notes.md`, with other people’s CVs used as layout models in `~/Dropbox/website/cv-private/example-cvs/`. The CV follows `~/.claude/latex-style-guide.md`: `\indentedline{...}` for continuation lines, `\pub{...}` for publication entries, own name bolded in author lists.
 
 ## Commit message hygiene
 
