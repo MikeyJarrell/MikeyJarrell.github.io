@@ -81,6 +81,10 @@ select{font:500 1rem var(--sans);color:var(--ink);background:var(--surface);bord
 /* the answer */
 section.card.answer{background:var(--head-bg);color:var(--head-fg);border-color:var(--head-bg)}
 section.card.answer h2{color:var(--head-fg)}
+.answer .stat{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.answer .stat label{font:700 1.15rem/1.25 var(--heading)}
+.answer .stat select{font:600 1rem var(--sans);color:var(--head-fg);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 10px;max-width:100%}
+.answer .stat select option{color:#1B1E24;background:#fff}
 .answer .big{font:700 3.2rem/1 var(--heading);font-variant-numeric:tabular-nums;margin:8px 0 10px;overflow-wrap:anywhere}
 .answer p{margin:0;color:var(--head-sub);max-width:78ch}
 .answer p.sentence{color:var(--head-fg);font-size:1.05rem;margin-top:2px}
@@ -91,6 +95,10 @@ section.card.answer h2{color:var(--head-fg)}
 .row .q b{display:block;font-size:1rem}
 .row .q span{color:var(--ink-2);font-size:.93rem}
 .row .cell{display:flex;flex-direction:column;gap:6px;min-width:0}
+.row.solved .cell input[type=text],.row.held .cell input[type=text]{color:var(--accent-ink);border-style:dashed;background:var(--accent-soft)}
+.row.solved input[type=range],.row.solved .ticks,.row.solved select,.row.held input[type=range]{opacity:.35;pointer-events:none}
+.row.solved .q b::after{content:" (solved for)";font-weight:400;color:var(--muted);font-size:.86rem}
+.row.held .q b::after{content:" (held at 100%)";font-weight:400;color:var(--muted);font-size:.86rem}
 .row .cell input[type=text]{width:100%;min-width:0;font:600 1.05rem var(--sans);font-variant-numeric:tabular-nums;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:9px 11px}
 select.unitpick{width:100%;font-size:.86rem;padding:6px 8px}
 .row input[type=range]{width:100%;accent-color:var(--accent);margin:0}
@@ -145,7 +153,16 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
 </section>
 
 <section class="card answer">
-  <h2>Minimum sufficient probability of success</h2>
+  <div class="stat"><label for="stat">Statistic of interest</label>
+    <select id="stat">
+      <option value="p">Minimum sufficient probability of success</option>
+      <option value="r">Minimum sufficient reallocation share</option>
+      <option value="cost">Maximum cost</option>
+      <option value="benefit">Minimum benefit</option>
+      <option value="tons">Minimum scale</option>
+      <option value="m">Minimum safety gap</option>
+      <option value="years">Minimum acceleration</option>
+    </select></div>
   <div class="big" id="o_pstar"></div>
   <p class="sentence" id="o_sentence"></p>
 </section>
@@ -154,13 +171,19 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
   <h2>Inputs</h2>
   <p class="lead">Adjust our assumptions and see how those change the minimum sufficient probability of success.</p>
 
-  <div class="row">
+  <div class="row" id="row_p">
+    <div class="q"><b>Probability of success</b><span id="q_p"></span><div class="src">Source: none; 50% is a placeholder</div></div>
+    <div class="cell"><input type="text" inputmode="decimal" id="p" aria-label="Probability of success, percent">
+      <input type="range" id="p_r" min="0" max="100" step="1"></div>
+  </div>
+
+  <div class="row" id="row_cost">
     <div class="q"><b>Cost</b><span id="q_cost"></span></div>
     <div class="cell"><input type="text" inputmode="decimal" id="cost" aria-label="Cost, US dollars">
       <input type="range" id="cost_r" min="0" max="1000000" step="10000"></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_benefit">
     <div class="q"><b>Benefit</b><span>How valuable is preventing lead exposure?</span>
       <div class="src">Source: <a href="https://coefficientgiving.org/research/cost-effectiveness/" target="_blank" rel="noopener">Coefficient Giving</a></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="benefit" aria-label="Benefit per cpBLL-year">
@@ -168,19 +191,19 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
       <input type="range" id="benefit_r" min="0" max="400" step="1"></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_tons">
     <div class="q"><b>Scale</b><span id="q_tons"></span><div class="src" id="src_tons"></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="tons" aria-label="Scale, tons of batteries per year">
       <input type="range" id="tons_r" min="0" max="300000" step="500"></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_share">
     <div class="q"><b>Unsafe share</b><span id="q_share"></span><div class="src" id="src_share"></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="share" aria-label="Unsafe share, percent">
       <input type="range" id="share_r" min="0" max="100" step="1"></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_m">
     <div class="q"><b>Safety gap</b><span id="q_gap"></span>
       <div class="src">Source: Battery Index pilot data; <a href="https://eur-lex.europa.eu/eli/dec_impl/2016/1032/oj" target="_blank" rel="noopener">EU emission limits for lead smelters, 2016</a></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="m" aria-label="Safety gap, times worse">
@@ -188,7 +211,7 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
       <div class="ticks" id="m_ticks"></div></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_burden">
     <div class="q"><b>Burden</b><span id="q_burden"></span>
       <div class="src">Source: Battery Index pilot data; <a href="https://doi.org/10.1016/j.envpol.2026.128326" target="_blank" rel="noopener">Crawfurd et al., 2026</a></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="burden" aria-label="Burden, percent">
@@ -196,7 +219,7 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
       <div class="ticks" id="burden_ticks"></div></div>
   </div>
 
-  <div class="row">
+  <div class="row" id="row_years">
     <div class="q"><b>Acceleration</b><span id="q_years"></span>
       <div class="src">Source: <a href="https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD" target="_blank" rel="noopener">World Bank</a>; <a href="https://doi.org/10.1257/0895330027157" target="_blank" rel="noopener">Dasgupta et al., 2002</a></div></div>
     <div class="cell"><input type="text" inputmode="decimal" id="years" aria-label="Acceleration, years">
@@ -211,8 +234,9 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
   <div class="calc"><div class="k"><b>cpBLL-years averted per year, if it works</b><span>unsafe share × scale × harm averted per ton</span></div><div class="v" id="c_avert"></div></div>
   <div class="calc"><div class="k"><b>Value of that, per year</b><span>× benefit</span></div><div class="v" id="c_value"></div></div>
   <div class="calc"><div class="k"><b>Total value, if it works</b><span>× acceleration</span></div><div class="v" id="c_total"></div></div>
-  <div class="calc"><div class="k"><b>Return per dollar, if it works</b><span>total value ÷ cost, in CG$ of value per US$ spent</span></div><div class="v" id="c_return"></div></div>
-  <div class="calc final"><div class="k"><b>Minimum sufficient probability of success</b><span>Coefficient Giving’s bar of 1,000 ÷ return per dollar</span></div><div class="v" id="c_pstar"></div></div>
+  <div class="calc" id="calc_expected"><div class="k"><b>Expected total value</b><span>× probability of success</span></div><div class="v" id="c_expected"></div></div>
+  <div class="calc"><div class="k"><b id="k_return">Return per dollar, if it works</b><span>÷ cost, in CG$ of value per US$ spent</span></div><div class="v" id="c_return"></div></div>
+  <div class="calc final"><div class="k"><b id="k_stat">Minimum sufficient probability of success</b><span id="k_stat_sub">Coefficient Giving’s bar of 1,000 ÷ return per dollar</span></div><div class="v" id="c_pstar"></div></div>
   <div class="verdict" id="verdict"></div>
 </section>
 
@@ -222,9 +246,9 @@ dl.terms dd{margin:0 0 4px;color:var(--ink-2);font-size:.92rem;line-height:1.5;m
   <div class="eq"><math display="block"><mrow><mtext>Return</mtext><mo>=</mo><mfrac><mrow><mi>p</mi><mo>×</mo><mtext>Unsafe share</mtext><mo>×</mo><mtext>Scale</mtext><mo>×</mo><mtext>Harm averted</mtext><mo>×</mo><mtext>Benefit</mtext><mo>×</mo><mtext>Acceleration</mtext></mrow><mtext>Cost</mtext></mfrac><mo>≥</mo><mn>1,000</mn></mrow></math></div>
   <p class="lead">where <math><mi>p</mi></math> is the probability that the index achieves its goals, and</p>
   <div class="eq"><math display="block"><mrow><mtext>Harm averted</mtext><mo>=</mo><msub><mi>h</mi><mtext>good</mtext></msub><mo>×</mo><mo>(</mo><mtext>Safety gap</mtext><mo>−</mo><mn>1</mn><mo>)</mo></mrow></math><math display="block"><mrow><mtext>Burden</mtext><mo>=</mo><mfrac><mrow><mtext>Scale</mtext><mo>×</mo><mo>(</mo><mtext>Unsafe share</mtext><mo>×</mo><mtext>Safety gap</mtext><mo>+</mo><mn>1</mn><mo>−</mo><mtext>Unsafe share</mtext><mo>)</mo><mo>×</mo><msub><mi>h</mi><mtext>good</mtext></msub></mrow><mrow><mtext>Population</mtext><mo>×</mo><mtext>Blood lead</mtext></mrow></mfrac></mrow></math></div>
-  <p class="lead">The minimum sufficient probability of success is the <math><mi>p</mi></math> at which the return is exactly 1,000.</p>
+  <p class="lead">This is one equation with one unknown. The statistic of interest picks which term is solved for: the minimum sufficient probability of success is the <math><mi>p</mi></math> at which the return is exactly 1,000 with every other term at its input; the maximum cost is the cost at which it is, and so on. The term being solved for is grayed out among the inputs and shows the answer.</p>
   <dl class="terms">
-    <dt>p</dt><dd>The probability that the published index leads the country’s batteries to move from the unsafe recyclers to good ones. Nothing here estimates it; the page says how large it has to be.</dd>
+    <dt>p</dt><dd>The probability that the published index leads the country’s batteries to move from the unsafe recyclers to good ones. Nothing here estimates it. When it is the statistic of interest the page says how large it has to be; otherwise it is an input, and 50 percent is a placeholder, not an estimate. The minimum sufficient reallocation share is the share of the country’s used batteries that has to move from unsafe to high-standard recyclers for the index to be a good investment at the chosen probability of success; at 100 percent it equals the minimum sufficient probability of success.</dd>
     <dt>Unsafe share</dt><dd>The share of the country’s used batteries now recycled at plants the index would grade bad. If the index works, this is the share that moves.</dd>
     <dt>Scale</dt><dd>Tons of used batteries the country recycles per year. <a href="https://github.com/blsavonen-gdi/pb-action-portal" target="_blank" rel="noopener">Ben Savonen’s lead economy map (2026)</a> gives a trade-based figure for every country, a floor since it misses informal and unrecorded flows; for Nigeria and Ghana the literature has better figures (<a href="https://www.cgdev.org/sites/default/files/lead-acid-battery-recycling-selected-african-settings.pdf" target="_blank" rel="noopener">Manhart et al. 2025</a>; <a href="https://github.com/blsavonen-gdi/pb-action-portal/blob/750bea193bb0ad8079ed3ebcf49562541196b898/data/literature_datapoints.csv" target="_blank" rel="noopener">SRI Policy Brief 2024</a>).</dd>
     <dt>Harm averted</dt><dd>Per ton moved: the harm per ton at the unsafe recyclers less the harm per ton at a high-standard plant, <math><msub><mi>h</mi><mtext>good</mtext></msub></math>, in cpBLL-years per ton; the unsafe recyclers’ harm is the safety gap times <math><msub><mi>h</mi><mtext>good</mtext></msub></math>. A high-standard plant here is a plant like Green Recycling in Nigeria, taken to meet Europe’s legal limit for lead in stack gas (1 milligram per cubic meter of stack gas, 8 to 24 grams of lead per tonne of refined lead at a secondary smelter’s gas flows): 7.6 grams of airborne lead for each ton of batteries fed, stack only. Europe’s best plants achieve a third of that (2.4 grams, pooled from nine measured plants and national factors); India’s 1998 standard permits ten times more. Nothing measures Green Recycling’s stack; this is an assumption. <math><msub><mi>h</mi><mtext>good</mtext></msub></math> follows from the three Ghana plants, whose harm per ton, 4.92 cpBLL-years, is scaled down by the ratio of that figure to the Ghana plants’ 1.5 kilograms, since at a given place harm scales with what is released. The Ghana figure counts a ton’s whole future: lead deposited on the ground leaves the top two centimeters at 3.8 percent per year, and every year it is there it raises the blood lead of the people living on it, by distance, through two fitted curves, one for dust released at ground level and one for what leaves the stack (Battery Index pilot, Ghana, 2026). It is the mean over the fit’s uncertainty, not the median. Nothing is discounted.</dd>
@@ -263,6 +287,7 @@ function yearsFor(c){
 /* ---------- the value boxes: each holds a number and shows it with its unit; the bare number appears while it is edited ---------- */
 const RAW = {};
 const CELL = {
+  p:       {show: v => fmtLoose(+v.toPrecision(3)) + "%"},
   cost:    {show: v => "US$" + fmt(v)},
   benefit: {show: v => { const u = UNIT[$("unit").value]; const t = u.name === "CG$" ? fmt(v) : fmtSig(v); return u.name === "DALYs" ? t + " DALYs" : u.name + t; }},
   tons:    {show: v => fmt(v) + " tons"},
@@ -307,7 +332,7 @@ function ticks(id, items, onPick){
 function harmBad(m){ return D.h_good * m; }
 function burdenOf(m, tons, share){ const c = D.countries[iso]; return tons * (share * m + 1 - share) * D.h_good / (c.population * c.bll); }
 function mOf(burden, tons, share){ const c = D.countries[iso]; if (share <= 0 || tons <= 0) return null; return (burden * c.population * c.bll / (tons * D.h_good) - (1 - share)) / share; }
-function inputs(){ return {cost: num("cost"), tons: num("tons"), share: num("share") / 100, m: num("m") || 1, years: num("years")}; }
+function inputs(){ return {p: num("p") / 100, cost: num("cost"), tons: num("tons"), share: num("share") / 100, m: num("m") || 1, years: num("years")}; }
 function showM(m){ put("m", m >= 1000 ? Math.round(m) : +m.toPrecision(4)); $("m_r").value = Math.log10(Math.max(m, 1)); }
 function showBurden(b){ put("burden", +(b * 100).toPrecision(3)); $("burden_r").value = Math.log10(Math.max(b * 100, 0.01)); }
 function burdenFromM(){ const v = inputs(); showBurden(burdenOf(v.m, v.tons, v.share)); }
@@ -372,6 +397,7 @@ function markSelected(){ for (const p of $("map").querySelectorAll("path")) p.cl
 function setCountry(key){
   iso = key; const c = D.countries[key]; const name = c.label;
   const yf = yearsFor(c);
+  $("q_p").textContent = `How likely is the Battery Index to achieve its goals in ${name}?`;
   $("q_cost").textContent = `How much will it cost Pb Action to deploy the Battery Index in ${name}?`;
   $("q_tons").textContent = `How many lead-acid batteries does ${name} recycle per year?`;
   $("q_share").textContent = `In ${name}, what share of lead-acid batteries get recycled at unsafe recyclers?`;
@@ -379,7 +405,7 @@ function setCountry(key){
   $("q_burden").textContent = `What share of lead exposure in ${name} is caused by lead-acid battery recycling?`;
   $("q_years").textContent = `If it weren’t for Pb Action, how long would it take ${name} to solve this issue on its own?`;
 
-  put("cost", D.cost_index);
+  put("p", 50); put("cost", D.cost_index);
   unitCg = unitDefault(c); showBenefit();
 
   put("tons", c.tons !== null ? c.tons : 10000); $("tons_r").max = Math.max(300000, 2 * num("tons"));
@@ -395,38 +421,110 @@ function setCountry(key){
         it => { if (it.b === null){ showM(D.m_default); burdenFromM(); } else { showBurden(it.b); mFromBurden(); } compute(); });
 
   put("years", Math.round(yf.years)); $("years_r").max = Math.max(100, Math.ceil(yf.years * 1.2));
-  markSelected(); sync(); compute();
+  stash(); applyUnknown(); markSelected(); sync(); compute();
 }
 
-function sync(){ for (const f of ["cost", "tons", "share", "years"]) $(f + "_r").value = num(f); }
+function sync(){ for (const f of ["p", "cost", "tons", "share", "years"]) $(f + "_r").value = num(f); }
+
+/* ---------- the statistic of interest: one equation, one unknown; the dropdown picks which term is solved for ---------- */
+let unknown = "p";
+const STASH = {};                     // what a cell held before it became the unknown, restored when it stops being one
+function stash(){ if (unknown === "r") STASH.p = num("p"); else STASH[unknown] = num(unknown); }
+function setUnknown(k){
+  if (k === unknown) return;
+  // give the old unknown's cell back what it held
+  if (unknown === "r") put("p", STASH.p);
+  else if (STASH[unknown] !== undefined){ put(unknown, STASH[unknown]); if (unknown === "benefit") unitCg = STASH[unknown] / UNIT[$("unit").value].per; }
+  unknown = k; stash();
+  burdenFromM(); applyUnknown(); sync(); compute();
+}
+function applyUnknown(){
+  for (const id of Object.keys(CELL)){
+    const row = $("row_" + id); if (!row) continue;
+    const solved = id === unknown || (id === "burden" && ["tons", "m"].includes(unknown));
+    const held = id === "p" && unknown === "r";
+    row.classList.toggle("solved", solved); row.classList.toggle("held", held);
+    $(id).disabled = solved || held; const r = $(id + "_r"); if (r) r.disabled = solved || held;
+  }
+  if (unknown === "r") put("p", 100);
+  $("calc_expected").hidden = unknown === "p";
+  $("k_return").textContent = unknown === "p" ? "Return per dollar, if it works" : "Expected return per dollar";
+  $("k_stat").textContent = $("stat").selectedOptions[0].textContent;
+  $("k_stat_sub").textContent = unknown === "p" ? `Coefficient Giving’s bar of ${fmt(D.bar)} ÷ return per dollar` : `the value at which the expected return is exactly Coefficient Giving’s bar of ${fmt(D.bar)}, every other input as entered`;
+}
+function pct(x){ return `${fmt(x * 100, x < 0.1 ? 1 : 0)}%`; }
 
 function compute(){
-  const c = D.countries[iso]; const v = inputs();
-  const gap = D.h_good * (v.m - 1);
-  const avert = v.share * v.tons * gap;
-  const valueYear = avert * unitCg;
-  const total = valueYear * v.years;
-  const need = v.cost * D.bar;
-  const pstar = total > 0 ? need / total : null;
+  const c = D.countries[iso]; const v = inputs(); const name = c.label;
   const u = UNIT[$("unit").value];
-  const money = x => `${u.name} ${u.name === "CG$" ? fmt(x) : fmtSig(x * u.per)}`;
+  const money = x => { const t = u.name === "CG$" ? fmt(x) : fmtSig(x * u.per); return u.name === "DALYs" ? t + " DALYs" : u.name + t; };
+  const need = v.cost * D.bar;
+  // the known terms, multiplied; the unknown is left out and solved for
+  const parts = {p: v.p, share: v.share, tons: v.tons, gap: D.h_good * (v.m - 1), benefit: unitCg, years: v.years};
+  const prodExcept = k => Object.entries(parts).reduce((a, [kk, x]) => kk === k ? a : a * x, 1);
+  let sentence = "", big = "—", ok = true;
+  if (unknown === "p"){
+    const total = prodExcept("p"); const pstar = total > 0 ? need / total : null;
+    if (pstar === null){ sentence = `At these inputs no harm is averted, so no chance of success is enough.`; ok = false; }
+    else if (pstar > 1){ big = `${fmt(pstar, 1)} × certain`; sentence = `Even a certain success would not be a good investment in ${name}: the total value if it works, CG$ ${fmt(total)}, is below the CG$ ${fmt(need)} the cost has to return.`; ok = false; }
+    else { big = pct(pstar); sentence = `If the Battery Index has at least a <b>${big}</b> chance of achieving its goals in ${name}, then it is a good investment.`; }
+    put("p", pstar === null ? 0 : Math.min(pstar, 1) * 100); $("p_r").value = num("p");
+  } else if (unknown === "r"){
+    // the share of the unsafe recyclers’ batteries that moves, with success certain: it enters exactly as p does
+    const k = prodExcept("p"); const x = k > 0 ? need / k : null;
+    if (x === null){ sentence = `At these inputs no harm is averted, so no reallocation is enough.`; ok = false; }
+    else if (x > 1){ big = `${fmt(x, 1)} × all of them`; sentence = `Even if every battery now at an unsafe recycler in ${name} moved to a high-standard one, it would not be a good investment at these inputs.`; ok = false; }
+    else { big = pct(x); sentence = `If at least <b>${big}</b> of the batteries now at unsafe recyclers in ${name} move to high-standard recyclers, then it is a good investment.`; }
+  } else if (unknown === "cost"){
+    const x = prodExcept("cost") / D.bar; big = "US$" + fmt(x);
+    sentence = `If deploying the Battery Index in ${name} costs at most <b>${big}</b>, then it is a good investment.`;
+    put("cost", Math.round(x)); $("cost_r").value = num("cost");
+  } else if (unknown === "benefit"){
+    const k = prodExcept("benefit"); const x = k > 0 ? need / k : null;
+    if (x === null){ sentence = `At these inputs no harm is averted, so no value per cpBLL-year is enough.`; ok = false; }
+    else { big = money(x); sentence = `If preventing one cpBLL-year is worth at least <b>${big}</b>, then it is a good investment in ${name}.`; }
+    unitCg = x === null ? 0 : x; showBenefit(); paint("benefit", true);
+  } else if (unknown === "tons"){
+    const k = prodExcept("tons"); const x = k > 0 ? need / k : null;
+    if (x === null){ sentence = `At these inputs no harm is averted, so no scale is enough.`; ok = false; }
+    else { big = `${fmt(x)} tons`; sentence = `If ${name} recycles at least <b>${big}</b> of used batteries per year, then it is a good investment.`; }
+    put("tons", x === null ? 0 : Math.round(x)); $("tons_r").value = num("tons"); burdenFromM();
+  } else if (unknown === "m"){
+    const k = v.p * v.share * v.tons * D.h_good * unitCg * v.years; const x = k > 0 ? 1 + need / k : null;
+    if (x === null){ sentence = `At these inputs nothing moves, so no safety gap is enough.`; ok = false; }
+    else { big = (x >= 1000 ? fmt(Math.round(x)) : fmtLoose(+x.toPrecision(4))) + "× worse"; sentence = `If the unsafe recyclers in ${name} are at least <b>${big}</b> than a high-standard recycler, then it is a good investment.`; }
+    showM(x === null ? 1 : x); burdenFromM();
+  } else if (unknown === "years"){
+    const k = prodExcept("years"); const x = k > 0 ? need / k : null;
+    if (x === null){ sentence = `At these inputs no harm is averted, so no head start is enough.`; ok = false; }
+    else { big = `${fmtLoose(+x.toPrecision(3))} years`; sentence = `If ${name} would otherwise take at least <b>${big}</b> to solve this on its own, then it is a good investment.`; }
+    put("years", x === null ? 0 : x); $("years_r").value = num("years");
+  }
+  // the column, with every cell as it now stands (the unknown at its solved value)
+  const w = inputs(); const gap = D.h_good * (w.m - 1); const avert = w.share * w.tons * gap; const valueYear = avert * unitCg; const total = valueYear * w.years;
+  const expected = total * w.p; const ret = unknown === "p" ? total : expected;
   $("c_gap").textContent = `${fmtSig(gap)} cpBLL-years per ton`;
   $("c_avert").textContent = `${fmt(avert)} cpBLL-years`;
   $("c_value").textContent = money(valueYear);
   $("c_total").textContent = money(total);
-  $("c_return").textContent = v.cost > 0 ? `${fmt(total / v.cost)} to 1` : "—";
-  const ptxt = pstar === null ? "—" : (pstar > 1 ? `${fmt(pstar, 1)} × certain` : `${fmt(pstar * 100, pstar < 0.1 ? 1 : 0)}%`);
-  $("c_pstar").textContent = ptxt; $("o_pstar").textContent = ptxt;
-  if (pstar === null){
-    $("o_sentence").textContent = `At these inputs no harm is averted, so no chance of success is enough.`;
-  } else if (pstar > 1){
-    $("o_sentence").innerHTML = `Even a certain success would not be a good investment in ${c.label}: the total value if it works, CG$ ${fmt(total)}, is below the CG$ ${fmt(need)} the cost has to return.`;
-  } else {
-    $("o_sentence").innerHTML = `If the Battery Index has at least a <b>${fmt(pstar * 100, pstar < 0.1 ? 1 : 0)}%</b> chance of achieving its goals in ${c.label}, then it is a good investment.`;
-  }
+  $("c_expected").textContent = money(expected);
+  $("c_return").textContent = w.cost > 0 ? `${fmt(ret / w.cost)} to 1` : "—";
+  $("c_pstar").textContent = big; $("o_pstar").textContent = big; $("o_sentence").innerHTML = sentence;
   const verdict = $("verdict");
-  if (pstar !== null && pstar <= 1){ verdict.className = "verdict " + (pstar <= 0.5 ? "yes" : "no"); verdict.textContent = `With a ${fmt(pstar*100, pstar < 0.1 ? 1 : 0)} percent chance of success or better, the Battery Index clears the bar in ${c.label}.`; }
-  else { verdict.className = "verdict no"; verdict.textContent = `Cannot clear the bar at these inputs, even if certain to work.`; }
+  if (unknown === "p"){
+    if (ok){ const ps = num("p") / 100; verdict.className = "verdict " + (ps <= 0.5 ? "yes" : "no"); verdict.textContent = `With a ${fmt(ps * 100, ps < 0.1 ? 1 : 0)} percent chance of success or better, the Battery Index clears the bar in ${name}.`; }
+    else { verdict.className = "verdict no"; verdict.textContent = `Cannot clear the bar at these inputs, even if certain to work.`; }
+  } else if (unknown === "r"){
+    verdict.hidden = true; return;
+  } else {
+    // the value this cell held before it became the unknown, against the solved one
+    const was = STASH[unknown], solvedAt = num(unknown);
+    const noun = {cost: "cost", benefit: "benefit", tons: "scale", m: "safety gap", years: "acceleration"}[unknown];
+    const clears = ok && (unknown === "cost" ? was <= solvedAt : was >= solvedAt);
+    verdict.className = "verdict " + (clears ? "yes" : "no");
+    verdict.textContent = ok ? `At ${CELL[unknown].show(was)}, the ${noun} entered before, the Battery Index ${clears ? "clears" : "does not clear"} the bar in ${name}.` : `Cannot clear the bar at these inputs.`;
+  }
+  verdict.hidden = false;
 }
 
 (function init(){
@@ -436,7 +534,7 @@ function compute(){
   for (const k of keys){ const o = document.createElement("option"); o.value = k; o.textContent = D.countries[k].label; sel.appendChild(o); }
   sel.value = iso; sel.addEventListener("change", () => setCountry(sel.value));
   // plain cells and their sliders
-  for (const f of ["cost", "tons", "share", "years"]){
+  for (const f of ["p", "cost", "tons", "share", "years"]){
     $(f).addEventListener("input", () => { $(f + "_r").value = parseCell(f); if (f === "tons" || f === "share") burdenFromM(); compute(); });
     $(f + "_r").addEventListener("input", () => { put(f, +$(f + "_r").value); if (f === "tons" || f === "share") burdenFromM(); compute(); });
   }
@@ -449,7 +547,8 @@ function compute(){
   $("m_r").addEventListener("input", () => { showM(Math.pow(10, +$("m_r").value)); burdenFromM(); compute(); });
   $("burden").addEventListener("input", () => { $("burden_r").value = Math.log10(Math.max(parseCell("burden") || 0.01, 0.01)); mFromBurden(); compute(); });
   $("burden_r").addEventListener("input", () => { put("burden", +Math.pow(10, +$("burden_r").value).toPrecision(3)); mFromBurden(); compute(); });
-  $("reset").addEventListener("click", () => setCountry(iso));
+  $("stat").addEventListener("change", () => setUnknown($("stat").value));
+  $("reset").addEventListener("click", () => { setCountry(iso); });
   setCountry(iso);
 })();
 </script>
