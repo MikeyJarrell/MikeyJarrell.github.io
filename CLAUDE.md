@@ -15,13 +15,15 @@ This applies to: `git` (add, commit, push, pull, branch, force-push, anything), 
 - **Hosting:** GitHub Pages, auto-built by `.github/workflows/hugo.yml` on push to `main`. Hugo version pinned in the workflow file.
 - **Custom domain:** `mikeyjarrell.com`, locked in `static/CNAME` (committed) and confirmed in repo Settings → Pages.
 
-## Private projects (refi, dashboard, travel)
+## Private projects (refi, dashboard, travel, cvd-progress)
 
 > **Working again as of 2026-08-31: the account moved to GitHub Pro, which serves Pages
 > from private repos.** `mikeyjarrell.com/refi`, `/dashboard`, and `/travel` serve through
 > the passthrough again (verified by loading them). If the Pro plan ever lapses this breaks
 > the way it did on 2026-08-01: GitHub Free will not serve Pages from a private repo, the
 > API keeps reporting the site as `"built"`, and nothing looks wrong until you load a page.
+>
+> **`/cvd-progress`** (added 2026-11-06) is the lead and heart disease project’s weekly progress dashboard. Its page is written by `plan/progress-weekly-code/build.py` in the `cvd` repo and pushed to the private repo’s `cvd-progress/` folder by `publish.sh` there; it is in the `passthroughs` list.
 >
 > **`/ducking` no longer uses this route.** It is served directly from
 > `static/ducking/index.html` and is removed from the `layouts/404.html` passthrough list.
