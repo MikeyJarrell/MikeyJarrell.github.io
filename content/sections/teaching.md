@@ -8,7 +8,7 @@
 
 ### MIT
 
-* 14.73x: Challenges of Global Poverty, MITx Online (Course Developer for Esther Duflo): designed all labs; wrote all exercises and final exam questions
+* 14.73x: Challenges of Global Poverty, MITx Online (Course Developer)
 * 14.75(0): Political Economy and Economic Development (TA for Esther Duflo and Sara Lowes)
   <!-- * Rated 6.3 out of 7 by students on anonymous course evaluations. -->
   <!-- * [Sample lecture](pdf/14.75_Recitation_5-Mismatch.pdf). -->
