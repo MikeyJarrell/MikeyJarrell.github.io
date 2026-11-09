@@ -37,5 +37,4 @@
 ### Teacher Training
 
 * ECON 500A–B: Teaching Methods in Economics, UC San Diego
-* Teaching Assistant Training, with Observed Recitation, MIT
 * Cambridge [CELTA](https://www.cambridgeenglish.org/teaching-english/teaching-qualifications/celta/): Teaching English to Speakers of Other Languages, Institute of Modern Languages (Granada, Spain)
