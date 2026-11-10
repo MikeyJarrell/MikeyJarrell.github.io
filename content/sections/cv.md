@@ -4,6 +4,7 @@ __Education__
 * B.A. in Romance Languages and Neuroscience, Bowdoin College, 2014
 
 __Relevant Experience__
+* 2026–present: Research Assistant to Paul Niehaus, UC San Diego
 * 2025–present: Applied Research Lead, Partnership for Battery Action
 * 2022–23: Research Assistant to Esther Duflo, J-PAL/MIT
 
